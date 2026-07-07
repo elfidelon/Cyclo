@@ -971,10 +971,22 @@
                 autocomplete="organization">
             </div>
           </div>
+          <div class="f-row">
+            <div class="f-field">
+              <label class="f-label" for="f-email">Email</label>
+              <input class="f-input" type="email" id="f-email" name="email" placeholder="tu@empresa.com" required
+                autocomplete="email">
+            </div>
+            <div class="f-field">
+              <label class="f-label" for="f-telefono">Teléfono</label>
+              <input class="f-input" type="tel" id="f-telefono" name="telefono" placeholder="10 dígitos" required
+                autocomplete="tel">
+            </div>
+          </div>
           <div class="f-field">
-            <label class="f-label" for="f-email">Email</label>
-            <input class="f-input" type="email" id="f-email" name="email" placeholder="tu@empresa.com" required
-              autocomplete="email">
+            <label class="f-label" for="f-sitio">Sitio web <span style="opacity:.6;font-weight:400;text-transform:none;">(opcional)</span></label>
+            <input class="f-input" type="text" id="f-sitio" name="sitio" placeholder="tuempresa.com"
+              autocomplete="url">
           </div>
           <div class="f-field">
             <label class="f-label" for="f-sector">Sector</label>
@@ -1085,11 +1097,13 @@
       btn.innerHTML = 'Enviando…';
 
       const payload = {
-        nombre:  form.nombre.value.trim(),
-        empresa: form.empresa.value.trim(),
-        email:   form.email.value.trim(),
-        sector:  form.sector.value,
-        proceso: form.proceso.value.trim()
+        nombre:   form.nombre.value.trim(),
+        empresa:  form.empresa.value.trim(),
+        email:    form.email.value.trim(),
+        telefono: form.telefono.value.trim(),
+        sitio:    form.sitio.value.trim(),
+        sector:   form.sector.value,
+        proceso:  form.proceso.value.trim()
       };
 
       try {
