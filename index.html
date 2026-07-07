@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cyclo — Automatización con IA para empresas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      /* #181e20 → oklch(0.155 0.020 218) */
+      --bg: oklch(0.155 0.020 218);
+      --surface: oklch(0.185 0.020 218);
+      --rule: oklch(0.265 0.022 218);
+      --rule-hi: oklch(0.320 0.022 218);
+
+      /* #008998 → oklch(0.545 0.095 211) */
+      --teal: oklch(0.545 0.095 211);
+      --teal-hi: oklch(0.620 0.095 211);
+      --teal-lo: oklch(0.545 0.095 211 / 0.12);
+      --teal-glow: oklch(0.545 0.095 211 / 0.06);
+
+      --white: oklch(0.970 0.005 218);
+      --ink: oklch(0.880 0.010 218);
+      --muted: oklch(0.580 0.018 218);
+      --faint: oklch(0.370 0.018 218);
+
+      --display: 'Bricolage Grotesque', system-ui, sans-serif;
+      --body: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--body);
+      font-size: 1rem;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ─── NAV ─────────────────────────────────────────── */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.375rem 3.5rem;
+      transition: background 0.45s var(--ease), border-color 0.3s;
+      border-bottom: 1px solid transparent;
+    }
+
+    .nav.up {
+      background: oklch(0.155 0.020 218 / 0.88);
+      backdrop-filter: blur(24px) saturate(1.5);
+      border-bottom-color: var(--rule);
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -0.025em;
+    }
+
+    .logo svg {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+    }
+
+    .nav-end {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .nav-socials {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .nav-socials a {
+      color: var(--faint);
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-socials a:hover {
+      color: var(--muted);
+    }
+
+    .nav-socials svg {
+      width: 17px;
+      height: 17px;
+    }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 1.125rem;
+      background: var(--teal);
+      color: var(--white);
+      font-family: var(--body);
+      font-size: 0.8rem;
+      font-weight: 500;
+      border-radius: 6px;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .nav-cta:hover {
+      background: var(--teal-hi);
+      transform: translateY(-1px);
+    }
+
+    /* ─── HERO ────────────────────────────────────────── */
+    .hero {
+      min-height: 100svh;
+      display: grid;
+      grid-template-columns: 55% 45%;
+      align-items: center;
+      padding: 7rem 3.5rem 5rem;
+      gap: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ambient teal glow */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 70% at 75% 40%, var(--teal-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      margin-bottom: 2.25rem;
+      font-family: var(--body);
+      font-size: 0.71rem;
+      font-weight: 500;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--teal);
+    }
+
+    .badge-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--teal);
+      animation: pulse-dot 2.8s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.25;
+        transform: scale(0.6);
+      }
+    }
+
+    .hero-h1 {
+      font-family: var(--display);
+      font-size: clamp(2.9rem, 5.5vw, 5.75rem);
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -0.04em;
+      color: var(--white);
+      text-wrap: balance;
+      margin-bottom: 1.875rem;
+    }
+
+    .hero-h1 em {
+      font-style: normal;
+      color: var(--teal);
+    }
+
+    .hero-lead {
+      font-size: clamp(0.975rem, 1.35vw, 1.1rem);
+      color: var(--muted);
+      max-width: 50ch;
+      line-height: 1.75;
+      margin-bottom: 2.75rem;
+      text-wrap: pretty;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-fill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.875rem 1.875rem;
+      background: var(--teal);
+      color: var(--white);
+      font-family: var(--body);
+      font-size: 0.9rem;
+      font-weight: 500;
+      border-radius: 7px;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+
+    .btn-fill:hover {
+      background: var(--teal-hi);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px oklch(0.545 0.095 211 / 0.22);
+    }
+
+    .btn-text {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--body);
+      font-size: 0.875rem;
+      color: var(--muted);
+      font-weight: 400;
+      transition: color 0.2s;
+    }
+
+    .btn-text svg {
+      transition: transform 0.2s var(--ease);
+    }
+
+    .btn-text:hover {
+      color: var(--ink);
+    }
+
+    .btn-text:hover svg {
+      transform: translateX(3px);
+    }
+
+    /* Spiral art */
+    .hero-visual {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .spiral-wrap {
+      position: relative;
+      width: min(100%, 420px);
+      height: min(100%, 420px);
+    }
+
+    .spiral-svg {
+      width: 100%;
+      height: 100%;
+      animation: spiral-breathe 8s ease-in-out infinite;
+    }
+
+    @keyframes spiral-breathe {
+
+      0%,
+      100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 0.28;
+      }
+
+      50% {
+        transform: scale(1.04) rotate(3deg);
+        opacity: 0.38;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .spiral-svg {
+        animation: none;
+        opacity: 0.30;
+      }
+    }
+
+    /* ─── SERVICIOS ───────────────────────────────────── */
+    .servicios {
+      padding: 7rem 3.5rem;
+      border-top: 1px solid var(--rule);
+    }
+
+    .servicios-top {
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      gap: 5rem;
+      margin-bottom: 5rem;
+      align-items: end;
+    }
+
+    .s-h2 {
+      font-family: var(--display);
+      font-size: clamp(2rem, 3.2vw, 3.25rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.04;
+      color: var(--white);
+      text-wrap: balance;
+    }
+
+    .s-h2 em {
+      font-style: normal;
+      color: var(--teal);
+    }
+
+    .s-lead {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.72;
+      max-width: 52ch;
+      text-wrap: pretty;
+      padding-top: 0.25rem;
+    }
+
+    .servicios-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .s-row {
+      padding: 2.5rem 0;
+      border-top: 1px solid var(--rule);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: background 0.2s;
+    }
+
+    .s-row:nth-child(odd) {
+      padding-right: 4rem;
+      border-right: 1px solid var(--rule);
+    }
+
+    .s-row:nth-child(even) {
+      padding-left: 4rem;
+    }
+
+    .s-num {
+      font-family: var(--display);
+      font-size: 0.78rem;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--teal);
+    }
+
+    .s-title {
+      font-family: var(--display);
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--white);
+      line-height: 1.15;
+    }
+
+    .s-desc {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.68;
+      max-width: 46ch;
+      text-wrap: pretty;
+    }
+
+    /* ─── CONTACTO ────────────────────────────────────── */
+    .contacto {
+      border-top: 1px solid var(--rule);
+      padding: 7rem 3.5rem;
+      background: var(--surface);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contacto::before {
+      content: '';
+      position: absolute;
+      bottom: -10%;
+      left: -10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(ellipse, var(--teal-glow) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .contacto-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+      position: relative;
+      z-index: 1;
+    }
+
+    .c-h2 {
+      font-family: var(--display);
+      font-size: clamp(2rem, 3.5vw, 3.5rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+      color: var(--white);
+      text-wrap: balance;
+      margin-bottom: 1.125rem;
+    }
+
+    .c-h2 em {
+      font-style: normal;
+      color: var(--teal);
+    }
+
+    .c-lead {
+      font-size: 0.9625rem;
+      color: var(--muted);
+      line-height: 1.72;
+      max-width: 44ch;
+      margin-bottom: 2.5rem;
+      text-wrap: pretty;
+    }
+
+    .c-channels {
+      display: flex;
+      flex-direction: column;
+      gap: 0.625rem;
+    }
+
+    .c-channel {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      border: 1px solid var(--rule);
+      border-radius: 9px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .c-channel:hover {
+      border-color: var(--teal);
+      background: var(--teal-lo);
+    }
+
+    .c-ch-icon {
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: 7px;
+      background: var(--teal-lo);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+
+    .c-channel:hover .c-ch-icon {
+      background: oklch(0.545 0.095 211 / 0.22);
+    }
+
+    .c-ch-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--faint);
+      font-weight: 500;
+      display: block;
+      margin-bottom: 0.1rem;
+    }
+
+    .c-ch-value {
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    /* Form */
+    .c-form-label {
+      font-size: 0.78rem;
+      color: var(--faint);
+      font-weight: 400;
+      margin-bottom: 1.25rem;
+      display: block;
+      letter-spacing: 0.01em;
+    }
+
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .f-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    .f-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.28rem;
+    }
+
+    .f-label {
+      font-size: 0.69rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--faint);
+    }
+
+    .f-input,
+    .f-select,
+    .f-textarea {
+      background: var(--bg);
+      border: 1px solid var(--rule);
+      border-radius: 7px;
+      padding: 0.75rem 1rem;
+      font-family: var(--body);
+      font-size: 0.9rem;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.15s;
+      appearance: none;
+      width: 100%;
+    }
+
+    .f-input::placeholder,
+    .f-textarea::placeholder {
+      color: var(--faint);
+    }
+
+    .f-input:focus,
+    .f-select:focus,
+    .f-textarea:focus {
+      border-color: var(--teal);
+    }
+
+    .f-textarea {
+      resize: vertical;
+      min-height: 96px;
+    }
+
+    .f-select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%234a6068' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.5rem;
+      cursor: pointer;
+    }
+
+    .f-select option {
+      background: var(--bg);
+      color: var(--ink);
+    }
+
+    .btn-submit {
+      margin-top: 0.25rem;
+      padding: 0.85rem 1.875rem;
+      background: var(--teal);
+      color: var(--white);
+      font-family: var(--body);
+      font-size: 0.9rem;
+      font-weight: 500;
+      border: none;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      align-self: flex-start;
+    }
+
+    .btn-submit:hover {
+      background: var(--teal-hi);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px oklch(0.545 0.095 211 / 0.20);
+    }
+
+    .btn-submit:disabled {
+      background: var(--rule);
+      color: var(--teal);
+      cursor: default;
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* ─── FOOTER ──────────────────────────────────────── */
+    .footer {
+      border-top: 1px solid var(--rule);
+      padding: 2rem 3.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      font-family: var(--display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -0.025em;
+    }
+
+    .footer-logo svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .footer-socials {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .footer-socials a {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.775rem;
+      font-weight: 400;
+      color: var(--faint);
+      transition: color 0.2s;
+    }
+
+    .footer-socials a:hover {
+      color: var(--muted);
+    }
+
+    .footer-socials svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+    }
+
+    .footer-copy {
+      font-size: 0.72rem;
+      color: var(--faint);
+    }
+
+    /* ─── ENTRANCE ANIMATIONS ────────────────────────── */
+    /* Default: visible. Animation only when JS is running and motion OK */
+    .js-ok .enter {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.65s var(--ease), transform 0.65s var(--ease);
+    }
+
+    .js-ok .enter.in {
+      opacity: 1;
+      transform: none;
+    }
+
+    .js-ok .ed1 {
+      transition-delay: 0.08s;
+    }
+
+    .js-ok .ed2 {
+      transition-delay: 0.16s;
+    }
+
+    .js-ok .ed3 {
+      transition-delay: 0.24s;
+    }
+
+    .js-ok .ed4 {
+      transition-delay: 0.34s;
+    }
+
+    /* ─── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 1080px) {
+      .nav {
+        padding: 1.25rem 2rem;
+      }
+
+      .nav-socials {
+        display: none;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 8rem 2rem 5rem;
+        gap: 2rem;
+      }
+
+      .hero-visual {
+        display: none;
+      }
+
+      .servicios {
+        padding: 5rem 2rem;
+      }
+
+      .servicios-top {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-bottom: 3.5rem;
+      }
+
+      .servicios-list {
+        grid-template-columns: 1fr;
+      }
+
+      .s-row:nth-child(odd) {
+        padding-right: 0;
+        border-right: none;
+      }
+
+      .s-row:nth-child(even) {
+        padding-left: 0;
+      }
+
+      .contacto {
+        padding: 5rem 2rem;
+      }
+
+      .contacto-wrap {
+        grid-template-columns: 1fr;
+        gap: 3.5rem;
+      }
+
+      .footer {
+        padding: 1.75rem 2rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.25rem;
+      }
+    }
+
+    @media (max-width: 540px) {
+      .hero-h1 {
+        font-size: 2.6rem;
+      }
+
+      .f-row {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-socials {
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="nav" id="main-nav">
+    <a href="#" class="logo" aria-label="Cyclo inicio">
+      <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
+        <path
+          d="M50 88C24 88 3 67 3 41c0-24 19-43 43-39 22 4 34 24 30 46-4 20-22 30-40 24-16-6-22-22-16-36 6-14 22-18 34-10 10 6 12 20 4 28-6 6-16 4-20-4-4-6 0-14 8-14"
+          stroke="#008998" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+      </svg>
+      Cyclo
+    </a>
+    <div class="nav-end">
+      <nav class="nav-socials" aria-label="Redes sociales">
+        <a href="#" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+            stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" />
+            <circle cx="12" cy="12" r="4.5" />
+            <circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none" />
+          </svg>
+        </a>
+        <a href="#" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+            stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="3" />
+            <line x1="8" y1="11" x2="8" y2="17" />
+            <line x1="8" y1="7" x2="8" y2="8.5" />
+            <path d="M12 17v-3.5c0-1.1.9-2 2-2s2 .9 2 2V17" />
+            <line x1="12" y1="11" x2="12" y2="17" />
+          </svg>
+        </a>
+        <a href="#" aria-label="X (Twitter)">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+          </svg>
+        </a>
+      </nav>
+      <a href="#contacto" class="nav-cta">Contactar</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" aria-label="Introducción">
+    <div class="hero-content">
+      <div class="hero-badge enter">
+        <span class="badge-dot" aria-hidden="true"></span>
+        Automatización con IA · Consultoría
+      </div>
+      <h1 class="hero-h1 enter ed1">
+        Tu Negocio operando<br>solo <em>sin problema.</em>
+      </h1>
+      <p class="hero-lead enter ed2">
+        Si gastas mucho en empleados o en tiempo de ventas ,Nosotros te podemos ayudar a que generes mas con la potencia
+        la la inteligencia artificial
+      </p>
+      <div class="hero-actions enter ed3">
+        <a href="#contacto" class="btn-fill">
+          Agendar una sesión
+          <svg width="14" height="14" fill="none" viewBox="0 0 14 14" aria-hidden="true">
+            <path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </a>
+        <a href="#servicios" class="btn-text">
+          Ver qué construimos
+          <svg width="14" height="14" fill="none" viewBox="0 0 14 14" aria-hidden="true">
+            <path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="hero-visual enter ed4" aria-hidden="true">
+      <div class="spiral-wrap">
+        <svg class="spiral-svg" viewBox="0 0 100 100" fill="none">
+          <path
+            d="M50 88C24 88 3 67 3 41c0-24 19-43 43-39 22 4 34 24 30 46-4 20-22 30-40 24-16-6-22-22-16-36 6-14 22-18 34-10 10 6 12 20 4 28-6 6-16 4-20-4-4-6 0-14 8-14"
+            stroke="#008998" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section class="servicios" id="servicios">
+    <div class="servicios-top">
+      <h2 class="s-h2 enter">Lo que<br>construimos<br>para ti</h2>
+      <p class="s-lead enter ed1">
+        Cada proyecto es un sistema hecho a medida. No hay plantillas. Mapeamos tu operación, identificamos dónde la IA
+        genera más valor y lo implementamos en ciclos cortos con resultados verificables.
+      </p>
+    </div>
+    <div class="servicios-list">
+      <div class="s-row enter">
+        <span class="s-num">i.</span>
+        <h3 class="s-title">Diagnóstico operacional</h3>
+        <p class="s-desc">Mapeamos tus procesos, cuantificamos el tiempo perdido y entregamos un plan con ROI estimado.
+          Sabes exactamente qué automatizar, cuánto cuesta y qué recuperas — antes de invertir.</p>
+      </div>
+      <div class="s-row enter ed1">
+        <span class="s-num">ii.</span>
+        <h3 class="s-title">Flujos autónomos de decisión</h3>
+        <p class="s-desc">Sistemas que reciben información, procesan con IA, toman decisiones y ejecutan acciones sin
+          intervención humana. Integrados nativamente a las herramientas que ya usas.</p>
+      </div>
+      <div class="s-row enter">
+        <span class="s-num">iii.</span>
+        <h3 class="s-title">Agentes de conversación</h3>
+        <p class="s-desc">IA que atiende clientes, califica leads y da seguimiento por WhatsApp o email. Responde en
+          segundos, retiene contexto y escala a demanda — sin costos variables por volumen.</p>
+      </div>
+      <div class="s-row enter ed1">
+        <span class="s-num">iv.</span>
+        <h3 class="s-title">Arquitectura de integraciones</h3>
+        <p class="s-desc">Conectamos tu CRM, ERP, e-commerce y herramientas de comunicación para que los datos fluyan
+          solos. Una sola fuente de verdad. Cero exportaciones manuales.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section class="contacto" id="contacto">
+    <div class="contacto-wrap">
+      <div class="enter">
+        <h2 class="c-h2">¿Procesos que<br>consumen demasiado<br><em>tiempo?</em></h2>
+        <p class="c-lead">
+          Una sesión de 30 minutos para evaluar tu caso. Sin costo. Si la automatización puede mover tu operación, te lo
+          decimos con números concretos.
+        </p>
+        <div class="c-channels">
+          <a href="https://wa.me/524776191070" class="c-channel">
+            <span class="c-ch-icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="oklch(0.545 0.095 211)"
+                stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12a9 9 0 0 1-9 9H5l-3 3V12a9 9 0 0 1 18 0z" />
+                <path
+                  d="M9 10c.5 1 1 2 2 3l1.5-1c.5-.3 1.1-.1 1.4.4.2.4.5.8.7 1.2.3.6 0 1.3-.6 1.6C13.4 15.7 11 15 9.5 13.5S7.3 10.6 7.8 10c.3-.6 1-.9 1.6-.6.4.2.8.5 1.2.7.5.3.7.9.4 1.4L9 10z" />
+              </svg>
+            </span>
+            <span class="c-ch-info">
+              <span class="c-ch-label">WhatsApp · Respuesta inmediata</span>
+              <span class="c-ch-value">+52 477 619 1070</span>
+            </span>
+          </a>
+          <a href="mailto:hola@cyclo.mx" class="c-channel">
+            <span class="c-ch-icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="oklch(0.545 0.095 211)"
+                stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="2" />
+                <path d="m22 7-10 7L2 7" />
+              </svg>
+            </span>
+            <span class="c-ch-info">
+              <span class="c-ch-label">Email · Menos de 24 horas</span>
+              <span class="c-ch-value">hola@cyclo.mx</span>
+            </span>
+          </a>
+        </div>
+      </div>
+      <div class="c-form-wrap enter ed2">
+        <span class="c-form-label">O envíanos un mensaje y te contactamos</span>
+        <form class="form" id="contact-form" novalidate>
+          <div class="f-row">
+            <div class="f-field">
+              <label class="f-label" for="f-nombre">Nombre</label>
+              <input class="f-input" type="text" id="f-nombre" name="nombre" placeholder="Tu nombre" required
+                autocomplete="name">
+            </div>
+            <div class="f-field">
+              <label class="f-label" for="f-empresa">Empresa</label>
+              <input class="f-input" type="text" id="f-empresa" name="empresa" placeholder="Nombre de la empresa"
+                autocomplete="organization">
+            </div>
+          </div>
+          <div class="f-field">
+            <label class="f-label" for="f-email">Email</label>
+            <input class="f-input" type="email" id="f-email" name="email" placeholder="tu@empresa.com" required
+              autocomplete="email">
+          </div>
+          <div class="f-field">
+            <label class="f-label" for="f-sector">Sector</label>
+            <select class="f-select" id="f-sector" name="sector">
+              <option value="" disabled selected>¿En qué industria operas?</option>
+              <option>Salud / Clínicas</option>
+              <option>Inmobiliaria</option>
+              <option>E-commerce / Retail</option>
+              <option>Servicios / Consultoría</option>
+              <option>Fintech / Finanzas</option>
+              <option>Manufactura / Logística</option>
+              <option>Educación</option>
+              <option>Otro</option>
+            </select>
+          </div>
+          <div class="f-field">
+            <label class="f-label" for="f-proceso">¿Qué proceso quieres automatizar?</label>
+            <textarea class="f-textarea" id="f-proceso" name="proceso"
+              placeholder="Describe el proceso que más tiempo consume en tu operación..." required></textarea>
+          </div>
+          <button type="submit" class="btn-submit" id="btn-submit">
+            Enviar mensaje
+            <svg width="14" height="14" fill="none" viewBox="0 0 14 14" aria-hidden="true">
+              <path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <a href="#" class="footer-logo" aria-label="Cyclo inicio">
+      <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
+        <path
+          d="M50 88C24 88 3 67 3 41c0-24 19-43 43-39 22 4 34 24 30 46-4 20-22 30-40 24-16-6-22-22-16-36 6-14 22-18 34-10 10 6 12 20 4 28-6 6-16 4-20-4-4-6 0-14 8-14"
+          stroke="#008998" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+      </svg>
+      Cyclo
+    </a>
+    <nav class="footer-socials" aria-label="Redes sociales">
+      <a href="#" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"
+          stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" />
+          <circle cx="12" cy="12" r="4.5" />
+          <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none" />
+        </svg>
+        Instagram
+      </a>
+      <a href="#" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"
+          stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="3" />
+          <line x1="8" y1="11" x2="8" y2="17" />
+          <line x1="8" y1="7" x2="8" y2="8.5" />
+          <path d="M12 17v-3.5c0-1.1.9-2 2-2s2 .9 2 2V17" />
+          <line x1="12" y1="11" x2="12" y2="17" />
+        </svg>
+        LinkedIn
+      </a>
+      <a href="#" aria-label="X (Twitter)">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+        </svg>
+        X
+      </a>
+      <a href="https://wa.me/524776191070" aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"
+          stroke-linejoin="round">
+          <path d="M21 12a9 9 0 0 1-9 9H5l-3 3V12a9 9 0 0 1 18 0z" />
+        </svg>
+        WhatsApp
+      </a>
+    </nav>
+    <span class="footer-copy">© 2026 Cyclo · Ciudad de México</span>
+  </footer>
+
+  <script>
+    // Gate animations on JS + motion preference
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.classList.add('js-ok');
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -32px 0px' });
+      document.querySelectorAll('.enter').forEach(el => io.observe(el));
+    }
+
+    // Nav
+    const nav = document.getElementById('main-nav');
+    let lastY = 0;
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('up', window.scrollY > 48);
+      lastY = window.scrollY;
+    }, { passive: true });
+
+    // Form → n8n webhook
+    document.getElementById('contact-form').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const btn = document.getElementById('btn-submit');
+      const form = e.target;
+      btn.disabled = true;
+      btn.innerHTML = 'Enviando…';
+
+      const payload = {
+        nombre:  form.nombre.value.trim(),
+        empresa: form.empresa.value.trim(),
+        email:   form.email.value.trim(),
+        sector:  form.sector.value,
+        proceso: form.proceso.value.trim()
+      };
+
+      try {
+        const res = await fetch('https://thefidelon.app.n8n.cloud/webhook/cyclo-leads', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (res.ok) {
+          btn.innerHTML = '✓ Mensaje enviado — te contactamos pronto';
+        } else {
+          throw new Error('server');
+        }
+      } catch {
+        btn.innerHTML = 'Error al enviar — escríbenos a hola@cyclo.mx';
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+
+</html>
