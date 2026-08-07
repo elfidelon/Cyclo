@@ -4,8 +4,10 @@ import { ArrowRight, Mail, MessageCircle } from 'lucide-react'
 
 type Channel = 'whatsapp' | 'email'
 
-const WHATSAPP_NUMBER = '524776191070'
 const EMAIL_ADDRESS = 'hola@cyclo.mx'
+// Cloudflare quick tunnel -> n8n local. Es temporal: cambia si reinicias
+// cloudflared o la Mac. Para una URL estable, usa un túnel nombrado con dominio propio.
+const N8N_WEBHOOK_URL = 'https://browsers-knock-lightbox-honor.trycloudflare.com/webhook/cyclo-leads'
 
 export default function ContactForm() {
   const [channel, setChannel] = useState<Channel>('whatsapp')
@@ -14,8 +16,10 @@ export default function ContactForm() {
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
+  const [sending, setSending] = useState(false)
+  const [sent, setSent] = useState(false)
 
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault()
 
     if (!name.trim() || !message.trim()) {
@@ -31,22 +35,41 @@ export default function ContactForm() {
       return
     }
     setError('')
+    setSending(true)
 
-    const body = [
-      `Nombre: ${name}`,
-      phone ? `Teléfono: ${phone}` : null,
-      email ? `Email: ${email}` : null,
-      '',
-      message,
-    ]
-      .filter(Boolean)
-      .join('\n')
-
-    if (channel === 'whatsapp') {
-      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(body)}`, '_blank')
-    } else {
+    try {
+      const res = await fetch(N8N_WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nombre: name,
+          telefono: phone || null,
+          email: email || null,
+          canal: channel,
+          proceso: message,
+        }),
+      })
+      if (!res.ok) throw new Error(`Webhook respondió ${res.status}`)
+      setSent(true)
+      setName('')
+      setPhone('')
+      setEmail('')
+      setMessage('')
+    } catch {
       const subject = encodeURIComponent('Nueva consulta desde cyclo.mx')
+      const body = [
+        `Nombre: ${name}`,
+        phone ? `Teléfono: ${phone}` : null,
+        email ? `Email: ${email}` : null,
+        '',
+        message,
+      ]
+        .filter(Boolean)
+        .join('\n')
+      setError('No pudimos enviar el formulario automáticamente. Te abrimos el email como respaldo.')
       window.location.href = `mailto:${EMAIL_ADDRESS}?subject=${subject}&body=${encodeURIComponent(body)}`
+    } finally {
+      setSending(false)
     }
   }
 
@@ -112,14 +135,16 @@ export default function ContactForm() {
       </div>
 
       {error && <p className="text-red-400 text-xs">{error}</p>}
+      {sent && <p className="text-primary text-xs">¡Listo! Te contactaremos pronto.</p>}
 
       <motion.button
         type="submit"
+        disabled={sending}
         whileTap={{ scale: 0.98 }}
-        className="group inline-flex items-center justify-center gap-2 hover:gap-3 transition-[gap] bg-primary rounded-full pl-5 pr-1.5 py-1.5 w-fit"
+        className="group inline-flex items-center justify-center gap-2 hover:gap-3 transition-[gap] bg-primary rounded-full pl-5 pr-1.5 py-1.5 w-fit disabled:opacity-60"
       >
         <span className="text-black font-medium text-sm">
-          Enviar por {channel === 'whatsapp' ? 'WhatsApp' : 'email'}
+          {sending ? 'Enviando...' : `Enviar por ${channel === 'whatsapp' ? 'WhatsApp' : 'email'}`}
         </span>
         <span className="flex items-center justify-center bg-black rounded-full w-9 h-9 transition-transform group-hover:scale-110">
           <ArrowRight className="w-4 h-4 text-[#E1E0CC]" />
