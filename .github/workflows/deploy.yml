@@ -25,6 +25,10 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
+        env:
+          # URL estable del webhook de n8n (Settings → Secrets and variables → Actions → Variables).
+          # Si no existe, se usa el valor por defecto de vite.config.ts.
+          VITE_N8N_WEBHOOK_URL: ${{ vars.VITE_N8N_WEBHOOK_URL }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

@@ -1,71 +1,96 @@
-import { motion } from 'framer-motion'
-import { ArrowRight } from 'lucide-react'
-import Navbar from './Navbar'
-import WordsPullUp from './WordsPullUp'
-import Logo from './Logo'
+import { useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
+import { ArrowDown, ArrowRight } from 'lucide-react'
+import LiveDemo from './LiveDemo'
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
-export default function Hero() {
+function Line({ children, delay, className = '' }: { children: React.ReactNode; delay: number; className?: string }) {
   return (
-    <section className="h-screen p-4 md:p-6">
-      <div className="relative w-full h-full rounded-2xl md:rounded-[2rem] overflow-hidden bg-[#0a1012]">
-        {/* Cinematic background: gradient + oversized spiral mark (no external assets) */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              'radial-gradient(120% 90% at 50% 100%, rgba(0,137,152,0.22) 0%, rgba(10,16,18,0) 55%), radial-gradient(80% 60% at 80% 0%, rgba(0,137,152,0.12) 0%, rgba(0,0,0,0) 60%), #060a0b',
-          }}
-        />
-        <Logo
-          className="absolute -right-[15%] -top-[10%] w-[70%] h-[70%] opacity-[0.10] pointer-events-none"
-          stroke="#DEDBC8"
-        />
-        <div className="noise-overlay absolute inset-0 opacity-[0.7] mix-blend-overlay pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60" />
+    <span className="block overflow-hidden pb-[0.08em]">
+      <motion.span
+        className={`block ${className}`}
+        initial={{ y: '105%' }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.9, delay, ease: EASE }}
+      >
+        {children}
+      </motion.span>
+    </span>
+  )
+}
 
-        <Navbar />
+function Clock({ time }: { time: string }) {
+  return (
+    <span className="mono relative inline-flex overflow-hidden align-bottom font-bold tracking-[-0.04em]">
+      <AnimatePresence mode="popLayout" initial={false}>
+        <motion.span
+          key={time}
+          initial={{ y: '-100%', opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: '100%', opacity: 0 }}
+          transition={{ duration: 0.5, ease: EASE }}
+          className="inline-block"
+        >
+          {time}
+        </motion.span>
+      </AnimatePresence>
+    </span>
+  )
+}
 
-        <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 md:p-12">
-          <div className="grid grid-cols-12 gap-4 items-end">
-            <div className="col-span-12 md:col-span-8">
-              <h1
-                className="text-[26vw] sm:text-[24vw] md:text-[22vw] lg:text-[20vw] xl:text-[19vw] 2xl:text-[20vw] font-medium leading-[0.85] tracking-[-0.07em]"
-                style={{ color: '#E1E0CC' }}
-              >
-                <WordsPullUp text="Cyclo" showAsterisk />
-              </h1>
-            </div>
-            <div className="col-span-12 md:col-span-4 flex flex-col gap-5 sm:gap-6 pb-2 md:pb-4">
-              <motion.p
-                className="text-primary/70 text-xs sm:text-sm md:text-base"
-                style={{ lineHeight: 1.2 }}
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.7, delay: 0.5, ease: EASE }}
-              >
-                ¿Quieres más tiempo libre para ti o para tu negocio? Cyclo te lo da: automatizamos
-                las tareas repetitivas con inteligencia artificial para que recuperes horas cada
-                semana.
-              </motion.p>
-              <motion.a
-                href="#contacto"
-                className="group inline-flex items-center gap-2 hover:gap-3 transition-[gap] bg-primary rounded-full pl-5 pr-1.5 py-1.5 w-fit"
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.7, delay: 0.7, ease: EASE }}
-              >
-                <span className="text-black font-medium text-sm sm:text-base">
-                  Agendar una sesión
+export default function Hero() {
+  const [time, setTime] = useState('23:47')
+  return (
+    <section id="inicio" className="relative pb-20 pt-28 sm:pt-32 lg:flex lg:min-h-[100svh] lg:items-center lg:pb-16">
+      <div className="shell grid grid-cols-1 items-center gap-14 lg:grid-cols-12 lg:gap-10">
+        <div className="lg:col-span-5">
+          <h1 className="display text-fg">
+            <Line delay={0.1}>
+              Son las <Clock time={time} />.
+            </Line>
+            <Line delay={0.2}>Tu negocio cerró.</Line>
+            <Line delay={0.3} className="text-teal-text">
+              Tu WhatsApp, no.
+            </Line>
+          </h1>
+
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.55, ease: EASE }}
+          >
+            <p className="lead mt-7 max-w-[44ch]">
+              Cyclo construye sistemas con inteligencia artificial que atienden por ti a cualquier hora: contestan
+              mensajes, agendan citas, califican prospectos y dan seguimiento. Conectados a tu WhatsApp, tu Google
+              Calendar y tus hojas de cálculo.
+            </p>
+
+            <div className="mt-9 flex flex-wrap items-center gap-3">
+              <a href="#contacto" className="btn-primary">
+                Agenda un diagnóstico gratis
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-bg">
+                  <ArrowRight className="h-4 w-4 text-fg" />
                 </span>
-                <span className="flex items-center justify-center bg-black rounded-full w-9 h-9 sm:w-10 sm:h-10 transition-transform group-hover:scale-110">
-                  <ArrowRight className="w-4 h-4 text-[#E1E0CC]" />
-                </span>
-              </motion.a>
+              </a>
+              <a href="#sistemas" className="btn-secondary">
+                Ver sistemas por giro
+                <ArrowDown className="h-4 w-4" />
+              </a>
             </div>
-          </div>
+
+            <p className="mt-6 text-[0.875rem] text-faint">30 minutos, sin costo. Te decimos con números si te conviene.</p>
+          </motion.div>
         </div>
+
+        <motion.div
+          className="lg:col-span-7"
+          initial={{ opacity: 0, y: 24, filter: 'blur(8px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          transition={{ duration: 1.1, delay: 0.35, ease: EASE }}
+        >
+          <LiveDemo onTimeChange={setTime} />
+        </motion.div>
       </div>
     </section>
   )

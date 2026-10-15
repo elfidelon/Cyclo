@@ -2,20 +2,245 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  font-family: 'Almarai', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', sans-serif;
+/*
+ * Recursive tiene un eje MONO (0 = sans, 1 = mono) y uno CASL (0 = lineal, 1 = casual).
+ * Las variables se heredan y cada elemento las vuelve a aplicar, así un hijo puede
+ * cambiar un eje sin perder el otro.
+ * - Lo que ve el cliente (chat): casual.
+ * - Lo que hace la máquina (bitácora, datos): mono.
+ */
+@property --mono {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+@property --casl {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
 }
 
-html {
-  background: #000000;
-  scroll-behavior: smooth;
+@layer base {
+  *,
+  *::before,
+  *::after {
+    font-variation-settings: 'MONO' var(--mono), 'CASL' var(--casl);
+  }
+
+  html {
+    background: theme('colors.bg');
+    color-scheme: dark;
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: theme('colors.bg');
+    color: theme('colors.fg');
+    font-family: theme('fontFamily.sans');
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p,
+  li,
+  dd {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: theme('colors.teal.DEFAULT');
+    color: theme('colors.fg');
+  }
+
+  :focus-visible {
+    outline: 2px solid theme('colors.teal.text');
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  button,
+  [role='tab'],
+  summary,
+  label[for],
+  a {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
 }
 
-.noise-overlay {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+@layer components {
+  .shell {
+    @apply mx-auto w-full max-w-page px-5 sm:px-8;
+  }
+
+  /* Calculado para que "Tu WhatsApp, no." (≈8.6em) quepa en un renglón de la columna */
+  .display {
+    font-size: clamp(2.25rem, 0.6rem + 3.2vw, 3.35rem);
+    font-weight: 800;
+    line-height: 0.98;
+    letter-spacing: -0.03em;
+  }
+
+  .heading {
+    font-size: clamp(2rem, 1.2rem + 2.6vw, 3.5rem);
+    font-weight: 780;
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+  }
+
+  .lead {
+    font-size: clamp(1.0625rem, 0.98rem + 0.35vw, 1.25rem);
+    line-height: 1.6;
+    color: theme('colors.muted');
+  }
+
+  /* Botón principal: crema sobre fondo oscuro (13.8:1) */
+  .btn-primary {
+    @apply inline-flex min-h-[48px] items-center gap-3 rounded-full bg-fg py-2 pl-6 pr-2 font-semibold text-bg transition-[background-color,gap] duration-200 ease-out-expo hover:gap-4 hover:bg-white active:scale-[0.98];
+  }
+
+  .btn-secondary {
+    @apply inline-flex min-h-[48px] items-center gap-2 rounded-full px-5 py-2 font-medium text-fg ring-1 ring-inset ring-line transition-colors duration-200 hover:bg-raised hover:ring-faint;
+  }
 }
 
-.bg-noise {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+@layer utilities {
+  .mono {
+    --mono: 1;
+  }
+  .casual {
+    --casl: 1;
+  }
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Punto "en vivo" de la bitácora */
+@keyframes live-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+.live-dot {
+  animation: live-pulse 1.6s ease-in-out infinite;
+}
+
+/* Puntos de "escribiendo…" */
+@keyframes typing {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.45;
+  }
+  30% {
+    transform: translateY(-3px);
+    opacity: 1;
+  }
+}
+.typing-dot {
+  animation: typing 1.1s ease-in-out infinite;
+}
+
+/* El lienzo del flujo sí es un lienzo: la retícula de puntos es la del editor */
+.canvas-dots {
+  background-image: radial-gradient(circle at 1px 1px, rgb(222 219 200 / 0.09) 1px, transparent 0);
+  background-size: 22px 22px;
+}
+
+/* "detrás" pasa de sans a mono al entrar en pantalla */
+.morph-mono {
+  transition: --mono 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.morph-mono[data-on='true'] {
+  --mono: 1;
+}
+
+input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  height: 32px;
+  cursor: pointer;
+}
+input[type='range']::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    theme('colors.teal.text') var(--fill, 50%),
+    theme('colors.line') var(--fill, 50%)
+  );
+}
+input[type='range']::-moz-range-track {
+  height: 4px;
+  border-radius: 999px;
+  background: theme('colors.line');
+}
+input[type='range']::-moz-range-progress {
+  height: 4px;
+  border-radius: 999px;
+  background: theme('colors.teal.text');
+}
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  margin-top: -10px;
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  background: theme('colors.fg');
+  box-shadow: 0 0 0 4px theme('colors.raised');
+}
+input[type='range']::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border: 0;
+  border-radius: 999px;
+  background: theme('colors.fg');
+  box-shadow: 0 0 0 4px theme('colors.raised');
+}
+input[type='range']:focus-visible {
+  outline: none;
+}
+input[type='range']:focus-visible::-webkit-slider-thumb {
+  outline: 2px solid theme('colors.teal.text');
+  outline-offset: 3px;
+}
+input[type='range']:focus-visible::-moz-range-thumb {
+  outline: 2px solid theme('colors.teal.text');
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .live-dot,
+  .typing-dot {
+    animation: none;
+  }
+  .morph-mono {
+    transition: none;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
 }
