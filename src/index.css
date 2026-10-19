@@ -69,6 +69,12 @@
     border-radius: 6px;
   }
 
+  /* Las secciones reciben el foco al llegar desde el menú (para lectores de pantalla y
+     teclado); no necesitan el contorno, el foco sigue en el siguiente elemento con Tab. */
+  [tabindex='-1']:focus {
+    outline: none;
+  }
+
   button,
   [role='tab'],
   summary,
@@ -84,11 +90,12 @@
     @apply mx-auto w-full max-w-page px-5 sm:px-8;
   }
 
-  /* Calculado para que "Tu WhatsApp, no." (≈8.6em) quepa en un renglón de la columna */
+  /* Titular del hero: "Automatizamos la atención de tu negocio por WhatsApp." En escritorio
+     queda en tres renglones (≈4.5rem); en móvil baja a 36 px y "Automatizamos la" cabe desde 390 px. */
   .display {
-    font-size: clamp(2.25rem, 0.6rem + 3.2vw, 3.35rem);
+    font-size: clamp(2.25rem, 0.9rem + 4vw, 4.6rem);
     font-weight: 800;
-    line-height: 0.98;
+    line-height: 1;
     letter-spacing: -0.03em;
   }
 
@@ -125,6 +132,12 @@
   .tabular {
     font-variant-numeric: tabular-nums;
   }
+  /* Teléfono de las demos: la letra del sistema, como la app real de WhatsApp */
+  .chat-font {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --mono: 0;
+    --casl: 0;
+  }
 }
 
 /* Punto "en vivo" de la bitácora */
@@ -156,6 +169,81 @@
 }
 .typing-dot {
   animation: typing 1.1s ease-in-out infinite;
+}
+
+/* Cinta de la bitácora: dos copias seguidas que se recorren a la mitad para un loop sin salto */
+@keyframes ticker {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.ticker-track {
+  animation: ticker 70s linear infinite;
+}
+.ticker:hover .ticker-track {
+  animation-play-state: paused;
+}
+
+/* Chat del agente en un <dialog> nativo: panel a la derecha en escritorio, pantalla completa en móvil */
+.agent-drawer {
+  position: fixed;
+  inset: auto 1.5rem 1.5rem auto;
+  margin: 0;
+  width: min(440px, calc(100vw - 2rem));
+  height: min(720px, calc(100dvh - 3rem));
+  max-width: none;
+  max-height: none;
+  padding: 0;
+  border: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  background: theme('colors.sunken');
+  color: theme('colors.fg');
+  box-shadow: 0 0 0 1px theme('colors.line');
+}
+.agent-drawer[open] {
+  animation: drawer-in 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.agent-drawer::backdrop {
+  background: rgb(5 16 19 / 0.62);
+}
+@keyframes drawer-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (max-width: 639px) {
+  .agent-drawer {
+    inset: 0;
+    width: 100%;
+    height: 100dvh;
+    border-radius: 0;
+  }
+}
+
+html.scroll-locked {
+  overflow: hidden;
+}
+
+/* La marca a todo lo ancho al final de la página. Al pasar el mouse cambia a la voz de
+   la máquina (eje MONO), igual que "detrás". */
+.wordmark {
+  font-size: clamp(6rem, 29vw, 30rem);
+  font-weight: 800;
+  line-height: 0.78;
+  letter-spacing: -0.04em;
+  text-align: center;
+  color: theme('colors.teal.DEFAULT');
+  margin-bottom: -0.1em;
+  transition: --mono 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.wordmark:hover {
+  --mono: 1;
 }
 
 /* El lienzo del flujo sí es un lienzo: la retícula de puntos es la del editor */
@@ -232,10 +320,13 @@ input[type='range']:focus-visible::-moz-range-thumb {
     scroll-behavior: auto;
   }
   .live-dot,
-  .typing-dot {
+  .typing-dot,
+  .ticker-track,
+  .agent-drawer[open] {
     animation: none;
   }
-  .morph-mono {
+  .morph-mono,
+  .wordmark {
     transition: none;
   }
   *,

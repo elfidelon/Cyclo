@@ -6,7 +6,7 @@ brand
 
 ## Users
 
-Dueños y encargados de PYMES de servicio en México: clínicas dentales, consultorios médicos, inmobiliarias, despachos contables, agencias y comercios. Viven en WhatsApp, no son técnicos y normalmente llegan al sitio desde el celular, muchas veces por un enlace que alguien les reenvió. Su dolor concreto: mensajes que llegan fuera de horario y nadie contesta, citas que se olvidan, horas del equipo respondiendo lo mismo.
+Dueños y encargados de PYMES de servicio, empezando por León, Guanajuato, donde está Cyclo: clínicas dentales, consultorios médicos, inmobiliarias, despachos contables, escuelas privadas, agencias y comercios. Viven en WhatsApp, no son técnicos y normalmente llegan al sitio desde el celular, muchas veces por un enlace que alguien les reenvió. Su dolor concreto: mensajes que llegan fuera de horario y nadie contesta, citas que se olvidan, horas del equipo respondiendo lo mismo.
 
 ## Product Purpose
 
@@ -26,7 +26,7 @@ Atento, de oficio, mecánico. Habla en español de México, de tú, con verbos c
 ## Design Principles
 
 1. Enseñar la máquina: mostrar lo que pasa detrás (pasos, herramientas, tiempos) en lugar de adjetivos.
-2. Practicar lo que se vende: el propio sitio usa los flujos de Cyclo (el formulario es un workflow de n8n) y lo dice.
+2. Practicar lo que se vende: el propio sitio usa los flujos de Cyclo (el formulario es un workflow de n8n y el agente del sitio es un agente real en n8n con Claude) y lo dice.
 3. Concreto antes que impresionante: horarios reales, giros reales, plazos reales. Nada de datos de clientes inventados; los ejemplos se marcan como ejemplo.
 4. El celular primero: el visitante típico llega desde WhatsApp en el teléfono, de noche.
 

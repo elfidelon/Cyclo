@@ -29,6 +29,8 @@ jobs:
           # URL estable del webhook de n8n (Settings → Secrets and variables → Actions → Variables).
           # Si no existe, se usa el valor por defecto de vite.config.ts.
           VITE_N8N_WEBHOOK_URL: ${{ vars.VITE_N8N_WEBHOOK_URL }}
+          # Webhook del agente del sitio. Si no existe, se usa el de vite.config.ts.
+          VITE_N8N_AGENT_URL: ${{ vars.VITE_N8N_AGENT_URL }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

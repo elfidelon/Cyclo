@@ -3,31 +3,27 @@ import { Plus } from 'lucide-react'
 const QUESTIONS = [
   {
     q: '¿Tengo que saber de tecnología?',
-    a: 'No. Nosotros diseñamos, construimos y mantenemos el sistema. Tú lo usas desde lo que ya conoces: WhatsApp, tu calendario y tus hojas de cálculo.',
+    a: 'No. Nosotros lo construimos y lo mantenemos. Tú sigues usando WhatsApp, tu calendario y tus hojas de cálculo.',
   },
   {
     q: '¿Qué pasa si la IA contesta algo mal?',
-    a: 'Solo responde con la información que tú apruebas: precios, horarios y políticas. Cuando una pregunta sale de eso, o detecta una urgencia o una queja, pasa la conversación a una persona de tu equipo. Además revisamos conversaciones cada mes para corregir y afinar.',
+    a: 'Solo contesta con la información que tú apruebas. Lo que no sabe, las urgencias y las quejas pasan a una persona de tu equipo.',
   },
   {
     q: '¿Puedo usar mi número de WhatsApp actual?',
-    a: 'En la mayoría de los casos, sí. Trabajamos con WhatsApp Business API, el canal oficial de Meta para empresas. En el diagnóstico revisamos tu número y te explicamos las opciones.',
+    a: 'En la mayoría de los casos, sí. Usamos la API oficial de WhatsApp Business; en el diagnóstico revisamos tu número.',
   },
   {
     q: '¿Cuánto tarda en estar funcionando?',
-    a: 'Un sistema típico queda listo en 2 a 4 semanas desde el diagnóstico, según cuántos pasos tenga y cuántas herramientas conecte.',
+    a: 'De 2 a 4 semanas desde el diagnóstico, según cuántos pasos tenga.',
   },
   {
     q: '¿Cuánto cuesta?',
-    a: 'Depende de cuántos procesos, canales y mensajes maneje tu negocio. Después del diagnóstico te damos una cotización cerrada y por escrito, con lo que incluye y lo que no.',
-  },
-  {
-    q: '¿Funciona con lo que ya uso?',
-    a: 'Trabajamos con WhatsApp, Google Calendar, Sheets, Gmail y Drive, y podemos conectar la mayoría de los CRM y sistemas que tengan API. Si usas algo menos común, lo revisamos en el diagnóstico.',
+    a: 'Depende de cuántos procesos y mensajes maneje tu negocio. Después del diagnóstico te damos una cotización cerrada y por escrito.',
   },
   {
     q: '¿De quién son los datos?',
-    a: 'Tuyos. Los contactos, citas y registros viven en tus cuentas. Nosotros solo tenemos el acceso necesario para operar el sistema, y puedes retirarlo cuando quieras.',
+    a: 'Tuyos. Viven en tus cuentas de Google y puedes quitarnos el acceso cuando quieras.',
   },
 ]
 

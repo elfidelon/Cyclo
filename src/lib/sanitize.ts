@@ -30,7 +30,7 @@ const INVISIBLE_RANGES: [number, number][] = [
   [0x2060, 0x2060],
   [0xfeff, 0xfeff],
 ]
-const INVISIBLE = new RegExp(
+export const INVISIBLE = new RegExp(
   '[' + INVISIBLE_RANGES.map(([a, b]) => String.fromCharCode(a) + '-' + String.fromCharCode(b)).join('') + ']',
   'g',
 )

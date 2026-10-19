@@ -4,7 +4,7 @@ import ContactForm from './ContactForm'
 const NEXT = [
   'Te escribimos en menos de 24 horas.',
   'Agendamos la sesión de diagnóstico de 30 minutos.',
-  'Si hay caso, te mandamos una propuesta cerrada y por escrito.',
+  'Si hay caso, te mandamos una propuesta cerrada.',
 ]
 
 export default function Contact() {
@@ -16,8 +16,7 @@ export default function Contact() {
             Empieza con 30 minutos.
           </h2>
           <p className="mt-5 max-w-[42ch] text-[1.15rem] leading-relaxed">
-            Cuéntanos qué proceso te quita más tiempo. Te respondemos con una primera idea y una fecha para el
-            diagnóstico. Sin costo y sin compromiso.
+            ¿Prefieres un formulario? Cuéntanos qué te quita más tiempo. Estamos en León: si tu negocio está aquí, vamos a verte.
           </p>
 
           <ol className="mt-10 flex flex-col gap-4">

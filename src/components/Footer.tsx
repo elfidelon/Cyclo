@@ -1,16 +1,20 @@
 import Logo from './Logo'
+import { useLeonTime } from '../hooks/useLeonTime'
 
 const LINKS = [
-  { label: 'Cuánto te cuesta', href: '#costo' },
-  { label: 'Sistemas por giro', href: '#sistemas' },
+  { label: 'Cuánto ahorras', href: '#costo' },
+  { label: 'Sistemas', href: '#sistemas' },
+  { label: 'Demos', href: '#demos' },
+  { label: 'El agente', href: '#agente' },
   { label: 'Cómo funciona', href: '#detras' },
   { label: 'Método', href: '#metodo' },
   { label: 'Preguntas', href: '#preguntas' },
 ]
 
 export default function Footer() {
+  const time = useLeonTime()
   return (
-    <footer className="py-14">
+    <footer id="pie" className="overflow-hidden pt-16">
       <div className="shell flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
         <div className="max-w-sm">
           <a href="#inicio" className="flex w-fit items-center gap-2.5 rounded-md" aria-label="Cyclo, volver al inicio">
@@ -18,7 +22,8 @@ export default function Footer() {
             <span className="text-[1.3rem] font-extrabold tracking-[-0.03em] text-fg">Cyclo</span>
           </a>
           <p className="mt-4 text-muted">
-            Sistemas con inteligencia artificial que atienden, agendan y dan seguimiento por tu negocio.
+            Sistemas con inteligencia artificial que atienden, agendan y dan seguimiento por tu negocio. Hechos y operados
+            en León, Guanajuato.
           </p>
         </div>
 
@@ -41,8 +46,18 @@ export default function Footer() {
       </div>
 
       <div className="shell mt-12">
-        <p className="border-t border-line pt-6 text-[0.85rem] text-faint">© 2026 Cyclo · Ciudad de México</p>
+        <p className="mono flex flex-wrap justify-between gap-x-6 gap-y-2 border-t border-line pt-6 text-[0.8rem] text-muted">
+          <span>Hecho en León, Guanajuato</span>
+          <span>
+            En León son las <span className="tabular text-fg">{time}</span>
+          </span>
+          <span>© 2026 Cyclo</span>
+        </p>
       </div>
+
+      <p aria-hidden="true" className="wordmark mt-6 select-none">
+        Cyclo
+      </p>
     </footer>
   )
 }

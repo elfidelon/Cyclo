@@ -14,6 +14,7 @@ import {
   Table2,
   Users,
 } from 'lucide-react'
+import BrandLogo, { brandForTool } from './BrandLogo'
 
 type Tool =
   | 'WhatsApp'
@@ -453,6 +454,7 @@ export default function LiveDemo({ onTimeChange }: { onTimeChange?: (time: strin
             <AnimatePresence initial={false}>
               {trace.map((row, i) => {
                 const Icon = TOOL_ICON[row.tool]
+                const brand = brandForTool(row.tool)
                 const latest = i === trace.length - 1
                 const summary = row.tool === 'Resumen'
                 return (
@@ -466,11 +468,15 @@ export default function LiveDemo({ onTimeChange }: { onTimeChange?: (time: strin
                       summary ? 'bg-teal-deep text-fg' : latest && !finished ? 'bg-sunken' : ''
                     }`}
                   >
-                    <Icon
-                      aria-hidden="true"
-                      className={`mt-0.5 h-3.5 w-3.5 ${summary ? 'text-fg' : 'text-teal-text'}`}
-                      strokeWidth={2}
-                    />
+                    {brand ? (
+                      <BrandLogo brand={brand} className="mt-0.5 h-3.5 w-3.5 text-teal-text" />
+                    ) : (
+                      <Icon
+                        aria-hidden="true"
+                        className={`mt-0.5 h-3.5 w-3.5 ${summary ? 'text-fg' : 'text-teal-text'}`}
+                        strokeWidth={2}
+                      />
+                    )}
                     <span className="min-w-0">
                       <span className="flex flex-wrap gap-x-2">
                         <span className="text-faint tabular">{row.clock}</span>

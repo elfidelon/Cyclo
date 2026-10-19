@@ -24,6 +24,7 @@ const SECTORS = [
   'Consultorio médico',
   'Inmobiliaria',
   'Despacho contable',
+  'Escuela privada',
   'Agencia de servicios',
   'Comercio',
   'Otro',

@@ -39,6 +39,7 @@ export default {
       },
       zIndex: {
         nav: '40',
+        float: '45',
         menu: '50',
         skip: '60',
       },

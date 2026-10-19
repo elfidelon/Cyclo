@@ -1,6 +1,7 @@
 import { useRef, useState, KeyboardEvent } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { RotateCcw } from 'lucide-react'
+import { ArrowRight, RotateCcw } from 'lucide-react'
+import BrandLogo, { Brand, BRAND_COLORS, BRAND_NAMES, BRAND_URLS, brandForTool } from './BrandLogo'
 
 type Step = { tool: string; action: string }
 type System = {
@@ -10,9 +11,9 @@ type System = {
   solves: string
   trigger: { channel: string; example: string }
   steps: Step[]
-  connects: string
+  brands: Brand[]
+  extra?: string
   timeline: string
-  measures: string
 }
 
 const SYSTEMS: System[] = [
@@ -20,103 +21,108 @@ const SYSTEMS: System[] = [
     id: 'dental',
     giro: 'Clínica dental',
     name: 'Agenda por WhatsApp',
-    solves: 'Pacientes que escriben de noche o en fin de semana y nadie les contesta. Citas que se olvidan y huecos que se quedan vacíos.',
+    solves: 'Pacientes que escriben de noche y nadie contesta. Citas que se olvidan.',
     trigger: { channel: 'WhatsApp', example: '“¿Tienen espacio para una limpieza esta semana?”' },
     steps: [
-      { tool: 'Claude', action: 'Entiende qué necesita: una cita, un precio, una urgencia o una duda.' },
-      { tool: 'Google Calendar', action: 'Busca horarios libres reales y ofrece tres opciones.' },
-      { tool: 'WhatsApp', action: 'Confirma la cita con nombre, tratamiento y hora.' },
-      { tool: 'Google Sheets', action: 'Registra al paciente y el motivo de la visita.' },
-      { tool: 'Recordatorio', action: 'Avisa 24 h y 2 h antes. Si cancela, libera el espacio.' },
+      { tool: 'Claude', action: 'Entiende si es cita, precio o urgencia.' },
+      { tool: 'Google Calendar', action: 'Ofrece tres horarios libres.' },
+      { tool: 'Google Sheets', action: 'Registra al paciente.' },
+      { tool: 'Recordatorio', action: 'Avisa 24 h y 2 h antes.' },
     ],
-    connects: 'WhatsApp Business, Google Calendar, Google Sheets',
+    brands: ['whatsapp', 'googlecalendar', 'googlesheets'],
     timeline: '2 a 3 semanas',
-    measures: 'Citas agendadas fuera de horario, inasistencias y tiempo de respuesta.',
   },
   {
     id: 'consultorio',
     giro: 'Consultorio médico',
     name: 'Recepción virtual',
-    solves: 'La recepción pasa el día contestando lo mismo y confirmando citas por teléfono, mientras la sala de espera se llena.',
-    trigger: { channel: 'WhatsApp', example: '“Buenos días, ¿el doctor tiene consulta el lunes?”' },
+    solves: 'La recepción pasa el día contestando lo mismo y confirmando citas.',
+    trigger: { channel: 'WhatsApp', example: '“¿El doctor tiene consulta el lunes?”' },
     steps: [
-      { tool: 'Claude', action: 'Reconoce si el paciente ya había escrito y retoma la conversación donde quedó.' },
-      { tool: 'Claude', action: 'Hace las preguntas previas que tú definas. Si detecta una urgencia, avisa a una persona.' },
-      { tool: 'Google Calendar', action: 'Agenda en la agenda del médico que corresponde.' },
-      { tool: 'Google Sheets', action: 'Guarda los datos de contacto y el motivo de consulta.' },
-      { tool: 'Recordatorio', action: 'Manda la confirmación a las 8:00 del día de la cita.' },
+      { tool: 'Claude', action: 'Reconoce al paciente y detecta urgencias.' },
+      { tool: 'Google Calendar', action: 'Agenda con el médico que corresponde.' },
+      { tool: 'Google Sheets', action: 'Guarda el motivo de consulta.' },
+      { tool: 'Recordatorio', action: 'Confirma a las 8:00 del día.' },
     ],
-    connects: 'WhatsApp Business, Google Calendar, Google Sheets',
+    brands: ['whatsapp', 'googlecalendar', 'googlesheets'],
     timeline: '2 a 3 semanas',
-    measures: 'Citas confirmadas, llamadas que ya no hace la recepción y urgencias canalizadas.',
   },
   {
     id: 'inmobiliaria',
     giro: 'Inmobiliaria',
     name: 'Calificador de prospectos',
-    solves: 'Cada anuncio trae decenas de mensajes y los asesores no saben a quién atender primero. Los buenos prospectos se enfrían.',
+    solves: 'Decenas de mensajes por anuncio, y los buenos prospectos se enfrían.',
     trigger: { channel: 'WhatsApp', example: '“Vi la casa del anuncio, ¿sigue disponible?”' },
     steps: [
-      { tool: 'Claude', action: 'Pregunta presupuesto, zona, forma de pago y fecha de mudanza, como lo haría un asesor.' },
-      { tool: 'Claude', action: 'Califica: listo para visitar, explorando o fuera de perfil.' },
-      { tool: 'Google Calendar', action: 'Agenda la visita con el asesor que lleva ese inmueble.' },
-      { tool: 'CRM', action: 'Registra al prospecto con su calificación y el anuncio de donde llegó.' },
-      { tool: 'WhatsApp', action: 'Da seguimiento a quien no respondió en 48 horas.' },
+      { tool: 'Claude', action: 'Pregunta presupuesto, zona y fecha, y califica.' },
+      { tool: 'Google Calendar', action: 'Agenda la visita con el asesor.' },
+      { tool: 'CRM', action: 'Registra de qué anuncio llegó.' },
+      { tool: 'WhatsApp', action: 'Da seguimiento a las 48 h.' },
     ],
-    connects: 'WhatsApp Business, Google Calendar, Google Sheets o tu CRM',
+    brands: ['whatsapp', 'googlecalendar', 'googlesheets'],
+    extra: 'o tu CRM',
     timeline: '3 a 4 semanas',
-    measures: 'Prospectos calificados, visitas agendadas y tiempo hasta el primer contacto.',
   },
   {
     id: 'contable',
     giro: 'Despacho contable',
     name: 'Recepción de documentos',
-    solves: 'Clientes que mandan facturas y estados de cuenta por correo, por WhatsApp y a destiempo. Alguien del despacho tiene que ordenarlos a mano.',
+    solves: 'Facturas que llegan por todos lados y a destiempo.',
     trigger: { channel: 'Formulario', example: 'El cliente sube sus documentos del mes.' },
     steps: [
-      { tool: 'Claude', action: 'Lee cada archivo y lo clasifica: factura, estado de cuenta, constancia u otro.' },
-      { tool: 'Google Drive', action: 'Lo archiva en la carpeta del cliente y del mes.' },
-      { tool: 'Gmail', action: 'Le confirma al cliente qué recibió y qué le falta.' },
-      { tool: 'Recordatorio', action: 'Avisa antes del día 17 a quien todavía no manda lo de su declaración.' },
-      { tool: 'Google Sheets', action: 'Actualiza el tablero de pendientes por cliente.' },
+      { tool: 'Claude', action: 'Clasifica cada archivo.' },
+      { tool: 'Google Drive', action: 'Lo archiva por cliente y mes.' },
+      { tool: 'Gmail', action: 'Confirma qué recibió y qué falta.' },
+      { tool: 'Recordatorio', action: 'Avisa antes del día 17.' },
     ],
-    connects: 'Formulario web, Gmail, Google Drive, Google Sheets',
+    brands: ['gmail', 'googledrive', 'googlesheets'],
     timeline: '2 a 3 semanas',
-    measures: 'Documentos recibidos a tiempo, horas de captura y pendientes por cliente.',
+  },
+  {
+    id: 'escuela',
+    giro: 'Escuela privada',
+    name: 'Inscripciones y cobranza',
+    solves: 'En inscripciones, el WhatsApp de la escuela se llena de las mismas preguntas.',
+    trigger: { channel: 'WhatsApp', example: '“¿Todavía hay lugar en primero de primaria?”' },
+    steps: [
+      { tool: 'Claude', action: 'Contesta costos, requisitos y fechas.' },
+      { tool: 'Google Calendar', action: 'Agenda visitas guiadas.' },
+      { tool: 'Google Sheets', action: 'Registra a cada familia interesada.' },
+      { tool: 'Recordatorio', action: 'Avisa antes de que venza la colegiatura.' },
+    ],
+    brands: ['whatsapp', 'googlecalendar', 'googlesheets'],
+    timeline: '2 a 3 semanas',
   },
   {
     id: 'agencia',
     giro: 'Agencia de servicios',
     name: 'Propuestas en minutos',
-    solves: 'Cada propuesta comercial se arma a mano y tarda días en salir. Para cuando llega, el cliente ya cotizó con otros.',
+    solves: 'Cada propuesta tarda días, y el cliente cotiza con otros mientras tanto.',
     trigger: { channel: 'Formulario', example: 'El prospecto describe su proyecto y su presupuesto.' },
     steps: [
-      { tool: 'Claude', action: 'Redacta la propuesta con alcance, tiempos e inversión, a partir de tus plantillas y precios.' },
-      { tool: 'PDF', action: 'Genera el documento con tu marca.' },
-      { tool: 'Gmail + WhatsApp', action: 'Lo envía al prospecto y te avisa a ti.' },
-      { tool: 'Google Sheets', action: 'Registra la oportunidad en tu embudo de ventas.' },
-      { tool: 'Recordatorio', action: 'Da seguimiento si no hay respuesta en tres días.' },
+      { tool: 'Claude', action: 'Redacta con tus plantillas y precios.' },
+      { tool: 'PDF', action: 'Genera la propuesta con tu marca.' },
+      { tool: 'Gmail + WhatsApp', action: 'La envía y te avisa.' },
+      { tool: 'Recordatorio', action: 'Da seguimiento a los 3 días.' },
     ],
-    connects: 'Formulario web, Gmail, WhatsApp Business, Google Sheets',
+    brands: ['gmail', 'whatsapp', 'googlesheets'],
     timeline: '2 a 3 semanas',
-    measures: 'Tiempo para enviar una propuesta, propuestas enviadas y tasa de cierre.',
   },
   {
     id: 'comercio',
     giro: 'Comercio',
     name: 'Pedidos y posventa',
-    solves: 'Preguntas de precio, existencias y envíos que se acumulan en el WhatsApp de la tienda mientras atiendes el mostrador.',
-    trigger: { channel: 'WhatsApp', example: '“¿Tienen la talla 27 en negro? ¿Hacen envíos a Querétaro?”' },
+    solves: 'Preguntas de precio y envíos que se acumulan mientras atiendes el mostrador.',
+    trigger: { channel: 'WhatsApp', example: '“¿Tienen la talla 27? ¿Envían a Querétaro?”' },
     steps: [
-      { tool: 'Claude', action: 'Identifica si es una pregunta, un pedido o una queja.' },
-      { tool: 'Google Sheets', action: 'Consulta precio y existencias en tu inventario.' },
-      { tool: 'WhatsApp', action: 'Responde con el dato exacto y toma el pedido.' },
-      { tool: 'Tu equipo', action: 'Las quejas y los casos especiales pasan a una persona, con toda la conversación.' },
-      { tool: 'Recordatorio', action: 'Tres días después de la entrega, pregunta cómo le fue.' },
+      { tool: 'Google Sheets', action: 'Consulta precio y existencias.' },
+      { tool: 'WhatsApp', action: 'Responde y toma el pedido.' },
+      { tool: 'Tu equipo', action: 'Recibe las quejas y los casos especiales.' },
+      { tool: 'Recordatorio', action: 'Pregunta cómo le fue a los 3 días.' },
     ],
-    connects: 'WhatsApp Business, Google Sheets o tu sistema de inventario',
+    brands: ['whatsapp', 'googlesheets'],
+    extra: 'o tu inventario',
     timeline: '2 a 4 semanas',
-    measures: 'Pedidos por WhatsApp, tiempo de respuesta y quejas resueltas.',
   },
 ]
 
@@ -148,10 +154,7 @@ export default function Systems() {
           <h2 id="sistemas-titulo" className="heading text-fg">
             Un sistema para cada forma de atender
           </h2>
-          <p className="lead mt-5 max-w-[58ch]">
-            No es un chatbot genérico. Cada sistema se diseña alrededor de cómo trabaja tu giro y se ajusta a tus
-            horarios, precios y políticas.
-          </p>
+          <p className="lead mt-5 max-w-[52ch]">Se arma con los horarios, precios y forma de trabajar de tu giro.</p>
         </div>
 
         <div className="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10">
@@ -206,7 +209,7 @@ export default function Systems() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -6, transition: { duration: 0.14 } }}
                 transition={{ duration: 0.32, ease: EASE }}
-                className="grid gap-8 rounded-2xl bg-raised p-6 ring-1 ring-inset ring-line sm:p-8 md:grid-cols-[1.35fr_1fr] md:gap-10"
+                className="grid gap-8 rounded-2xl bg-raised p-6 ring-1 ring-inset ring-line sm:p-8 md:grid-cols-[1.4fr_1fr] md:gap-10"
               >
                 <div>
                   <p className="text-[0.9rem] text-muted">{sys.giro}</p>
@@ -217,53 +220,82 @@ export default function Systems() {
                     <span aria-hidden="true" className="absolute bottom-6 left-[7px] top-3 w-px bg-line" />
                     <li className="relative pb-5 pl-8">
                       <span aria-hidden="true" className="absolute left-0 top-1.5 h-[15px] w-[15px] rounded-full bg-fg ring-4 ring-raised" />
-                      <span className="mono text-[0.75rem] text-faint">Entra por {sys.trigger.channel}</span>
+                      <span className="mono text-[0.75rem] text-muted">Entra por {sys.trigger.channel}</span>
                       <span className="casual mt-0.5 block text-fg">{sys.trigger.example}</span>
                     </li>
-                    {sys.steps.map((st, i) => (
-                      <motion.li
-                        key={i}
-                        className="relative pb-5 pl-8"
-                        initial={{ opacity: 0, x: -6 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.35, delay: 0.06 + i * 0.045, ease: EASE }}
-                      >
-                        <span
-                          aria-hidden="true"
-                          className="absolute left-[3px] top-2 h-[9px] w-[9px] rounded-full bg-teal-text ring-4 ring-raised"
-                        />
-                        <span className="mono text-[0.75rem] text-teal-text">{st.tool}</span>
-                        <span className="mt-0.5 block text-fg/90">{st.action}</span>
-                      </motion.li>
-                    ))}
-                    <li className="relative flex items-center gap-2 pl-8 text-[0.88rem] text-faint">
-                      <RotateCcw aria-hidden="true" className="absolute left-0 h-[15px] w-[15px] text-faint" />
+                    {sys.steps.map((st, i) => {
+                      const brand = brandForTool(st.tool)
+                      return (
+                        <motion.li
+                          key={i}
+                          className="relative pb-5 pl-8"
+                          initial={{ opacity: 0, x: -6 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.35, delay: 0.06 + i * 0.045, ease: EASE }}
+                        >
+                          <span
+                            aria-hidden="true"
+                            className="absolute left-[3px] top-2 h-[9px] w-[9px] rounded-full bg-teal-text ring-4 ring-raised"
+                          />
+                          <span className="mono flex items-center gap-1.5 text-[0.75rem] text-teal-text">
+                            {brand && <BrandLogo brand={brand} className="h-3 w-3" />}
+                            {st.tool}
+                          </span>
+                          <span className="mt-0.5 block text-fg/90">{st.action}</span>
+                        </motion.li>
+                      )
+                    })}
+                    <li className="relative flex items-center gap-2 pl-8 text-[0.88rem] text-muted">
+                      <RotateCcw aria-hidden="true" className="absolute left-0 h-[15px] w-[15px] text-muted" />
                       Y vuelve a empezar con el siguiente mensaje.
                     </li>
                   </ol>
                 </div>
 
-                <dl className="flex flex-col gap-6 border-line max-md:border-t max-md:pt-6 md:border-l md:pl-8">
+                <dl className="flex flex-col gap-7 border-line max-md:border-t max-md:pt-6 md:border-l md:pl-8">
                   <div>
-                    <dt className="text-[0.85rem] text-faint">Se conecta con</dt>
-                    <dd className="mt-1 text-fg">{sys.connects}</dd>
+                    <dt className="text-[0.85rem] text-muted">Se conecta con</dt>
+                    <dd className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-3">
+                      {sys.brands.map((b) => (
+                        <a
+                          key={b}
+                          href={BRAND_URLS[b]}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex min-h-[32px] items-center gap-2 text-[0.92rem] text-fg underline-offset-4 hover:underline"
+                        >
+                          <BrandLogo brand={b} color={BRAND_COLORS[b]} className="h-5 w-5" />
+                          {BRAND_NAMES[b]}
+                          <span className="sr-only">(abre su sitio en otra pestaña)</span>
+                        </a>
+                      ))}
+                      {sys.extra && <span className="text-[0.92rem] text-muted">{sys.extra}</span>}
+                    </dd>
                   </div>
                   <div>
-                    <dt className="text-[0.85rem] text-faint">Listo en</dt>
+                    <dt className="text-[0.85rem] text-muted">Listo en</dt>
                     <dd className="mt-1 text-[1.5rem] font-bold tracking-[-0.02em] text-fg">{sys.timeline}</dd>
                     <dd className="text-[0.88rem] text-muted">desde el diagnóstico</dd>
                   </div>
-                  <div>
-                    <dt className="text-[0.85rem] text-faint">Lo que medimos cada mes</dt>
-                    <dd className="mt-1 text-fg">{sys.measures}</dd>
+                  <div className="mt-auto flex flex-col items-start gap-1">
+                    <a
+                      href={`demos/${sys.id}.html`}
+                      onClick={() => {
+                        if (window.location.hash !== '#sistemas') window.history.replaceState(null, '', '#sistemas')
+                      }}
+                      className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-fg px-5 text-[0.95rem] font-semibold text-bg transition-colors hover:bg-white"
+                    >
+                      Ver la demo
+                      <ArrowRight aria-hidden="true" className="h-4 w-4" />
+                    </a>
+                    <a
+                      href="#contacto"
+                      className="inline-flex min-h-[44px] items-center gap-2 text-[0.95rem] font-semibold text-teal-text underline-offset-4 hover:underline"
+                    >
+                      Quiero este sistema
+                      <span aria-hidden="true">→</span>
+                    </a>
                   </div>
-                  <a
-                    href="#contacto"
-                    className="mt-auto inline-flex min-h-[44px] items-center gap-2 text-[0.95rem] font-semibold text-teal-text underline-offset-4 hover:underline"
-                  >
-                    Quiero este sistema
-                    <span aria-hidden="true">→</span>
-                  </a>
                 </dl>
               </motion.div>
             </AnimatePresence>
