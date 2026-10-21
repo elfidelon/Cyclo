@@ -31,7 +31,8 @@ export default function OpsPanel() {
   const reduce = useReducedMotion()
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, margin: '-20% 0px' })
-  const [shown, setShown] = useState(reduce ? EVENTS.length : 1)
+  // Empieza igual que el HTML del build; con movimiento reducido el efecto muestra todo.
+  const [shown, setShown] = useState(1)
 
   // Los eventos llegan uno por uno la primera vez que el panel entra en pantalla.
   useEffect(() => {

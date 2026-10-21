@@ -20,9 +20,9 @@ function securityMeta(connectOrigins: string[]): Plugin {
     "default-src 'self'",
     // Solo los scripts del propio sitio: nada en línea, nada de terceros, nada de eval.
     "script-src 'self'",
-    // framer-motion y React escriben estilos en línea; las hojas solo de aquí y Google Fonts.
-    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-    'font-src https://fonts.gstatic.com',
+    // framer-motion y React escriben estilos en línea; las hojas y la letra, solo de aquí.
+    "style-src 'self' 'unsafe-inline'",
+    "font-src 'self'",
     "img-src 'self' data:",
     // Los únicos lugares a los que la página puede mandar datos: el formulario y el agente.
     `connect-src ${connectOrigins.join(' ')}`,

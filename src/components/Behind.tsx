@@ -75,7 +75,11 @@ function FlowCanvas() {
   const inView = useInView(ref, { margin: '-15% 0px' })
   const reduce = useReducedMotion()
   const { scrollYProgress } = useScroll({ target: wrap, offset: ['start 0.85', 'center 0.5'] })
-  const [drawn, setDrawn] = useState(!!reduce)
+  const [drawn, setDrawn] = useState(false)
+  // useReducedMotion ya sabe la preferencia al hidratar pero el HTML del build no: se aplica después.
+  useEffect(() => {
+    if (reduce) setDrawn(true)
+  }, [reduce])
 
   // Un valor por columna: cada caja se enciende cuando el trazo llega a ella.
   const c0 = useTransform(scrollYProgress, [0, 0.12], [0.2, 1])

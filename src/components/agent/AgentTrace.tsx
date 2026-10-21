@@ -115,8 +115,8 @@ export default function AgentTrace({ variant = 'section' }: { variant?: 'section
                 <motion.li
                   key={row.id}
                   layout={reduce ? false : 'position'}
-                  initial={reduce ? false : { opacity: 0, y: 10, filter: 'blur(4px)' }}
-                  animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                  initial={reduce ? false : { opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.45, ease: EASE }}
                   className={`grid grid-cols-[auto_1fr_auto] items-start gap-x-3 rounded-lg px-2.5 py-2 ${
                     latest ? 'bg-sunken' : ''

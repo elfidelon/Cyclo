@@ -35,7 +35,7 @@ function traceClock(date: Date) {
 const GREETING =
   'Hola, soy el agente de Cyclo. Cuéntame de qué es tu negocio y qué te quita más tiempo, y te digo qué haríamos en tu caso.'
 
-function initialState(): { messages: ChatMessage[]; trace: TraceRow[] } {
+function savedState(): { messages: ChatMessage[]; trace: TraceRow[] } | null {
   try {
     const saved = JSON.parse(window.sessionStorage.getItem(STORE_KEY) || 'null')
     if (saved && Array.isArray(saved.messages) && Array.isArray(saved.trace) && saved.messages.length) {
@@ -44,23 +44,47 @@ function initialState(): { messages: ChatMessage[]; trace: TraceRow[] } {
   } catch {
     // Sin almacenamiento o con datos viejos: se empieza de cero.
   }
-  return { messages: [{ id: 0, role: 'agent', text: GREETING, time: hhmm.format(new Date()) }], trace: [] }
+  return null
+}
+
+// El HTML se genera en el build, sin sessionStorage ni hora: empieza con el saludo sin hora
+// y al cargar se recupera la conversación guardada o se le pone la hora al saludo.
+const INITIAL_STATE: { messages: ChatMessage[]; trace: TraceRow[] } = {
+  messages: [{ id: 0, role: 'agent', text: GREETING, time: '' }],
+  trace: [],
 }
 
 const AgentContext = createContext<AgentContextValue | null>(null)
 
 export function AgentProvider({ children }: { children: ReactNode }) {
-  const [{ messages, trace }, setLog] = useState(initialState)
+  const [{ messages, trace }, setLog] = useState(INITIAL_STATE)
   const [status, setStatus] = useState<AgentStatus>('idle')
   const [error, setError] = useState<AgentError | null>(null)
   const [sentAt, setSentAt] = useState<number | null>(null)
-  const seq = useRef(Math.max(0, ...messages.map((m) => m.id), ...trace.map((t) => t.id)))
+  const seq = useRef(0)
   const sessionId = useRef<string | null>(null)
   const busy = useRef(false)
   const lastSent = useRef(0)
   const lastText = useRef('')
 
+  const firstPersist = useRef(true)
+
   useEffect(() => {
+    const saved = savedState()
+    if (saved) {
+      seq.current = Math.max(0, ...saved.messages.map((m) => m.id), ...saved.trace.map((t) => t.id))
+      setLog(saved)
+    } else {
+      setLog((log) => ({ ...log, messages: log.messages.map((m) => (m.id === 0 && !m.time ? { ...m, time: hhmm.format(new Date()) } : m)) }))
+    }
+  }, [])
+
+  useEffect(() => {
+    // La primera pasada todavía trae el estado del HTML: no se guarda encima de lo recuperado.
+    if (firstPersist.current) {
+      firstPersist.current = false
+      return
+    }
     try {
       window.sessionStorage.setItem(STORE_KEY, JSON.stringify({ messages: messages.slice(-40), trace: trace.slice(-60) }))
     } catch {

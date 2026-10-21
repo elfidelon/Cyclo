@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, KeyboardEvent } from 'react'
+import { useEffect, useMemo, useRef, useState, KeyboardEvent } from 'react'
 import { AnimatePresence, motion, useInView, useReducedMotion } from 'framer-motion'
 import {
   BellRing,
@@ -249,6 +249,19 @@ const TYPING_MS = 1400
 const LOOP_TAIL = 6400
 const TICK = 100
 
+// Lo que se ve en pantalla en el instante t: cuántos eventos ya salieron, si está escribiendo
+// y si terminó. El reloj corre cada 100 ms, pero React solo vuelve a pintar cuando esto cambia
+// (antes repintaba la demo completa 10 veces por segundo y en celular se notaba al hacer scroll).
+function stageAt(events: DemoEvent[], end: number, t: number) {
+  let shown = 0
+  let typing = 0
+  for (const e of events) {
+    if (e.at <= t) shown++
+    if (e.kind === 'typing' && e.at <= t && t < e.until) typing = 1
+  }
+  return shown * 4 + typing * 2 + (t >= end ? 1 : 0)
+}
+
 function buildScript(steps: Step[]): { events: DemoEvent[]; end: number } {
   const events: DemoEvent[] = []
   let t = 0
@@ -342,10 +355,14 @@ export default function LiveDemo({ onTimeChange }: { onTimeChange?: (time: strin
         return
       }
       elapsedRef.current = next
-      setElapsed(next)
+      setElapsed((prev) => (stageAt(events, end, prev) === stageAt(events, end, next) ? prev : next))
     }, TICK)
     return () => window.clearInterval(id)
-  }, [playing, loop, auto])
+  }, [playing, loop, auto, events, end])
+
+  // La barrita de avance del giro es una animación CSS (no estado de React): arranca desde el
+  // punto en que se reinició el ciclo y se pausa junto con la demo.
+  const progressFrom = useMemo(() => elapsedRef.current, [cycle, index])
 
   const chat = events.filter((e): e is ChatEvent => (e.kind === 'in' || e.kind === 'out') && e.at <= elapsed)
   const trace = events.filter((e): e is TraceEvent => e.kind === 'trace' && e.at <= elapsed)
@@ -416,7 +433,11 @@ export default function LiveDemo({ onTimeChange }: { onTimeChange?: (time: strin
                   <span
                     aria-hidden="true"
                     className="absolute inset-x-3 bottom-1 h-[2px] origin-left rounded-full bg-bg/40"
-                    style={{ transform: `scaleX(${Math.min(1, elapsed / loop)})` }}
+                    key={`${index}-${cycle}`}
+                    style={{
+                      animation: `demo-progress ${loop}ms linear ${-progressFrom}ms both`,
+                      animationPlayState: playing ? 'running' : 'paused',
+                    }}
                   />
                 )}
               </button>
@@ -461,8 +482,8 @@ export default function LiveDemo({ onTimeChange }: { onTimeChange?: (time: strin
                   <motion.li
                     key={row.clock + row.tool}
                     layout="position"
-                    initial={{ opacity: 0, y: 10, filter: 'blur(4px)' }}
-                    animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.45, ease: EASE }}
                     className={`grid grid-cols-[auto_1fr_auto] items-start gap-x-3 rounded-lg px-2.5 py-2 transition-colors duration-700 ${
                       summary ? 'bg-teal-deep text-fg' : latest && !finished ? 'bg-sunken' : ''

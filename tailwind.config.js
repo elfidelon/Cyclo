@@ -32,7 +32,7 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['Recursive', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
+        sans: ['Recursive', 'Recursive Fallback', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
       },
       maxWidth: {
         page: '1240px',

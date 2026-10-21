@@ -1,10 +1,13 @@
-import { motion } from 'framer-motion'
+import type { CSSProperties } from 'react'
 import { ArrowDown, ArrowDownRight, ArrowRight, MapPin } from 'lucide-react'
 import LiveDemo from './LiveDemo'
 import Magnetic from './Magnetic'
 import { useLeonTime } from '../hooks/useLeonTime'
 
-const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
+// La entrada del hero va en CSS (.hero-word y .hero-fade en index.css): el HTML ya viene
+// pintado del build y la animación corre desde el primer cuadro, sin esperar a React.
+// `--d` es el retraso de cada pieza.
+const delay = (s: number) => ({ '--d': `${s}s` }) as CSSProperties
 
 // El titular dice qué hace Cyclo. Cada palabra sube desde su propia máscara.
 const HEADLINE = 'Automatizamos la atención de tu negocio por WhatsApp.'
@@ -24,14 +27,12 @@ export default function Hero() {
               {WORDS.map((word, i) => (
                 <span key={i}>
                   <span className="inline-block overflow-hidden pb-[0.1em] align-bottom">
-                    <motion.span
-                      className={`inline-block ${i >= ACCENT_FROM ? 'text-teal-text' : ''}`}
-                      initial={{ y: '110%' }}
-                      animate={{ y: 0 }}
-                      transition={{ duration: 0.9, delay: 0.1 + i * 0.06, ease: EASE }}
+                    <span
+                      className={`hero-word ${i >= ACCENT_FROM ? 'text-teal-text' : ''}`}
+                      style={delay(0.05 + i * 0.05)}
                     >
                       {word}
-                    </motion.span>
+                    </span>
                   </span>
                   {i < WORDS.length - 1 ? ' ' : null}
                 </span>
@@ -39,12 +40,7 @@ export default function Hero() {
             </span>
           </h1>
 
-          <motion.div
-            className="lg:col-span-3 lg:pb-3"
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.7, ease: EASE }}
-          >
+          <div className="hero-fade lg:col-span-3 lg:pb-3" style={delay(0.4)}>
             <p className="mono flex items-center gap-2 border-t border-line pt-4 text-[0.8rem] text-muted">
               <MapPin aria-hidden="true" className="h-3.5 w-3.5 text-teal-text" />
               León, Guanajuato · <span className="tabular text-fg">{leon}</span>
@@ -65,16 +61,11 @@ export default function Hero() {
                 className="h-5 w-5 shrink-0 text-teal-text transition-transform duration-300 group-hover:translate-x-0.5 group-hover:translate-y-0.5"
               />
             </a>
-          </motion.div>
+          </div>
         </div>
 
         <div className="mt-12 grid grid-cols-1 gap-14 lg:mt-16 lg:grid-cols-12 lg:gap-10">
-          <motion.div
-            className="lg:col-span-4 lg:pt-14"
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6, ease: EASE }}
-          >
+          <div className="hero-fade lg:col-span-4 lg:pt-14" style={delay(0.2)}>
             <p className="lead max-w-[38ch]">
               Un sistema con inteligencia artificial contesta, agenda y da seguimiento por ti, a cualquier hora. Lo
               construimos y lo operamos desde León.
@@ -96,16 +87,11 @@ export default function Hero() {
             </div>
 
             <p className="mt-6 text-[0.875rem] text-muted">30 minutos, sin costo.</p>
-          </motion.div>
+          </div>
 
-          <motion.div
-            className="lg:col-span-8"
-            initial={{ opacity: 0, y: 24, filter: 'blur(8px)' }}
-            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            transition={{ duration: 1.1, delay: 0.5, ease: EASE }}
-          >
+          <div className="hero-fade hero-fade-far lg:col-span-8" style={delay(0.3)}>
             <LiveDemo />
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

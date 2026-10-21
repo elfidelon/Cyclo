@@ -22,7 +22,7 @@ Hero → cinta de la bitácora → calculadora (cuántas horas recuperas) → si
 
 ## Tipografía
 
-Una sola familia, elegida por sus ejes: **Recursive** (Google Fonts, variable completa).
+Una sola familia, elegida por sus ejes: **Recursive**, servida desde el sitio (`public/fonts/recursive-cyclo-v1.woff2`, 84 KB): un recorte con solo MONO, CASL y peso 400–800, sin inclinación, y caracteres latinos. Si se necesita otro peso, la cursiva u otros caracteres, hay que regenerarla (ver el comentario en `index.css`). Mientras carga se ve Arial ajustada a sus medidas (`Recursive Fallback`).
 
 | Voz | Ejes | Dónde |
 |---|---|---|
@@ -67,5 +67,6 @@ Excepción a la paleta: cada demo es la página que vería el cliente de ese gir
 - Movimiento: entradas con `cubic-bezier(0.16, 1, 0.3, 1)`; `MotionConfig reducedMotion="user"`; la demo arranca en su estado final y en pausa con movimiento reducido y siempre tiene botón de pausa.
 - Grids de sección con `grid-cols-1` en móvil para que nada estire la página.
 - Scroll suave con Lenis (`src/lib/smooth.ts`), sin movimiento reducido. Los clics a anclas (`#seccion`) los maneja `smooth.ts`: curva de aceleración y frenado, duración según la distancia (0.9–2.2 s), espera a que se libere el scroll si el menú estaba abierto y deja el foco en la sección. Lenis resta el `scroll-padding-top` del CSS, por eso el `OFFSET` es +88. Todo contenedor con scroll propio lleva `data-lenis-prevent`. `lockScroll()` congela la página con el chat o el menú abiertos.
+- Rendimiento (2026-10-20): la página principal se genera en el build (`scripts/prerender.mjs` + `src/entry-server.tsx`) y React la hidrata. Todo lo que se pinta en el primer render tiene que salir igual en el build y en el navegador: nada de hora, `sessionStorage` o `useReducedMotion` en el estado inicial (se aplican en un efecto). La entrada del hero es CSS (`.hero-word`, `.hero-fade`) para que corra antes de React. Sin `filter: blur` en animaciones de elementos grandes o repetidos. La demo del hero solo vuelve a pintar cuando cambia lo que se ve (`stageAt`).
 - El botón principal del hero se acerca unos píxeles al cursor (`Magnetic.tsx`), solo con mouse.
 - Capas: `nav` 40, `float` 45 (botón del agente), `menu` 50, `skip` 60. El chat flotante vive en la capa superior del `<dialog>`.
