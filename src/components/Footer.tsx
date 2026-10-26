@@ -36,8 +36,8 @@ export default function Footer() {
         </nav>
 
         <div className="flex flex-col gap-1 text-muted">
-          <a href="https://wa.me/524776191070" target="_blank" rel="noreferrer" className="flex min-h-[40px] items-center hover:text-fg">
-            WhatsApp · +52 477 619 1070
+          <a href="https://wa.me/524951024002" target="_blank" rel="noreferrer" className="flex min-h-[40px] items-center hover:text-fg">
+            WhatsApp · +52 495 102 4002
           </a>
           <a href="mailto:hola@cycloai.mx" className="flex min-h-[40px] items-center hover:text-fg">
             hola@cycloai.mx
@@ -51,7 +51,12 @@ export default function Footer() {
           <span>
             En León son las <span className="tabular text-fg">{time}</span>
           </span>
-          <span>© 2026 Cyclo</span>
+          <span>
+            © 2026 Cyclo ·{' '}
+            <a href="/privacidad/" className="underline-offset-2 hover:text-fg hover:underline">
+              Aviso de privacidad
+            </a>
+          </span>
         </p>
       </div>
 

@@ -39,7 +39,7 @@ export default function Faq() {
             <p className="mt-5 text-muted">
               ¿Tienes otra duda?{' '}
               <a
-                href="https://wa.me/524776191070"
+                href="https://wa.me/524951024002"
                 target="_blank"
                 rel="noreferrer"
                 className="font-semibold text-teal-text underline-offset-4 hover:underline"

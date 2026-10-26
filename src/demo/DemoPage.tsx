@@ -29,7 +29,7 @@ import { sfx } from './sound'
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
 const SPEEDS = [1, 1.5, 2]
-const WHATSAPP_NUMBER = '524776191070'
+const WHATSAPP_NUMBER = '524951024002'
 
 type Ev =
   | { at: number; type: 'msg'; i: number }

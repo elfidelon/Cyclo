@@ -33,13 +33,13 @@ export default function Contact() {
           <div className="mt-10 flex flex-col gap-1 border-t border-ink/25 pt-6">
             <p className="text-[0.92rem] text-ink-muted">¿Prefieres escribirnos directo?</p>
             <a
-              href="https://wa.me/524776191070"
+              href="https://wa.me/524951024002"
               target="_blank"
               rel="noreferrer"
               className="flex min-h-[44px] w-fit items-center gap-3 font-semibold underline-offset-4 hover:underline"
             >
               <MessageCircle className="h-5 w-5" aria-hidden="true" />
-              +52 477 619 1070
+              +52 495 102 4002
               <span className="font-normal text-ink-muted">· WhatsApp</span>
             </a>
             <a

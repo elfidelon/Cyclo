@@ -13,7 +13,7 @@ const SUGGESTIONS = [
   '¿Cuánto tarda en estar funcionando?',
 ]
 
-const WHATSAPP_NUMBER = '524776191070'
+const WHATSAPP_NUMBER = '524951024002'
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
 export default function AgentChat({
