@@ -69,7 +69,7 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [react(), securityMeta(origins)],
-    base: '/Cyclo/',
+    base: '/',
     define: {
       'import.meta.env.VITE_N8N_WEBHOOK_URL': JSON.stringify(webhook),
       'import.meta.env.VITE_N8N_AGENT_URL': JSON.stringify(agent),

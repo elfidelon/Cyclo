@@ -7,7 +7,7 @@ type Channel = 'whatsapp' | 'email'
 type Field = 'nombre' | 'contacto' | 'proceso'
 type Status = 'idle' | 'sending' | 'sent' | 'failed'
 
-const EMAIL_ADDRESS = 'hola@cyclo.mx'
+const EMAIL_ADDRESS = 'hola@cycloai.mx'
 const WHATSAPP_NUMBER = '524776191070'
 // Webhook del workflow "Cyclo · Leads de la web" en n8n cloud. Se define al compilar
 // (VITE_N8N_WEBHOOK_URL, ver vite.config.ts) y es el único origen al que la página

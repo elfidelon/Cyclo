@@ -39,8 +39,8 @@ export default function Footer() {
           <a href="https://wa.me/524776191070" target="_blank" rel="noreferrer" className="flex min-h-[40px] items-center hover:text-fg">
             WhatsApp · +52 477 619 1070
           </a>
-          <a href="mailto:hola@cyclo.mx" className="flex min-h-[40px] items-center hover:text-fg">
-            hola@cyclo.mx
+          <a href="mailto:hola@cycloai.mx" className="flex min-h-[40px] items-center hover:text-fg">
+            hola@cycloai.mx
           </a>
         </div>
       </div>
