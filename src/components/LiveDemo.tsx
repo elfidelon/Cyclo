@@ -554,7 +554,7 @@ export default function LiveDemo({ onTimeChange }: { onTimeChange?: (time: strin
                     </span>
                   )}
                   {m.text}
-                  <span className="mono mt-0.5 flex items-center justify-end gap-1 text-[0.62rem] text-fg/60">
+                  <span className="mono mt-0.5 flex items-center justify-end gap-1 text-[0.62rem] text-fg/80">
                     {m.time}
                     {m.kind === 'out' && <CheckCheck aria-hidden="true" className="h-3 w-3 text-teal-text" />}
                   </span>

@@ -11,7 +11,7 @@ const QUESTIONS = [
   },
   {
     q: '¿Puedo usar mi número de WhatsApp actual?',
-    a: 'En la mayoría de los casos, sí. Usamos la API oficial de WhatsApp Business; en el diagnóstico revisamos tu número.',
+    a: 'Sí. Puedes seguir usando WhatsApp Business en tu celular y el sistema contesta desde el mismo número, o usar un número nuevo solo para él. En el diagnóstico vemos qué te conviene.',
   },
   {
     q: '¿Cuánto tarda en estar funcionando?',

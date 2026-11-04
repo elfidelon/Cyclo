@@ -76,6 +76,7 @@ export default function AgentTrace({ variant = 'section' }: { variant?: 'section
       {empty ? (
         <ol
           data-lenis-prevent
+          tabIndex={0}
           className="flex min-h-0 flex-1 flex-col justify-start gap-4 overflow-y-auto overscroll-contain px-4 py-5 sm:px-6 md:justify-center"
           aria-label="Pasos del workflow"
         >

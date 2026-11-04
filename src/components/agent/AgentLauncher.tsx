@@ -17,6 +17,8 @@ const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
 export default function AgentLauncher() {
   const { status, trace } = useAgent()
   const [visible, setVisible] = useState(false)
+  // En celular el botón se aparta mientras la persona baja leyendo, para no tapar el texto.
+  const [retreat, setRetreat] = useState(false)
   const [open, setOpen] = useState(false)
   const dialogRef = useRef<HTMLDialogElement>(null)
 
@@ -50,6 +52,29 @@ export default function AgentLauncher() {
   }, [])
 
   useEffect(() => {
+    const small = window.matchMedia('(max-width: 639px)')
+    let lastY = window.scrollY
+    let idle = 0
+    const onScroll = () => {
+      const y = window.scrollY
+      if (small.matches) {
+        if (y > lastY + 6) setRetreat(true)
+        else if (y < lastY - 6) setRetreat(false)
+        window.clearTimeout(idle)
+        idle = window.setTimeout(() => setRetreat(false), 1400)
+      } else {
+        setRetreat(false)
+      }
+      lastY = y
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.clearTimeout(idle)
+    }
+  }, [])
+
+  useEffect(() => {
     const dialog = dialogRef.current
     if (!dialog) return
     const onClose = () => {
@@ -71,7 +96,7 @@ export default function AgentLauncher() {
   return (
     <>
       <AnimatePresence>
-        {visible && !open && (
+        {visible && !retreat && !open && (
           <motion.button
             type="button"
             onClick={show}
@@ -80,16 +105,13 @@ export default function AgentLauncher() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 18, scale: 0.96, transition: { duration: 0.18 } }}
             transition={{ duration: 0.5, ease: EASE }}
-            className="fixed bottom-4 right-4 z-float flex min-h-[56px] items-center gap-3 rounded-full bg-fg py-2 pl-2 pr-5 font-semibold text-bg shadow-[0_4px_8px_rgb(0_0_0/0.35)] transition-colors hover:bg-white sm:bottom-6 sm:right-6"
+            className="fixed bottom-4 right-4 z-float flex min-h-[56px] items-center gap-3 rounded-full bg-fg p-2 font-semibold text-bg shadow-[0_4px_8px_rgb(0_0_0/0.35)] transition-colors hover:bg-white sm:bottom-6 sm:right-6 sm:pr-5"
           >
             <span className="flex h-10 w-10 items-center justify-center rounded-full bg-bg">
               <Logo className="h-5 w-5" />
             </span>
-            <span className="text-[0.95rem]">
-              <span className="sm:hidden">Pregúntale</span>
-              <span className="hidden sm:inline">Pregúntale al agente</span>
-            </span>
-            <span aria-hidden="true" className={`h-2 w-2 rounded-full bg-teal ${sending ? 'live-dot' : ''}`} />
+            <span className="sr-only text-[0.95rem] sm:not-sr-only">Pregúntale al agente</span>
+            <span aria-hidden="true" className={`hidden h-2 w-2 rounded-full bg-teal sm:block ${sending ? 'live-dot' : ''}`} />
           </motion.button>
         )}
       </AnimatePresence>

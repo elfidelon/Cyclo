@@ -252,7 +252,8 @@ export default function Systems() {
                   </ol>
                 </div>
 
-                <dl className="flex flex-col gap-7 border-line max-md:border-t max-md:pt-6 md:border-l md:pl-8">
+                <div className="flex flex-col gap-7 border-line max-md:border-t max-md:pt-6 md:border-l md:pl-8">
+                <dl className="flex flex-col gap-7">
                   <div>
                     <dt className="text-[0.85rem] text-muted">Se conecta con</dt>
                     <dd className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-3">
@@ -277,6 +278,7 @@ export default function Systems() {
                     <dd className="mt-1 text-[1.5rem] font-bold tracking-[-0.02em] text-fg">{sys.timeline}</dd>
                     <dd className="text-[0.88rem] text-muted">desde el diagnóstico</dd>
                   </div>
+                </dl>
                   <div className="mt-auto flex flex-col items-start gap-1">
                     <a
                       href={`demos/${sys.id}.html`}
@@ -296,7 +298,7 @@ export default function Systems() {
                       <span aria-hidden="true">→</span>
                     </a>
                   </div>
-                </dl>
+                </div>
               </motion.div>
             </AnimatePresence>
           </div>

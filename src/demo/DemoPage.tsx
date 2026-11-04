@@ -103,7 +103,7 @@ function Bubble({ item }: { item: Extract<ScriptItem, { kind: 'msg' }> }) {
       )}
       <span className="sr-only">{mine ? 'Cliente: ' : 'Negocio: '}</span>
       {item.text}
-      <span className="ml-2 inline-flex translate-y-[3px] items-center gap-0.5 float-right text-[0.68rem] text-[#667781]">
+      <span className="ml-2 inline-flex translate-y-[3px] items-center gap-0.5 float-right text-[0.68rem] text-[#4e5d66]">
         {item.time}
         {mine && <CheckCheck aria-hidden="true" className="h-3.5 w-3.5 text-[#53bdeb]" />}
       </span>

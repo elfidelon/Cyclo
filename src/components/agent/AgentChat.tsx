@@ -110,7 +110,7 @@ export default function AgentChat({
             >
               <span className="sr-only">{m.role === 'user' ? 'Tú: ' : 'Agente: '}</span>
               {m.text}
-              <span className="mono mt-0.5 flex items-center justify-end gap-2 text-[0.62rem] text-fg/60">
+              <span className="mono mt-0.5 flex items-center justify-end gap-2 text-[0.62rem] text-fg/80">
                 {m.saved && (
                   <span className="flex items-center gap-1 text-teal-text">
                     <Table2 aria-hidden="true" className="h-3 w-3" />

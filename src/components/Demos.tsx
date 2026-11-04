@@ -62,7 +62,7 @@ function DemoCard({ demo, big, i }: { demo: Demo; big?: boolean; i: number }) {
                 } ${big ? 'text-[1rem] sm:text-[1.05rem]' : 'text-[0.92rem]'} ${k > 0 ? 'hidden lg:block' : ''}`}
               >
                 {m.text}
-                <span className="ml-2 text-[0.7rem] text-[#667781]">{m.time}</span>
+                <span className="ml-2 text-[0.7rem] text-[#4e5d66]">{m.time}</span>
               </span>
             )
           })}
