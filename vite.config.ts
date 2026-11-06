@@ -82,7 +82,13 @@ export default defineConfig(({ mode }) => {
             acc[`demos/${slug}`] = `demos/${slug}.html`
             return acc
           },
-          { main: 'index.html', privacidad: 'privacidad/index.html' },
+          {
+            main: 'index.html',
+            privacidad: 'privacidad/index.html',
+            // Páginas de los QR de la presentación.
+            'demos/index': 'demos/index.html',
+            unete: 'unete/index.html',
+          },
         ),
       },
     },

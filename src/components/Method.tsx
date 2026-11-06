@@ -6,10 +6,10 @@ import BrandLogo, { BRAND_COLORS } from './BrandLogo'
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
 const STAGES = [
-  { name: 'Diagnóstico', when: 'Semana 1', body: '30 minutos, gratis. Sales con un mapa de qué automatizar primero.' },
-  { name: 'Diseño', when: 'Semanas 1 y 2', body: 'Apruebas qué contesta el sistema y qué pasa a una persona.' },
-  { name: 'Construcción y pruebas', when: 'Semanas 2 y 3', body: 'Lo conectamos a tus herramientas y lo probamos con casos reales.' },
-  { name: 'Operación', when: 'Desde el encendido', body: 'Lo vigilamos, lo ajustamos y cada mes te mandamos un reporte.' },
+  { name: 'Diagnóstico', when: 'Día 1', body: '30 minutos, gratis. Sales con un mapa de qué automatizar primero.' },
+  { name: 'Diseño', when: 'Días 2 y 3', body: 'Apruebas qué contesta el sistema y qué pasa a una persona.' },
+  { name: 'Construcción y pruebas', when: 'Días 3 a 6', body: 'Lo conectamos a tus herramientas y lo probamos con casos reales.' },
+  { name: 'Operación', when: 'Desde el día 7', body: 'Lo vigilamos, lo ajustamos y cada mes te mandamos un reporte.' },
 ]
 
 const iconClass = 'h-5 w-5'

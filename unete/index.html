@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="es-MX">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sé de los primeros — Cyclo</title>
+    <meta name="description" content="Déjanos tus datos y sé de los primeros en León con un asistente de WhatsApp que contesta y agenda por tu negocio." />
+    <meta name="theme-color" content="#051013" />
+    <link rel="canonical" href="https://cycloai.mx/unete/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_MX" />
+    <meta property="og:title" content="Sé de los primeros — Cyclo" />
+    <meta property="og:description" content="Un asistente de WhatsApp que contesta y agenda por tu negocio." />
+    <meta property="og:image" content="https://cycloai.mx/og-cyclo.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preload" href="/fonts/recursive-cyclo-v1.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/src/index.css" />
+  </head>
+  <body class="bg-bg text-fg">
+    <main class="mx-auto flex min-h-[100svh] max-w-xl flex-col px-4 pb-8 pt-4 sm:px-6">
+      <a href="/" class="flex min-h-[44px] items-center gap-2.5 self-start rounded-md" aria-label="Cyclo, ir al inicio">
+        <img src="/favicon.svg" alt="" width="28" height="28" class="h-7 w-7" />
+        <span class="text-[1.3rem] font-extrabold tracking-[-0.03em]">Cyclo</span>
+      </a>
+
+      <h1 class="mt-4 text-[clamp(2.3rem,1.6rem+3.4vw,3.2rem)] font-extrabold leading-[1.04] tracking-[-0.03em] [text-wrap:balance]">
+        Sé de los primeros en León.
+      </h1>
+      <p class="mt-2.5 text-[1.1rem] leading-snug text-muted">Déjanos tus datos y llévale ventaja a tu competencia.</p>
+
+      <form data-lead="unete" novalidate class="mt-5 flex flex-col gap-3">
+        <div aria-hidden="true" class="absolute -left-[10000px] top-0 h-px w-px overflow-hidden">
+          <label for="un-hp">No llenes este campo</label>
+          <input id="un-hp" name="hp" type="text" tabindex="-1" autocomplete="off" />
+        </div>
+        <div>
+          <label for="un-nombre" class="mb-1 block font-semibold">Tu nombre</label>
+          <input id="un-nombre" name="nombre" type="text" autocomplete="name" autocapitalize="words" enterkeyhint="next" maxlength="80" aria-describedby="un-nombre-error" class="min-h-[52px] w-full rounded-xl bg-sunken px-4 text-[1.05rem] text-fg ring-1 ring-inset ring-line placeholder:text-faint focus:outline-none focus:ring-2 focus:ring-teal-text" />
+          <p id="un-nombre-error" hidden class="mt-1.5 text-[0.95rem] text-[#f0b65c]"></p>
+        </div>
+        <div>
+          <label for="un-empresa" class="mb-1 block font-semibold">Tu negocio</label>
+          <input id="un-empresa" name="empresa" type="text" autocomplete="organization" autocapitalize="words" enterkeyhint="next" maxlength="100" aria-describedby="un-empresa-error" class="min-h-[52px] w-full rounded-xl bg-sunken px-4 text-[1.05rem] text-fg ring-1 ring-inset ring-line placeholder:text-faint focus:outline-none focus:ring-2 focus:ring-teal-text" />
+          <p id="un-empresa-error" hidden class="mt-1.5 text-[0.95rem] text-[#f0b65c]"></p>
+        </div>
+        <div>
+          <label for="un-sector" class="mb-1 block font-semibold">Tipo de negocio</label>
+          <div class="relative">
+          <select id="un-sector" name="sector" class="min-h-[52px] w-full appearance-none rounded-xl bg-sunken px-4 pr-11 text-[1.05rem] text-fg ring-1 ring-inset ring-line focus:outline-none focus:ring-2 focus:ring-teal-text">
+            <option value="">Elige uno</option>
+            <option>Clínica dental</option>
+            <option>Consultorio médico</option>
+            <option>Inmobiliaria</option>
+            <option>Despacho contable</option>
+            <option>Escuela privada</option>
+            <option>Agencia de servicios</option>
+            <option>Comercio</option>
+            <option>Otro</option>
+          </select>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="pointer-events-none absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+          </div>
+        </div>
+        <div>
+          <label for="un-telefono" class="mb-1 block font-semibold">Tu WhatsApp</label>
+          <input id="un-telefono" name="telefono" type="tel" inputmode="tel" autocomplete="tel" enterkeyhint="send" maxlength="20" placeholder="477 123 4567" aria-describedby="un-telefono-error" class="min-h-[52px] w-full rounded-xl bg-sunken px-4 text-[1.05rem] text-fg ring-1 ring-inset ring-line placeholder:text-faint focus:outline-none focus:ring-2 focus:ring-teal-text" />
+          <p id="un-telefono-error" hidden class="mt-1.5 text-[0.95rem] text-[#f0b65c]"></p>
+        </div>
+        <button type="submit" class="mt-1.5 min-h-[58px] w-full rounded-full bg-teal-drench px-6 text-[1.15rem] font-extrabold text-ink transition-transform active:scale-[0.98] disabled:opacity-60">Quiero ser de los primeros</button>
+        <p data-fail hidden role="alert" class="leading-snug text-[#f0b65c]">
+          No se pudo enviar.
+          <a data-wa href="https://wa.me/524951024002" class="font-bold underline underline-offset-2">Mándanos tus datos por WhatsApp</a>.
+        </p>
+        <p class="text-[0.9rem] leading-snug text-muted">
+          Al enviar aceptas el <a href="/privacidad/" class="underline underline-offset-2">aviso de privacidad</a>.
+        </p>
+      </form>
+
+      <div data-done hidden tabindex="-1" class="mt-6 rounded-2xl bg-raised p-6 ring-1 ring-inset ring-line focus:outline-none">
+        <p class="text-[1.9rem] font-extrabold leading-tight tracking-[-0.03em]">Listo, <span data-name></span>.</p>
+        <p class="mt-2 text-[1.1rem] leading-snug text-muted">Ya estás en la lista. Te escribimos por WhatsApp en menos de 24 horas.</p>
+        <a href="/demos/" class="mt-5 flex min-h-[56px] items-center justify-center rounded-full bg-fg px-6 text-[1.05rem] font-bold text-bg">Ver las demos</a>
+      </div>
+    </main>
+    <script type="module" src="/src/qr/main.ts"></script>
+  </body>
+</html>

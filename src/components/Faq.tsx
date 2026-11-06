@@ -15,7 +15,7 @@ const QUESTIONS = [
   },
   {
     q: '¿Cuánto tarda en estar funcionando?',
-    a: 'De 2 a 4 semanas desde el diagnóstico, según cuántos pasos tenga.',
+    a: 'De 1 a 2 semanas desde que tenemos tus accesos, según cuántos pasos tenga.',
   },
   {
     q: '¿Cuánto cuesta?',

@@ -30,6 +30,9 @@ import { sfx } from './sound'
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
 const SPEEDS = [1, 1.5, 2]
 const WHATSAPP_NUMBER = '524951024002'
+// Desde /demos/ (el QR de la presentación) la demo arranca sola: sin pantalla de inicio,
+// sin sonido y con el teléfono a la vista, para que en celular no haya que tocar ni bajar.
+const AUTO = new URLSearchParams(window.location.search).has('auto')
 
 type Ev =
   | { at: number; type: 'msg'; i: number }
@@ -153,7 +156,7 @@ function PhoneView({ demo, msgs, typing }: { demo: Demo; msgs: Msg[]; typing: bo
             role="log"
             aria-live="polite"
             aria-label={`Conversación de WhatsApp con ${demo.business}`}
-            className="flex flex-1 flex-col gap-1.5 overflow-y-auto px-3 pb-3 pt-3"
+            className="flex flex-1 flex-col gap-1.5 overflow-y-auto overscroll-contain px-3 pb-3 pt-3"
           >
             <li className="chat-font mx-auto mb-1 rounded-md bg-[#fff5c4] px-3 py-1.5 text-center text-[0.7rem] leading-snug text-[#54656f]">
               Los mensajes de {demo.business} los contesta un asistente con IA
@@ -254,7 +257,7 @@ function StepsCard({
 export default function DemoPage({ demo }: { demo: Demo }) {
   const reduce = useReducedMotion()
   const { evs, end } = useMemo(() => buildTimeline(demo.script), [demo])
-  const [started, setStarted] = useState(false)
+  const [started, setStarted] = useState(AUTO)
   const [playing, setPlaying] = useState(false)
   const [speed, setSpeed] = useState(1)
   const [muted, setMuted] = useState(sfx.muted)
@@ -265,6 +268,7 @@ export default function DemoPage({ demo }: { demo: Demo }) {
   const lastTick = useRef(0)
   const progress = useMotionValue(0)
   const phoneRef = useRef<HTMLElement>(null)
+  const resultsRef = useRef<HTMLElement>(null)
 
   const playEventSound = useCallback(
     (ev: Ev) => {
@@ -371,6 +375,16 @@ export default function DemoPage({ demo }: { demo: Demo }) {
     }
   }
 
+  useEffect(() => {
+    if (!AUTO) return
+    sfx.muted = true
+    setMuted(true)
+    if (reduce) jumpToEnd()
+    else setPlaying(true)
+    // Solo al abrir la página.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   function togglePlay() {
     if (elapsed.current >= end) {
       restart()
@@ -408,6 +422,14 @@ export default function DemoPage({ demo }: { demo: Demo }) {
     .filter((e): e is Extract<Ev, { type: 'result' }> => e.type === 'result')
     .map((e) => ({ i: e.i, result: (demo.script[e.i] as Extract<ScriptItem, { kind: 'step' }>).result! }))
   const ended = firedEvs.some((e) => e.type === 'end')
+
+  // Desde el QR, en celular: al terminar baja solo a lo que quedó listo.
+  useEffect(() => {
+    if (!AUTO || !ended || !window.matchMedia('(max-width: 1023px)').matches) return
+    const t = window.setTimeout(() => resultsRef.current?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }), 900)
+    return () => window.clearTimeout(t)
+  }, [ended, reduce])
+
   const steps = demo.script.map((s, i) => ({ s, i })).filter((x): x is StepRow => x.s.kind === 'step')
   const lastStep = Math.max(-1, ...Array.from(firedSteps))
   const current = steps.find((x) => x.i === lastStep) ?? null
@@ -495,7 +517,7 @@ export default function DemoPage({ demo }: { demo: Demo }) {
           <div className="mx-auto flex max-w-[1320px] items-center justify-between gap-3 px-4 py-2.5 sm:px-6 sm:py-3">
             <div className="flex min-w-0 items-center gap-2 sm:gap-3">
               <a
-                href="../#demos"
+                href={AUTO ? './' : '../#demos'}
                 onClick={goBack}
                 aria-label="Volver a las demos de Cyclo"
                 className="inline-flex h-10 shrink-0 items-center gap-2 rounded-full px-2.5 text-[0.92rem] font-semibold text-slate-700 hover:bg-slate-100 sm:px-3"
@@ -528,7 +550,7 @@ export default function DemoPage({ demo }: { demo: Demo }) {
                 type="button"
                 onClick={() => setSpeed((s) => SPEEDS[(SPEEDS.indexOf(s) + 1) % SPEEDS.length])}
                 aria-label={`Velocidad ${speed} veces. Cambiar velocidad`}
-                className={`${ghostBtn} tabular w-auto min-w-[2.75rem] px-2 text-[0.88rem] font-bold`}
+                className={`${ghostBtn} tabular hidden w-auto min-w-[2.75rem] px-2 text-[0.88rem] font-bold sm:flex`}
               >
                 {speed}×
               </button>
@@ -548,8 +570,8 @@ export default function DemoPage({ demo }: { demo: Demo }) {
           </div>
         </header>
 
-        <main className="mx-auto grid max-w-[1320px] grid-cols-1 gap-10 px-4 pb-16 pt-8 sm:px-6 lg:grid-cols-[minmax(0,1fr)_370px_minmax(0,1fr)] lg:gap-8 lg:pt-10">
-          <section aria-labelledby="titulo-demo" className="order-1 lg:order-none lg:pt-2">
+        <main className={`mx-auto grid max-w-[1320px] grid-cols-1 gap-10 px-4 pb-16 sm:px-6 lg:grid-cols-[minmax(0,1fr)_370px_minmax(0,1fr)] lg:gap-8 lg:pt-10 ${AUTO ? 'pt-2' : 'pt-8'}`}>
+          <section aria-labelledby="titulo-demo" className={`order-1 lg:order-none lg:pt-2 ${AUTO ? 'sr-only lg:not-sr-only' : ''}`}>
             <h1 id="titulo-demo" className="text-[clamp(1.9rem,1.2rem+2vw,2.6rem)] font-extrabold leading-[1.08] tracking-[-0.03em] [text-wrap:balance]">
               {demo.headline}
             </h1>
@@ -585,7 +607,7 @@ export default function DemoPage({ demo }: { demo: Demo }) {
 
           <StepsCard {...stepsProps} className="order-4 lg:hidden" />
 
-          <section aria-labelledby="queda-listo" className="order-3 lg:order-none lg:pt-2">
+          <section ref={resultsRef} aria-labelledby="queda-listo" className="order-3 scroll-mt-[76px] lg:order-none lg:pt-2">
             <h2 id="queda-listo" className="text-[1.25rem] font-extrabold tracking-[-0.02em]">
               Lo que queda listo
             </h2>
@@ -643,10 +665,10 @@ export default function DemoPage({ demo }: { demo: Demo }) {
               </p>
               <div className="mt-7 flex flex-wrap gap-3">
                 <a
-                  href="../#contacto"
+                  href={AUTO ? '/unete/' : '../#contacto'}
                   className="inline-flex min-h-[52px] items-center gap-2 rounded-full bg-fg px-6 font-bold text-bg transition-colors hover:bg-white"
                 >
-                  Agenda tu diagnóstico
+                  {AUTO ? 'Quiero ser de los primeros' : 'Agenda tu diagnóstico'}
                   <ArrowRight aria-hidden="true" className="h-4 w-4" />
                 </a>
                 <a
@@ -666,11 +688,11 @@ export default function DemoPage({ demo }: { demo: Demo }) {
                 {others.map((d) => (
                   <li key={d.slug}>
                     <a
-                      href={`${d.slug}.html`}
+                      href={`${d.slug}.html${window.location.search}`}
                       onClick={(e) => {
                         // Cambia de demo sin apilar historial: "atrás" sigue regresando al sitio.
                         e.preventDefault()
-                        window.location.replace(`${d.slug}.html`)
+                        window.location.replace(`${d.slug}.html${window.location.search}`)
                       }}
                       className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-raised py-1 pl-1.5 pr-4 text-[0.92rem] font-semibold text-fg ring-1 ring-inset ring-line transition-colors hover:bg-sunken"
                     >

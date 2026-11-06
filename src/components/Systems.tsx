@@ -30,7 +30,7 @@ const SYSTEMS: System[] = [
       { tool: 'Recordatorio', action: 'Avisa 24 h y 2 h antes.' },
     ],
     brands: ['whatsapp', 'googlecalendar', 'googlesheets'],
-    timeline: '2 a 3 semanas',
+    timeline: '1 semana',
   },
   {
     id: 'consultorio',
@@ -45,7 +45,7 @@ const SYSTEMS: System[] = [
       { tool: 'Recordatorio', action: 'Confirma a las 8:00 del día.' },
     ],
     brands: ['whatsapp', 'googlecalendar', 'googlesheets'],
-    timeline: '2 a 3 semanas',
+    timeline: '1 semana',
   },
   {
     id: 'inmobiliaria',
@@ -61,7 +61,7 @@ const SYSTEMS: System[] = [
     ],
     brands: ['whatsapp', 'googlecalendar', 'googlesheets'],
     extra: 'o tu CRM',
-    timeline: '3 a 4 semanas',
+    timeline: '2 semanas',
   },
   {
     id: 'contable',
@@ -76,7 +76,7 @@ const SYSTEMS: System[] = [
       { tool: 'Recordatorio', action: 'Avisa antes del día 17.' },
     ],
     brands: ['gmail', 'googledrive', 'googlesheets'],
-    timeline: '2 a 3 semanas',
+    timeline: '2 semanas',
   },
   {
     id: 'escuela',
@@ -91,7 +91,7 @@ const SYSTEMS: System[] = [
       { tool: 'Recordatorio', action: 'Avisa antes de que venza la colegiatura.' },
     ],
     brands: ['whatsapp', 'googlecalendar', 'googlesheets'],
-    timeline: '2 a 3 semanas',
+    timeline: '2 semanas',
   },
   {
     id: 'agencia',
@@ -106,7 +106,7 @@ const SYSTEMS: System[] = [
       { tool: 'Recordatorio', action: 'Da seguimiento a los 3 días.' },
     ],
     brands: ['gmail', 'whatsapp', 'googlesheets'],
-    timeline: '2 a 3 semanas',
+    timeline: '2 semanas',
   },
   {
     id: 'comercio',
@@ -122,7 +122,7 @@ const SYSTEMS: System[] = [
     ],
     brands: ['whatsapp', 'googlesheets'],
     extra: 'o tu inventario',
-    timeline: '2 a 4 semanas',
+    timeline: '1 semana',
   },
 ]
 
