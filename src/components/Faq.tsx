@@ -11,7 +11,7 @@ const QUESTIONS = [
   },
   {
     q: '¿Puedo usar mi número de WhatsApp actual?',
-    a: 'Sí. Puedes seguir usando WhatsApp Business en tu celular y el sistema contesta desde el mismo número, o usar un número nuevo solo para él. En el diagnóstico vemos qué te conviene.',
+    a: 'Lo más rápido es un número nuevo solo para el sistema. Si quieres conservar el tuyo, en el diagnóstico revisamos cómo conectarlo.',
   },
   {
     q: '¿Cuánto tarda en estar funcionando?',
@@ -23,7 +23,7 @@ const QUESTIONS = [
   },
   {
     q: '¿De quién son los datos?',
-    a: 'Tuyos. Viven en tus cuentas de Google y puedes quitarnos el acceso cuando quieras.',
+    a: 'Tuyos. Tus registros y tu agenda viven en tus cuentas de Google y puedes quitarnos el acceso cuando quieras. Los mensajes pasan por n8n y Claude para poder contestarlos.',
   },
 ]
 

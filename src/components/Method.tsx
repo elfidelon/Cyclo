@@ -22,7 +22,7 @@ const GUARANTEES: { icon: ReactNode; title: string; body: string }[] = [
   {
     icon: <KeyRound aria-hidden="true" className={iconClass} />,
     title: 'Tus datos son tuyos',
-    body: 'Viven en tus cuentas de Google. Nos quitas el acceso cuando quieras.',
+    body: 'Tus registros y tu agenda viven en tus cuentas de Google. Nos quitas el acceso cuando quieras.',
   },
   {
     icon: <Lock aria-hidden="true" className={iconClass} />,

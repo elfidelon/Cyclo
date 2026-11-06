@@ -43,11 +43,11 @@ export default function Contact() {
               <span className="font-normal text-ink-muted">· WhatsApp</span>
             </a>
             <a
-              href="mailto:hola@cycloai.mx"
+              href="mailto:fidelon0708@gmail.com"
               className="flex min-h-[44px] w-fit items-center gap-3 font-semibold underline-offset-4 hover:underline"
             >
               <Mail className="h-5 w-5" aria-hidden="true" />
-              hola@cycloai.mx
+              fidelon0708@gmail.com
               <span className="font-normal text-ink-muted">· menos de 24 h</span>
             </a>
           </div>
