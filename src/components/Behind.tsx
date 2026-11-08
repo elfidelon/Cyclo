@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { motion, MotionValue, useInView, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from 'framer-motion'
+import { motion, MotionValue, scroll, useInView, useMotionValue, useMotionValueEvent, useReducedMotion, useTransform } from 'framer-motion'
 import BrandLogo, { Brand, BRAND_COLORS, BRAND_PATHS, BRAND_URLS, brandForTool } from './BrandLogo'
 import { ArrowUpRight } from 'lucide-react'
 import OpsPanel from './OpsPanel'
@@ -74,7 +74,29 @@ function FlowCanvas() {
   const wrap = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { margin: '-15% 0px' })
   const reduce = useReducedMotion()
-  const { scrollYProgress } = useScroll({ target: wrap, offset: ['start 0.85', 'center 0.5'] })
+  const scrollYProgress = useMotionValue(0)
+  useEffect(() => {
+    // Este lienzo está oculto por CSS por debajo de xl. No mide offsets ni sigue
+    // el scroll en móvil; el HTML inicial y los puntos del recorrido son los mismos.
+    const desktop = window.matchMedia('(min-width: 1280px)')
+    let stop: (() => void) | undefined
+    const update = () => {
+      stop?.()
+      stop = undefined
+      if (desktop.matches && wrap.current) {
+        stop = scroll((progress: number) => scrollYProgress.set(progress), {
+          target: wrap.current,
+          offset: ['start 0.85', 'center 0.5'],
+        })
+      }
+    }
+    update()
+    desktop.addEventListener('change', update)
+    return () => {
+      stop?.()
+      desktop.removeEventListener('change', update)
+    }
+  }, [scrollYProgress])
   const [drawn, setDrawn] = useState(false)
   // useReducedMotion ya sabe la preferencia al hidratar pero el HTML del build no: se aplica después.
   useEffect(() => {
