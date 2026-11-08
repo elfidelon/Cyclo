@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build && vite build --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/prerender.mjs",
     "preview": "vite preview",
     "measure:build": "node scripts/measure-build.mjs",
-    "inspect:chunks": "node scripts/inspect-chunks.mjs"
+    "inspect:chunks": "node scripts/inspect-chunks.mjs",
+    "check:scroll": "node scripts/check-scroll-frame.mjs"
   },
   "dependencies": {
     "framer-motion": "^11.11.17",

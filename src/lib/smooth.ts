@@ -1,10 +1,12 @@
 import type Lenis from 'lenis'
+import { createScrollFrame } from './scroll-frame'
 
 // Scroll suave en escritorio. En táctil Lenis no suaviza (syncTouch: false) y con
 // movimiento reducido no se crea: la página usa el scroll nativo.
 let lenis: Lenis | null = null
 let pending: Promise<void> | null = null
 let generation = 0
+let scrollFrame: ReturnType<typeof createScrollFrame> | null = null
 
 // Lenis ya resta el scroll-padding-top del CSS (5.5rem = 88 px, pensado para el scroll
 // nativo). Las secciones traen su propio aire arriba (96–128 px), más que la cápsula del
@@ -39,6 +41,7 @@ export function scrollToSection(id: string) {
     if (lenis) {
       const distance = Math.abs(el.getBoundingClientRect().top + OFFSET)
       const duration = Math.min(2.2, 0.9 + distance / 4500)
+      scrollFrame?.wake()
       lenis.scrollTo(el, { offset: OFFSET, duration, easing: easeInOutCubic, onComplete: focus })
     } else {
       el.scrollIntoView({ behavior: reducedMotion() ? 'auto' : 'smooth' })
@@ -67,7 +70,13 @@ export function startSmoothScroll() {
   // No bloquea la hidratación y no se descarga con movimiento reducido.
   pending = import('lenis').then(({ default: Lenis }) => {
     if (current !== generation || reducedMotion()) return
-    lenis = new Lenis({ autoRaf: true, lerp: 0.1, stopInertiaOnNavigate: true })
+    lenis = new Lenis({ autoRaf: false, lerp: 0.1, syncTouch: false, stopInertiaOnNavigate: true })
+    scrollFrame = createScrollFrame(lenis)
+    // Lenis emite este evento antes de iniciar la interpolación de la rueda.
+    // Los eventos táctiles no necesitan ningún RAF: syncTouch sigue desactivado.
+    lenis.on('virtual-scroll', ({ event }) => {
+      if (event.type === 'wheel') scrollFrame?.wake()
+    })
     if (document.documentElement.classList.contains('scroll-locked')) lenis.stop()
   }).catch(() => {
     // Si falla este recurso, las anclas mantienen el scroll suave nativo.
@@ -80,6 +89,8 @@ export function stopSmoothScroll() {
   generation++
   pending = null
   document.removeEventListener('click', onAnchorClick)
+  scrollFrame?.stop()
+  scrollFrame = null
   lenis?.destroy()
   lenis = null
 }
