@@ -26,12 +26,13 @@ for (const match of html.matchAll(/<(?:script|link)\b[^>]*(?:src|href)="\/(asset
 const total = (items) => items.reduce((sum, item) => ({ raw: sum.raw + item.raw, gzip: sum.gzip + item.gzip }), { raw: 0, gzip: 0 })
 const css = await Promise.all(files.filter((file) => file.endsWith('.css')).map(async (file) => {
   const code = await readFile(`${dir}/assets/${file}`)
-  return { file: `assets/${file}`, raw: code.length, gzip: gzipSync(code).length }
+  return { file: `assets/${file}`, raw: code.length, gzip: gzipSync(code).length, initial: html.includes(`/assets/${file}`) }
 }))
 console.log(JSON.stringify({
   directory: dir,
   initialJS: { ...total([...initial].map((file) => chunks.get(file))), files: [...initial] },
   totalJS: total([...chunks.values()]),
+  initialCSS: total(css.filter((file) => file.initial)),
   css,
   html: { raw: Buffer.byteLength(html), gzip: gzipSync(html).length },
   chunks: [...chunks.values()].map((chunk) => ({ ...chunk, initial: initial.has(chunk.file) })),
