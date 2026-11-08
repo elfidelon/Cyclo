@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "measure:build": "node scripts/measure-build.mjs",
     "inspect:chunks": "node scripts/inspect-chunks.mjs",
-    "check:scroll": "node scripts/check-scroll-frame.mjs"
+    "check:scroll": "node scripts/check-scroll-frame.mjs && node scripts/check-smooth.mjs"
   },
   "dependencies": {
     "framer-motion": "^11.11.17",
