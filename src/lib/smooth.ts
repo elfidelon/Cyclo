@@ -1,8 +1,10 @@
-import Lenis from 'lenis'
+import type Lenis from 'lenis'
 
 // Scroll suave en escritorio. En táctil Lenis no suaviza (syncTouch: false) y con
 // movimiento reducido no se crea: la página usa el scroll nativo.
 let lenis: Lenis | null = null
+let pending: Promise<void> | null = null
+let generation = 0
 
 // Lenis ya resta el scroll-padding-top del CSS (5.5rem = 88 px, pensado para el scroll
 // nativo). Las secciones traen su propio aire arriba (96–128 px), más que la cápsula del
@@ -29,6 +31,11 @@ export function scrollToSection(id: string) {
     el.focus({ preventScroll: true })
   }
   whenUnlocked(() => {
+    // Si se toca un ancla mientras llega Lenis, conserva la misma curva y duración.
+    if (pending && !reducedMotion()) {
+      void pending.then(() => scrollToSection(id))
+      return
+    }
     if (lenis) {
       const distance = Math.abs(el.getBoundingClientRect().top + OFFSET)
       const duration = Math.min(2.2, 0.9 + distance / 4500)
@@ -55,11 +62,23 @@ function onAnchorClick(e: MouseEvent) {
 export function startSmoothScroll() {
   if (typeof window === 'undefined') return
   document.addEventListener('click', onAnchorClick)
-  if (lenis || reducedMotion()) return
-  lenis = new Lenis({ autoRaf: true, lerp: 0.1, stopInertiaOnNavigate: true })
+  if (lenis || pending || reducedMotion()) return
+  const current = ++generation
+  // No bloquea la hidratación y no se descarga con movimiento reducido.
+  pending = import('lenis').then(({ default: Lenis }) => {
+    if (current !== generation || reducedMotion()) return
+    lenis = new Lenis({ autoRaf: true, lerp: 0.1, stopInertiaOnNavigate: true })
+    if (document.documentElement.classList.contains('scroll-locked')) lenis.stop()
+  }).catch(() => {
+    // Si falla este recurso, las anclas mantienen el scroll suave nativo.
+  }).finally(() => {
+    if (current === generation) pending = null
+  })
 }
 
 export function stopSmoothScroll() {
+  generation++
+  pending = null
   document.removeEventListener('click', onAnchorClick)
   lenis?.destroy()
   lenis = null
