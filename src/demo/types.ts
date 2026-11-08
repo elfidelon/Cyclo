@@ -50,4 +50,3 @@ export type Demo = {
   script: ScriptItem[]
   summary: { big: string; label: string; facts: string[] }
 }
-

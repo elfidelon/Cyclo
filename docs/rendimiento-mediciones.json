@@ -1,0 +1,1728 @@
+{
+  "units": "Bytes UTF-8; gzipSync por archivo. El grafo inicial incluye imports estáticos y modulepreload del HTML; no es una captura de red.",
+  "stages": [
+    {
+      "commit": "e3c3f59",
+      "title": "Baseline",
+      "measurement": {
+        "directory": "dist",
+        "initialJS": {
+          "raw": 437035,
+          "gzip": 138542,
+          "files": [
+            "assets/main-DT23Bjfq.js",
+            "assets/modulepreload-polyfill-B5Qt9EMX.js",
+            "assets/data-Bz98EQmN.js",
+            "assets/client-DAY-na7c.js",
+            "assets/sanitize-CoeSBplm.js"
+          ]
+        },
+        "totalJS": {
+          "raw": 471525,
+          "gzip": 150286
+        },
+        "initialCSS": {
+          "raw": 50838,
+          "gzip": 10324
+        },
+        "css": [
+          {
+            "file": "assets/index-D7DcLlIR.css",
+            "raw": 50838,
+            "gzip": 10324,
+            "initial": true
+          }
+        ],
+        "html": {
+          "raw": 159124,
+          "gzip": 27917
+        },
+        "chunks": [
+          {
+            "file": "assets/DemoPage-CPpkKbNc.js",
+            "raw": 29474,
+            "gzip": 9075,
+            "imports": [
+              "assets/data-Bz98EQmN.js"
+            ],
+            "initial": false
+          },
+          {
+            "file": "assets/client-DAY-na7c.js",
+            "raw": 133981,
+            "gzip": 43140,
+            "imports": [
+              "assets/data-Bz98EQmN.js"
+            ],
+            "initial": true
+          },
+          {
+            "file": "assets/data-Bz98EQmN.js",
+            "raw": 158682,
+            "gzip": 53177,
+            "imports": [],
+            "initial": true
+          },
+          {
+            "file": "assets/main-Ceh67fP-.js",
+            "raw": 789,
+            "gzip": 487,
+            "imports": [
+              "assets/data-Bz98EQmN.js",
+              "assets/client-DAY-na7c.js",
+              "assets/DemoPage-CPpkKbNc.js"
+            ],
+            "initial": false
+          },
+          {
+            "file": "assets/main-DT23Bjfq.js",
+            "raw": 142310,
+            "gzip": 41070,
+            "imports": [
+              "assets/modulepreload-polyfill-B5Qt9EMX.js",
+              "assets/data-Bz98EQmN.js",
+              "assets/client-DAY-na7c.js",
+              "assets/sanitize-CoeSBplm.js"
+            ],
+            "initial": true
+          },
+          {
+            "file": "assets/main-MKsDoHyR.js",
+            "raw": 4227,
+            "gzip": 2182,
+            "imports": [
+              "assets/sanitize-CoeSBplm.js"
+            ],
+            "initial": false
+          },
+          {
+            "file": "assets/modulepreload-polyfill-B5Qt9EMX.js",
+            "raw": 711,
+            "gzip": 399,
+            "imports": [],
+            "initial": true
+          },
+          {
+            "file": "assets/sanitize-CoeSBplm.js",
+            "raw": 1351,
+            "gzip": 756,
+            "imports": [],
+            "initial": true
+          }
+        ]
+      }
+    },
+    {
+      "commit": "53743deec37692237a07b3b8ffce3e1c96fb4a0f",
+      "title": "Agrega medición reproducible del JavaScript inicial y gzip",
+      "measurement": {
+        "directory": "dist",
+        "initialJS": {
+          "raw": 437035,
+          "gzip": 138542,
+          "files": [
+            "assets/main-DT23Bjfq.js",
+            "assets/modulepreload-polyfill-B5Qt9EMX.js",
+            "assets/data-Bz98EQmN.js",
+            "assets/client-DAY-na7c.js",
+            "assets/sanitize-CoeSBplm.js"
+          ]
+        },
+        "totalJS": {
+          "raw": 471525,
+          "gzip": 150286
+        },
+        "initialCSS": {
+          "raw": 50838,
+          "gzip": 10324
+        },
+        "css": [
+          {
+            "file": "assets/index-D7DcLlIR.css",
+            "raw": 50838,
+            "gzip": 10324,
+            "initial": true
+          }
+        ],
+        "html": {
+          "raw": 159124,
+          "gzip": 27917
+        },
+        "chunks": [
+          {
+            "file": "assets/DemoPage-CPpkKbNc.js",
+            "raw": 29474,
+            "gzip": 9075,
+            "imports": [
+              "assets/data-Bz98EQmN.js"
+            ],
+            "initial": false
+          },
+          {
+            "file": "assets/client-DAY-na7c.js",
+            "raw": 133981,
+            "gzip": 43140,
+            "imports": [
+              "assets/data-Bz98EQmN.js"
+            ],
+            "initial": true
+          },
+          {
+            "file": "assets/data-Bz98EQmN.js",
+            "raw": 158682,
+            "gzip": 53177,
+            "imports": [],
+            "initial": true
+          },
+          {
+            "file": "assets/main-Ceh67fP-.js",
+            "raw": 789,
+            "gzip": 487,
+            "imports": [
+              "assets/data-Bz98EQmN.js",
+              "assets/client-DAY-na7c.js",
+              "assets/DemoPage-CPpkKbNc.js"
+            ],
+            "initial": false
+          },
+          {
+            "file": "assets/main-DT23Bjfq.js",
+            "raw": 142310,
+            "gzip": 41070,
+            "imports": [
+              "assets/modulepreload-polyfill-B5Qt9EMX.js",
+              "assets/data-Bz98EQmN.js",
+              "assets/client-DAY-na7c.js",
+              "assets/sanitize-CoeSBplm.js"
+            ],
+            "initial": true
+          },
+          {
+            "file": "assets/main-MKsDoHyR.js",
+            "raw": 4227,
+            "gzip": 2182,
+            "imports": [
+              "assets/sanitize-CoeSBplm.js"
+            ],
+            "initial": false
+          },
+          {
+            "file": "assets/modulepreload-polyfill-B5Qt9EMX.js",
+            "raw": 711,
+            "gzip": 399,
+            "imports": [],
+            "initial": true
+          },
+          {
+            "file": "assets/sanitize-CoeSBplm.js",
+            "raw": 1351,
+            "gzip": 756,
+            "imports": [],
+            "initial": true
+          }
+        ]
+      }
+    },
+    {
+      "commit": "9ebf55bab7c4f5a537398c99725b08d71b07ec87",
+      "title": "Separa las tarjetas de los guiones completos de las demos",
+      "measurement": {
+        "directory": "dist",
+        "initialJS": {
+          "raw": 423074,
+          "gzip": 134473,
+          "files": [
+            "assets/main-yif3ox2T.js",
+            "assets/modulepreload-polyfill-B5Qt9EMX.js",
+            "assets/catalog-BQFTLhO3.js",
+            "assets/client-BzEaix7G.js",
+            "assets/sanitize-CoeSBplm.js"
+          ]
+        },
+        "totalJS": {
+          "raw": 471958,
+          "gzip": 150680
+        },
+        "initialCSS": {
+          "raw": 50838,
+          "gzip": 10324
+        },
+        "css": [
+          {
+            "file": "assets/index-D7DcLlIR.css",
+            "raw": 50838,
+            "gzip": 10324,
+            "initial": true
+          }
+        ],
+        "html": {
+          "raw": 159127,
+          "gzip": 27919
+        },
+        "chunks": [
+          {
+            "file": "assets/DemoPage-BKquAank.js",
+            "raw": 43834,
+            "gzip": 13519,
+            "imports": [
+              "assets/catalog-BQFTLhO3.js"
+            ],
+            "initial": false
+          },
+          {
+            "file": "assets/catalog-BQFTLhO3.js",
+            "raw": 144715,
+            "gzip": 49102,
+            "imports": [],
+            "initial": true
+          },
+          {
+            "file": "assets/client-BzEaix7G.js",
+            "raw": 133984,
+            "gzip": 43144,
+            "imports": [
+              "assets/catalog-BQFTLhO3.js"
+            ],
+            "initial": true
+          },
+          {
+            "file": "assets/main-BFFgznw3.js",
+            "raw": 4243,
+            "gzip": 2192,
+            "imports": [
+              "assets/sanitize-CoeSBplm.js"
+            ],
+            "initial": false
+          },
+          {
+            "file": "assets/main-DhSEcPvk.js",
+            "raw": 807,
+            "gzip": 496,
+            "imports": [
+              "assets/catalog-BQFTLhO3.js",
+              "assets/client-BzEaix7G.js",
+              "assets/DemoPage-BKquAank.js"
+            ],
+            "initial": false
+          },
+          {
+            "file": "assets/main-yif3ox2T.js",
+            "raw": 142313,
+            "gzip": 41072,
+            "imports": [
+              "assets/modulepreload-polyfill-B5Qt9EMX.js",
+              "assets/catalog-BQFTLhO3.js",
+              "assets/client-BzEaix7G.js",
+              "assets/sanitize-CoeSBplm.js"
+            ],
+            "initial": true
+          },
+          {
+            "file": "assets/modulepreload-polyfill-B5Qt9EMX.js",
+            "raw": 711,
+            "gzip": 399,
+            "imports": [],
+            "initial": true
+          },
+          {
+            "file": "assets/sanitize-CoeSBplm.js",
+            "raw": 1351,
+            "gzip": 756,
+            "imports": [],
+            "initial": true
+          }
+        ]
+      }
+    },
+    {
+      "commit": "ab7a35664735e60fb2ca56a2f94148017fcc747c",
+      "title": "Carga Lenis después de hidratar y omítelo con movimiento reducido",
+      "measurement": {
+        "directory": "dist",
+        "initialJS": {
+          "raw": 404521,
+          "gzip": 129895,
+          "files": [
+            "assets/main-CK9W3f66.js",
+            "assets/modulepreload-polyfill-B5Qt9EMX.js",
+            "assets/catalog-BQFTLhO3.js",
+            "assets/client-BzEaix7G.js",
+            "assets/sanitize-D4ObYL94.js"
+          ]
+        },
+        "totalJS": {
+          "raw": 472283,
+          "gzip": 151394
+        },
+        "initialCSS": {
+          "raw": 50838,
+          "gzip": 10324
+        },
+        "css": [
+          {
+            "file": "assets/index-D7DcLlIR.css",
+            "raw": 50838,
+            "gzip": 10324,
+            "initial": true
+          }
+        ],
+        "html": {
+          "raw": 159127,
+          "gzip": 27921
+        },
+        "chunks": [
+          {
+            "file": "assets/DemoPage-BKquAank.js",
+            "raw": 43834,
+            "gzip": 13519,
+            "imports": [
+              "assets/catalog-BQFTLhO3.js"
+            ],
+            "initial": false
+          },
+          {
+            "file": "assets/catalog-BQFTLhO3.js",
+            "raw": 144715,
+            "gzip": 49102,
+            "imports": [],
+            "initial": true
+          },
+          {
+            "file": "assets/client-BzEaix7G.js",
+            "raw": 133984,
+            "gzip": 43144,
+            "imports": [
+              "assets/catalog-BQFTLhO3.js"
+            ],
+            "initial": true
+          },
+          {
+            "file": "assets/lenis-8HJNiqEX.js",
+            "raw": 19866,
+            "gzip": 5742,
+            "imports": [],
+            "initial": false
+          },
+          {
+            "file": "assets/main-C2gkaLeJ.js",
+            "raw": 3255,
+            "gzip": 1742,
+            "imports": [
+              "assets/sanitize-D4ObYL94.js"
+            ],
+            "initial": false
+          },
+          {
+            "file": "assets/main-CK9W3f66.js",
+            "raw": 122758,
+            "gzip": 35946,
+            "imports": [
+              "assets/modulepreload-polyfill-B5Qt9EMX.js",
+              "assets/catalog-BQFTLhO3.js",
+              "assets/client-BzEaix7G.js",
+              "assets/sanitize-D4ObYL94.js"
+            ],
+            "initial": true
+          },
+          {
+            "file": "assets/main-DhSEcPvk.js",
+            "raw": 807,
+            "gzip": 496,
+            "imports": [
+              "assets/catalog-BQFTLhO3.js",
+              "assets/client-BzEaix7G.js",
+              "assets/DemoPage-BKquAank.js"
+            ],
+            "initial": false
+          },
+          {
+            "file": "assets/modulepreload-polyfill-B5Qt9EMX.js",
+            "raw": 711,
+            "gzip": 399,
+            "imports": [],
+            "initial": true
+          },
+          {
+            "file": "assets/sanitize-D4ObYL94.js",
+            "raw": 2353,
+            "gzip": 1304,
+            "imports": [],
+            "initial": true
+          }
+        ]
+      }
+    },
+    {
+      "commit": "ac440240de520e55e127656b58354ccb24944404",
+      "title": "Detiene el reloj de Lenis en reposo y durante el scroll táctil",
+      "measurement": {
+        "directory": "dist",
+        "initialJS": {
+          "raw": 404885,
+          "gzip": 130043,
+          "files": [
+            "assets/main-i8Sjkh_e.js",
+            "assets/modulepreload-polyfill-B5Qt9EMX.js",
+            "assets/catalog-BQFTLhO3.js",
+            "assets/client-BzEaix7G.js",
+            "assets/sanitize-D4ObYL94.js"
+          ]
+        },
+        "totalJS": {
+          "raw": 472647,
+          "gzip": 151542
+        },
+        "initialCSS": {
+          "raw": 50838,
+          "gzip": 10324
+        },
+        "css": [
+          {
+            "file": "assets/index-D7DcLlIR.css",
+            "raw": 50838,
+            "gzip": 10324,
+            "initial": true
+          }
+        ],
+        "html": {
+          "raw": 159127,
+          "gzip": 27920
+        },
+        "chunks": [
+          {
+            "file": "assets/DemoPage-BKquAank.js",
+            "raw": 43834,
+            "gzip": 13519,
+            "imports": [
+              "assets/catalog-BQFTLhO3.js"
+            ],
+            "initial": false
+          },
+          {
+            "file": "assets/catalog-BQFTLhO3.js",
+            "raw": 144715,
+            "gzip": 49102,
+            "imports": [],
+            "initial": true
+          },
+          {
+            "file": "assets/client-BzEaix7G.js",
+            "raw": 133984,
+            "gzip": 43144,
+            "imports": [
+              "assets/catalog-BQFTLhO3.js"
+            ],
+            "initial": true
+          },
+          {
+            "file": "assets/lenis-8HJNiqEX.js",
+            "raw": 19866,
+            "gzip": 5742,
+            "imports": [],
+            "initial": false
+          },
+          {
+            "file": "assets/main-C2gkaLeJ.js",
+            "raw": 3255,
+            "gzip": 1742,
+            "imports": [
+              "assets/sanitize-D4ObYL94.js"
+            ],
+            "initial": false
+          },
+          {
+            "file": "assets/main-DhSEcPvk.js",
+            "raw": 807,
+            "gzip": 496,
+            "imports": [
+              "assets/catalog-BQFTLhO3.js",
+              "assets/client-BzEaix7G.js",
+              "assets/DemoPage-BKquAank.js"
+            ],
+            "initial": false
+          },
+          {
+            "file": "assets/main-i8Sjkh_e.js",
+            "raw": 123122,
+            "gzip": 36094,
+            "imports": [
+              "assets/modulepreload-polyfill-B5Qt9EMX.js",
+              "assets/catalog-BQFTLhO3.js",
+              "assets/client-BzEaix7G.js",
+              "assets/sanitize-D4ObYL94.js"
+            ],
+            "initial": true
+          },
+          {
+            "file": "assets/modulepreload-polyfill-B5Qt9EMX.js",
+            "raw": 711,
+            "gzip": 399,
+            "imports": [],
+            "initial": true
+          },
+          {
+            "file": "assets/sanitize-D4ObYL94.js",
+            "raw": 2353,
+            "gzip": 1304,
+            "imports": [],
+            "initial": true
+          }
+        ]
+      }
+    },
+    {
+      "commit": "425f6aebcfbbe1159764ec150b12dcc28d127d4f",
+      "title": "Prepara el chat cuando aparece su botón y conserva su estado",
+      "measurement": {
+        "directory": "dist",
+        "initialJS": {
+          "raw": 404954,
+          "gzip": 130055,
+          "files": [
+            "assets/main-C9a8pbWe.js",
+            "assets/modulepreload-polyfill-B5Qt9EMX.js",
+            "assets/catalog-BQFTLhO3.js",
+            "assets/client-BzEaix7G.js",
+            "assets/sanitize-D4ObYL94.js"
+          ]
+        },
+        "totalJS": {
+          "raw": 472716,
+          "gzip": 151554
+        },
+        "initialCSS": {
+          "raw": 50838,
+          "gzip": 10324
+        },
+        "css": [
+          {
+            "file": "assets/index-D7DcLlIR.css",
+            "raw": 50838,
+            "gzip": 10324,
+            "initial": true
+          }
+        ],
+        "html": {
+          "raw": 147662,
+          "gzip": 25936
+        },
+        "chunks": [
+          {
+            "file": "assets/DemoPage-BKquAank.js",
+            "raw": 43834,
+            "gzip": 13519,
+            "imports": [
+              "assets/catalog-BQFTLhO3.js"
+            ],
+            "initial": false
+          },
+          {
+            "file": "assets/catalog-BQFTLhO3.js",
+            "raw": 144715,
+            "gzip": 49102,
+            "imports": [],
+            "initial": true
+          },
+          {
+            "file": "assets/client-BzEaix7G.js",
+            "raw": 133984,
+            "gzip": 43144,
+            "imports": [
+              "assets/catalog-BQFTLhO3.js"
+            ],
+            "initial": true
+          },
+          {
+            "file": "assets/lenis-8HJNiqEX.js",
+            "raw": 19866,
+            "gzip": 5742,
+            "imports": [],
+            "initial": false
+          },
+          {
+            "file": "assets/main-C2gkaLeJ.js",
+            "raw": 3255,
+            "gzip": 1742,
+            "imports": [
+              "assets/sanitize-D4ObYL94.js"
+            ],
+            "initial": false
+          },
+          {
+            "file": "assets/main-C9a8pbWe.js",
+            "raw": 123191,
+            "gzip": 36106,
+            "imports": [
+              "assets/modulepreload-polyfill-B5Qt9EMX.js",
+              "assets/catalog-BQFTLhO3.js",
+              "assets/client-BzEaix7G.js",
+              "assets/sanitize-D4ObYL94.js"
+            ],
+            "initial": true
+          },
+          {
+            "file": "assets/main-DhSEcPvk.js",
+            "raw": 807,
+            "gzip": 496,
+            "imports": [
+              "assets/catalog-BQFTLhO3.js",
+              "assets/client-BzEaix7G.js",
+              "assets/DemoPage-BKquAank.js"
+            ],
+            "initial": false
+          },
+          {
+            "file": "assets/modulepreload-polyfill-B5Qt9EMX.js",
+            "raw": 711,
+            "gzip": 399,
+            "imports": [],
+            "initial": true
+          },
+          {
+            "file": "assets/sanitize-D4ObYL94.js",
+            "raw": 2353,
+            "gzip": 1304,
+            "imports": [],
+            "initial": true
+          }
+        ]
+      }
+    },
+    {
+      "commit": "b92acd99be7a782d6a102340c3de7c5019357dd2",
+      "title": "Evita medir el lienzo de escritorio durante el scroll móvil",
+      "measurement": {
+        "directory": "dist",
+        "initialJS": {
+          "raw": 404629,
+          "gzip": 129911,
+          "files": [
+            "assets/main-Bz0CipUx.js",
+            "assets/modulepreload-polyfill-B5Qt9EMX.js",
+            "assets/catalog-C27OVYKI.js",
+            "assets/client-CSnVvLDg.js",
+            "assets/sanitize-D4ObYL94.js"
+          ]
+        },
+        "totalJS": {
+          "raw": 472396,
+          "gzip": 151417
+        },
+        "initialCSS": {
+          "raw": 50838,
+          "gzip": 10324
+        },
+        "css": [
+          {
+            "file": "assets/index-D7DcLlIR.css",
+            "raw": 50838,
+            "gzip": 10324,
+            "initial": true
+          }
+        ],
+        "html": {
+          "raw": 147662,
+          "gzip": 25938
+        },
+        "chunks": [
+          {
+            "file": "assets/DemoPage-Ev4k2yzp.js",
+            "raw": 43839,
+            "gzip": 13522,
+            "imports": [
+              "assets/catalog-C27OVYKI.js"
+            ],
+            "initial": false
+          },
+          {
+            "file": "assets/catalog-C27OVYKI.js",
+            "raw": 144694,
+            "gzip": 49086,
+            "imports": [],
+            "initial": true
+          },
+          {
+            "file": "assets/client-CSnVvLDg.js",
+            "raw": 133984,
+            "gzip": 43144,
+            "imports": [
+              "assets/catalog-C27OVYKI.js"
+            ],
+            "initial": true
+          },
+          {
+            "file": "assets/lenis-8HJNiqEX.js",
+            "raw": 19866,
+            "gzip": 5742,
+            "imports": [],
+            "initial": false
+          },
+          {
+            "file": "assets/main-Bz0CipUx.js",
+            "raw": 122887,
+            "gzip": 35978,
+            "imports": [
+              "assets/modulepreload-polyfill-B5Qt9EMX.js",
+              "assets/catalog-C27OVYKI.js",
+              "assets/client-CSnVvLDg.js",
+              "assets/sanitize-D4ObYL94.js"
+            ],
+            "initial": true
+          },
+          {
+            "file": "assets/main-COodjznQ.js",
+            "raw": 3255,
+            "gzip": 1743,
+            "imports": [
+              "assets/sanitize-D4ObYL94.js"
+            ],
+            "initial": false
+          },
+          {
+            "file": "assets/main-TYJKJ99I.js",
+            "raw": 807,
+            "gzip": 499,
+            "imports": [
+              "assets/catalog-C27OVYKI.js",
+              "assets/client-CSnVvLDg.js",
+              "assets/DemoPage-Ev4k2yzp.js"
+            ],
+            "initial": false
+          },
+          {
+            "file": "assets/modulepreload-polyfill-B5Qt9EMX.js",
+            "raw": 711,
+            "gzip": 399,
+            "imports": [],
+            "initial": true
+          },
+          {
+            "file": "assets/sanitize-D4ObYL94.js",
+            "raw": 2353,
+            "gzip": 1304,
+            "imports": [],
+            "initial": true
+          }
+        ]
+      }
+    },
+    {
+      "commit": "ac2003e5d9b0c1a2ca12728b5a73190ac4bd8dc7",
+      "title": "Recorta el CSS de la portada sin alterar los estilos de las demás rutas",
+      "measurement": {
+        "directory": "dist",
+        "initialJS": {
+          "raw": 404601,
+          "gzip": 129894,
+          "files": [
+            "assets/main-Cusb_z_l.js",
+            "assets/modulepreload-polyfill-B5Qt9EMX.js",
+            "assets/catalog-C27OVYKI.js",
+            "assets/client-CSnVvLDg.js",
+            "assets/sanitize-D4ObYL94.js"
+          ]
+        },
+        "totalJS": {
+          "raw": 472368,
+          "gzip": 151400
+        },
+        "initialCSS": {
+          "raw": 40893,
+          "gzip": 8586
+        },
+        "css": [
+          {
+            "file": "assets/index-D7DcLlIR.css",
+            "raw": 50838,
+            "gzip": 10324,
+            "initial": false
+          },
+          {
+            "file": "assets/main-BlqifWlQ.css",
+            "raw": 40893,
+            "gzip": 8586,
+            "initial": true
+          }
+        ],
+        "html": {
+          "raw": 147661,
+          "gzip": 25935
+        },
+        "chunks": [
+          {
+            "file": "assets/DemoPage-Ev4k2yzp.js",
+            "raw": 43839,
+            "gzip": 13522,
+            "imports": [
+              "assets/catalog-C27OVYKI.js"
+            ],
+            "initial": false
+          },
+          {
+            "file": "assets/catalog-C27OVYKI.js",
+            "raw": 144694,
+            "gzip": 49086,
+            "imports": [],
+            "initial": true
+          },
+          {
+            "file": "assets/client-CSnVvLDg.js",
+            "raw": 133984,
+            "gzip": 43144,
+            "imports": [
+              "assets/catalog-C27OVYKI.js"
+            ],
+            "initial": true
+          },
+          {
+            "file": "assets/lenis-8HJNiqEX.js",
+            "raw": 19866,
+            "gzip": 5742,
+            "imports": [],
+            "initial": false
+          },
+          {
+            "file": "assets/main-COodjznQ.js",
+            "raw": 3255,
+            "gzip": 1743,
+            "imports": [
+              "assets/sanitize-D4ObYL94.js"
+            ],
+            "initial": false
+          },
+          {
+            "file": "assets/main-Cusb_z_l.js",
+            "raw": 122859,
+            "gzip": 35961,
+            "imports": [
+              "assets/modulepreload-polyfill-B5Qt9EMX.js",
+              "assets/catalog-C27OVYKI.js",
+              "assets/client-CSnVvLDg.js",
+              "assets/sanitize-D4ObYL94.js"
+            ],
+            "initial": true
+          },
+          {
+            "file": "assets/main-TYJKJ99I.js",
+            "raw": 807,
+            "gzip": 499,
+            "imports": [
+              "assets/catalog-C27OVYKI.js",
+              "assets/client-CSnVvLDg.js",
+              "assets/DemoPage-Ev4k2yzp.js"
+            ],
+            "initial": false
+          },
+          {
+            "file": "assets/modulepreload-polyfill-B5Qt9EMX.js",
+            "raw": 711,
+            "gzip": 399,
+            "imports": [],
+            "initial": true
+          },
+          {
+            "file": "assets/sanitize-D4ObYL94.js",
+            "raw": 2353,
+            "gzip": 1304,
+            "imports": [],
+            "initial": true
+          }
+        ]
+      }
+    }
+  ],
+  "reducedMotionFirstRenderDifferences": [
+    {
+      "server": [
+        "nav",
+        [
+          [
+            "aria-label",
+            "Principal"
+          ],
+          [
+            "class",
+            "pointer-events-auto relative z-[1] mx-auto flex h-14 max-w-[1180px] items-center justify-between gap-3 rounded-full bg-raised/95 pl-4 pr-1.5 shadow-[0_2px_8px_rgb(0_0_0/0.3)] ring-1 ring-inset ring-line"
+          ],
+          [
+            "style",
+            "opacity:0;transform:translateY(-80px)"
+          ]
+        ]
+      ],
+      "clientSimulation": [
+        "nav",
+        [
+          [
+            "aria-label",
+            "Principal"
+          ],
+          [
+            "class",
+            "pointer-events-auto relative z-[1] mx-auto flex h-14 max-w-[1180px] items-center justify-between gap-3 rounded-full bg-raised/95 pl-4 pr-1.5 shadow-[0_2px_8px_rgb(0_0_0/0.3)] ring-1 ring-inset ring-line"
+          ],
+          [
+            "style",
+            "opacity:1;transform:none"
+          ]
+        ]
+      ]
+    },
+    {
+      "server": [
+        "path",
+        [
+          [
+            "d",
+            "M 184 200 C 196 200, 196 200, 208 200"
+          ],
+          [
+            "fill",
+            "none"
+          ],
+          [
+            "stroke",
+            "#4fc4d1"
+          ],
+          [
+            "stroke-width",
+            "1.5"
+          ],
+          [
+            "stroke-linecap",
+            "round"
+          ],
+          [
+            "pathlength",
+            "1"
+          ],
+          [
+            "stroke-dashoffset",
+            "0px"
+          ],
+          [
+            "stroke-dasharray",
+            "0px 1px"
+          ],
+          [
+            "style",
+            "opacity:0.55"
+          ]
+        ]
+      ],
+      "clientSimulation": [
+        "path",
+        [
+          [
+            "d",
+            "M 184 200 C 196 200, 196 200, 208 200"
+          ],
+          [
+            "fill",
+            "none"
+          ],
+          [
+            "stroke",
+            "#4fc4d1"
+          ],
+          [
+            "stroke-width",
+            "1.5"
+          ],
+          [
+            "stroke-linecap",
+            "round"
+          ],
+          [
+            "style",
+            "path-length:1px;opacity:0.55"
+          ]
+        ]
+      ]
+    },
+    {
+      "server": [
+        "path",
+        [
+          [
+            "d",
+            "M 376 200 C 442 200, 442 56, 508 56"
+          ],
+          [
+            "fill",
+            "none"
+          ],
+          [
+            "stroke",
+            "#4fc4d1"
+          ],
+          [
+            "stroke-width",
+            "1.5"
+          ],
+          [
+            "stroke-linecap",
+            "round"
+          ],
+          [
+            "pathlength",
+            "1"
+          ],
+          [
+            "stroke-dashoffset",
+            "0px"
+          ],
+          [
+            "stroke-dasharray",
+            "0px 1px"
+          ],
+          [
+            "style",
+            "opacity:0.55"
+          ]
+        ]
+      ],
+      "clientSimulation": [
+        "path",
+        [
+          [
+            "d",
+            "M 376 200 C 442 200, 442 56, 508 56"
+          ],
+          [
+            "fill",
+            "none"
+          ],
+          [
+            "stroke",
+            "#4fc4d1"
+          ],
+          [
+            "stroke-width",
+            "1.5"
+          ],
+          [
+            "stroke-linecap",
+            "round"
+          ],
+          [
+            "style",
+            "path-length:1px;opacity:0.55"
+          ]
+        ]
+      ]
+    },
+    {
+      "server": [
+        "path",
+        [
+          [
+            "d",
+            "M 676 56 C 692 56, 692 56, 708 56"
+          ],
+          [
+            "fill",
+            "none"
+          ],
+          [
+            "stroke",
+            "#4fc4d1"
+          ],
+          [
+            "stroke-width",
+            "1.5"
+          ],
+          [
+            "stroke-linecap",
+            "round"
+          ],
+          [
+            "pathlength",
+            "1"
+          ],
+          [
+            "stroke-dashoffset",
+            "0px"
+          ],
+          [
+            "stroke-dasharray",
+            "0px 1px"
+          ],
+          [
+            "style",
+            "opacity:0.55"
+          ]
+        ]
+      ],
+      "clientSimulation": [
+        "path",
+        [
+          [
+            "d",
+            "M 676 56 C 692 56, 692 56, 708 56"
+          ],
+          [
+            "fill",
+            "none"
+          ],
+          [
+            "stroke",
+            "#4fc4d1"
+          ],
+          [
+            "stroke-width",
+            "1.5"
+          ],
+          [
+            "stroke-linecap",
+            "round"
+          ],
+          [
+            "style",
+            "path-length:1px;opacity:0.55"
+          ]
+        ]
+      ]
+    },
+    {
+      "server": [
+        "path",
+        [
+          [
+            "d",
+            "M 876 56 C 892 56, 892 56, 908 56"
+          ],
+          [
+            "fill",
+            "none"
+          ],
+          [
+            "stroke",
+            "#4fc4d1"
+          ],
+          [
+            "stroke-width",
+            "1.5"
+          ],
+          [
+            "stroke-linecap",
+            "round"
+          ],
+          [
+            "pathlength",
+            "1"
+          ],
+          [
+            "stroke-dashoffset",
+            "0px"
+          ],
+          [
+            "stroke-dasharray",
+            "0px 1px"
+          ],
+          [
+            "style",
+            "opacity:0.55"
+          ]
+        ]
+      ],
+      "clientSimulation": [
+        "path",
+        [
+          [
+            "d",
+            "M 876 56 C 892 56, 892 56, 908 56"
+          ],
+          [
+            "fill",
+            "none"
+          ],
+          [
+            "stroke",
+            "#4fc4d1"
+          ],
+          [
+            "stroke-width",
+            "1.5"
+          ],
+          [
+            "stroke-linecap",
+            "round"
+          ],
+          [
+            "style",
+            "path-length:1px;opacity:0.55"
+          ]
+        ]
+      ]
+    },
+    {
+      "server": [
+        "path",
+        [
+          [
+            "d",
+            "M 376 200 C 442 200, 442 200, 508 200"
+          ],
+          [
+            "fill",
+            "none"
+          ],
+          [
+            "stroke",
+            "#4fc4d1"
+          ],
+          [
+            "stroke-width",
+            "1.5"
+          ],
+          [
+            "stroke-linecap",
+            "round"
+          ],
+          [
+            "pathlength",
+            "1"
+          ],
+          [
+            "stroke-dashoffset",
+            "0px"
+          ],
+          [
+            "stroke-dasharray",
+            "0px 1px"
+          ],
+          [
+            "style",
+            "opacity:0.55"
+          ]
+        ]
+      ],
+      "clientSimulation": [
+        "path",
+        [
+          [
+            "d",
+            "M 376 200 C 442 200, 442 200, 508 200"
+          ],
+          [
+            "fill",
+            "none"
+          ],
+          [
+            "stroke",
+            "#4fc4d1"
+          ],
+          [
+            "stroke-width",
+            "1.5"
+          ],
+          [
+            "stroke-linecap",
+            "round"
+          ],
+          [
+            "style",
+            "path-length:1px;opacity:0.55"
+          ]
+        ]
+      ]
+    },
+    {
+      "server": [
+        "path",
+        [
+          [
+            "d",
+            "M 676 200 C 692 200, 692 200, 708 200"
+          ],
+          [
+            "fill",
+            "none"
+          ],
+          [
+            "stroke",
+            "#4fc4d1"
+          ],
+          [
+            "stroke-width",
+            "1.5"
+          ],
+          [
+            "stroke-linecap",
+            "round"
+          ],
+          [
+            "pathlength",
+            "1"
+          ],
+          [
+            "stroke-dashoffset",
+            "0px"
+          ],
+          [
+            "stroke-dasharray",
+            "0px 1px"
+          ],
+          [
+            "style",
+            "opacity:0.55"
+          ]
+        ]
+      ],
+      "clientSimulation": [
+        "path",
+        [
+          [
+            "d",
+            "M 676 200 C 692 200, 692 200, 708 200"
+          ],
+          [
+            "fill",
+            "none"
+          ],
+          [
+            "stroke",
+            "#4fc4d1"
+          ],
+          [
+            "stroke-width",
+            "1.5"
+          ],
+          [
+            "stroke-linecap",
+            "round"
+          ],
+          [
+            "style",
+            "path-length:1px;opacity:0.55"
+          ]
+        ]
+      ]
+    },
+    {
+      "server": [
+        "path",
+        [
+          [
+            "d",
+            "M 376 200 C 442 200, 442 344, 508 344"
+          ],
+          [
+            "fill",
+            "none"
+          ],
+          [
+            "stroke",
+            "#4fc4d1"
+          ],
+          [
+            "stroke-width",
+            "1.5"
+          ],
+          [
+            "stroke-linecap",
+            "round"
+          ],
+          [
+            "pathlength",
+            "1"
+          ],
+          [
+            "stroke-dashoffset",
+            "0px"
+          ],
+          [
+            "stroke-dasharray",
+            "0px 1px"
+          ],
+          [
+            "style",
+            "opacity:0.55"
+          ]
+        ]
+      ],
+      "clientSimulation": [
+        "path",
+        [
+          [
+            "d",
+            "M 376 200 C 442 200, 442 344, 508 344"
+          ],
+          [
+            "fill",
+            "none"
+          ],
+          [
+            "stroke",
+            "#4fc4d1"
+          ],
+          [
+            "stroke-width",
+            "1.5"
+          ],
+          [
+            "stroke-linecap",
+            "round"
+          ],
+          [
+            "style",
+            "path-length:1px;opacity:0.55"
+          ]
+        ]
+      ]
+    },
+    {
+      "server": [
+        "path",
+        [
+          [
+            "d",
+            "M 676 344 C 692 344, 692 344, 708 344"
+          ],
+          [
+            "fill",
+            "none"
+          ],
+          [
+            "stroke",
+            "#4fc4d1"
+          ],
+          [
+            "stroke-width",
+            "1.5"
+          ],
+          [
+            "stroke-linecap",
+            "round"
+          ],
+          [
+            "pathlength",
+            "1"
+          ],
+          [
+            "stroke-dashoffset",
+            "0px"
+          ],
+          [
+            "stroke-dasharray",
+            "0px 1px"
+          ],
+          [
+            "style",
+            "opacity:0.55"
+          ]
+        ]
+      ],
+      "clientSimulation": [
+        "path",
+        [
+          [
+            "d",
+            "M 676 344 C 692 344, 692 344, 708 344"
+          ],
+          [
+            "fill",
+            "none"
+          ],
+          [
+            "stroke",
+            "#4fc4d1"
+          ],
+          [
+            "stroke-width",
+            "1.5"
+          ],
+          [
+            "stroke-linecap",
+            "round"
+          ],
+          [
+            "style",
+            "path-length:1px;opacity:0.55"
+          ]
+        ]
+      ]
+    },
+    {
+      "server": [
+        "g",
+        [
+          [
+            "opacity",
+            "0.2"
+          ]
+        ]
+      ],
+      "clientSimulation": [
+        "g",
+        [
+          [
+            "style",
+            "opacity:1"
+          ]
+        ]
+      ]
+    },
+    {
+      "server": [
+        "g",
+        [
+          [
+            "opacity",
+            "0.2"
+          ]
+        ]
+      ],
+      "clientSimulation": [
+        "g",
+        [
+          [
+            "style",
+            "opacity:1"
+          ]
+        ]
+      ]
+    },
+    {
+      "server": [
+        "g",
+        [
+          [
+            "opacity",
+            "0.2"
+          ]
+        ]
+      ],
+      "clientSimulation": [
+        "g",
+        [
+          [
+            "style",
+            "opacity:1"
+          ]
+        ]
+      ]
+    },
+    {
+      "server": [
+        "g",
+        [
+          [
+            "opacity",
+            "0.2"
+          ]
+        ]
+      ],
+      "clientSimulation": [
+        "g",
+        [
+          [
+            "style",
+            "opacity:1"
+          ]
+        ]
+      ]
+    },
+    {
+      "server": [
+        "g",
+        [
+          [
+            "opacity",
+            "0.2"
+          ]
+        ]
+      ],
+      "clientSimulation": [
+        "g",
+        [
+          [
+            "style",
+            "opacity:1"
+          ]
+        ]
+      ]
+    },
+    {
+      "server": [
+        "g",
+        [
+          [
+            "opacity",
+            "0.2"
+          ]
+        ]
+      ],
+      "clientSimulation": [
+        "g",
+        [
+          [
+            "style",
+            "opacity:1"
+          ]
+        ]
+      ]
+    },
+    {
+      "server": [
+        "g",
+        [
+          [
+            "opacity",
+            "0.2"
+          ]
+        ]
+      ],
+      "clientSimulation": [
+        "g",
+        [
+          [
+            "style",
+            "opacity:1"
+          ]
+        ]
+      ]
+    },
+    {
+      "server": [
+        "g",
+        [
+          [
+            "opacity",
+            "0.2"
+          ]
+        ]
+      ],
+      "clientSimulation": [
+        "g",
+        [
+          [
+            "style",
+            "opacity:1"
+          ]
+        ]
+      ]
+    },
+    {
+      "server": [
+        "g",
+        [
+          [
+            "opacity",
+            "0.2"
+          ]
+        ]
+      ],
+      "clientSimulation": [
+        "g",
+        [
+          [
+            "style",
+            "opacity:1"
+          ]
+        ]
+      ]
+    }
+  ]
+}
