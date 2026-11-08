@@ -20,7 +20,14 @@ export default function AgentLauncher() {
   // En celular el botón se aparta mientras la persona baja leyendo, para no tapar el texto.
   const [retreat, setRetreat] = useState(false)
   const [open, setOpen] = useState(false)
+  // Prepara el chat cerrado cuando aparece su botón, después del hero. Mantiene
+  // los mismos efectos y foco de la primera apertura y conserva borrador y scroll.
+  const [initialized, setInitialized] = useState(false)
   const dialogRef = useRef<HTMLDialogElement>(null)
+
+  useEffect(() => {
+    if (visible) setInitialized(true)
+  }, [visible])
 
   useEffect(() => {
     let pastHero = false
@@ -148,7 +155,7 @@ export default function AgentLauncher() {
           </div>
 
           <div className="min-h-0 flex-1">
-            <AgentChat variant="drawer" autoFocus={open} />
+            {(visible || initialized) && <AgentChat variant="drawer" autoFocus={open} />}
           </div>
 
           <details className="group border-t border-line bg-raised">
@@ -161,7 +168,7 @@ export default function AgentLauncher() {
               </span>
             </summary>
             <div className="h-64 border-t border-line">
-              <AgentTrace variant="drawer" />
+              {(visible || initialized) && <AgentTrace variant="drawer" />}
             </div>
           </details>
         </div>
