@@ -90,7 +90,7 @@ export default function Demos() {
         <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
           <div className="max-w-3xl">
             <h2 id="demos-titulo" className="heading text-fg">
-              Mira una demo de tu giro
+              Mira una demo de tu tipo de negocio
             </h2>
             <p className="lead mt-5 max-w-[52ch]">Menos de un minuto cada una, con sonido.</p>
           </div>
@@ -112,7 +112,7 @@ export default function Demos() {
               href="#contacto"
               className="group flex h-full min-h-[180px] flex-col justify-between rounded-2xl bg-raised p-5 ring-1 ring-inset ring-line transition-colors hover:bg-sunken sm:p-6"
             >
-              <span className="text-[0.95rem] font-bold text-muted">¿No ves tu giro?</span>
+              <span className="text-[0.95rem] font-bold text-muted">¿No ves tu negocio?</span>
               <span className="mt-6 block">
                 <span className="block text-[1.5rem] font-extrabold leading-tight tracking-[-0.025em] text-fg">
                   Te armamos la demo con tu negocio

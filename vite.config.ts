@@ -25,7 +25,7 @@ function securityMeta(connectOrigins: string[]): Plugin {
     "font-src 'self'",
     "img-src 'self' data:",
     // Los únicos lugares a los que la página puede mandar datos: el formulario y el agente.
-    `connect-src ${connectOrigins.join(' ')}`,
+    `connect-src 'self' ${connectOrigins.join(' ')}`,
     "object-src 'none'",
     "frame-src 'none'",
     "worker-src 'none'",

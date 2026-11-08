@@ -81,7 +81,7 @@ export default function Hero() {
                 </a>
               </Magnetic>
               <a href="#sistemas" className="btn-secondary">
-                Ver sistemas por giro
+                Ver sistemas por negocio
                 <ArrowDown aria-hidden="true" className="h-4 w-4" />
               </a>
             </div>

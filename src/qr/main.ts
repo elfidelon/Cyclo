@@ -1,4 +1,4 @@
-import { looksLikeCode, sanitizeForSend } from '../lib/sanitize'
+import { looksLikeCode, sanitizeForSend, telefonoMxValido } from '../lib/sanitize'
 
 // Formularios de las páginas del QR (/demos/ y /unete/). Van al mismo flujo de n8n que el
 // formulario del sitio: el webhook solo acepta estos 7 campos y vuelve a validar todo.
@@ -65,7 +65,7 @@ function validate(lead: Lead, kind: string) {
   if (!lead.empresa) errors.empresa = kind === 'demos' ? 'Dinos de qué es tu negocio.' : 'Escribe el nombre de tu negocio.'
   else if (looksLikeCode(lead.empresa)) errors.empresa = 'Escríbelo en texto normal.'
   if (!lead.telefono) errors.telefono = 'Escribe tu WhatsApp.'
-  else if (lead.telefono.length < 10 || lead.telefono.length > 15) errors.telefono = 'Revisa el número: son 10 dígitos con lada.'
+  else if (!telefonoMxValido(lead.telefono)) errors.telefono = 'Revisa el número: son 10 dígitos con lada.'
   return errors
 }
 

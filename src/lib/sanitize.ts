@@ -75,4 +75,9 @@ export function looksLikeCode(text: string): boolean {
   return CODE_PATTERNS.test(text)
 }
 
+/** WhatsApp de México: 10 dígitos con lada, o con 52 (o 521) adelante. Recibe solo dígitos. */
+export function telefonoMxValido(digits: string): boolean {
+  return /^(?:521?)?\d{10}$/.test(digits)
+}
+
 export const EMAIL_RE = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/

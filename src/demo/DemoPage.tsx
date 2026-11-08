@@ -117,7 +117,7 @@ function Bubble({ item }: { item: Extract<ScriptItem, { kind: 'msg' }> }) {
 type Msg = { i: number; item: Extract<ScriptItem, { kind: 'msg' }> }
 
 function PhoneView({ demo, msgs, typing }: { demo: Demo; msgs: Msg[]; typing: boolean }) {
-  const listRef = useRef<HTMLOListElement>(null)
+  const listRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
     const el = listRef.current
     if (el) el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' })
@@ -145,19 +145,20 @@ function PhoneView({ demo, msgs, typing }: { demo: Demo; msgs: Msg[]; typing: bo
             </span>
             <span className="min-w-0 flex-1">
               <span className="block truncate text-[0.98rem] font-semibold leading-tight">{demo.business}</span>
-              <span className="block text-[0.75rem] text-white/85">{typing ? 'escribiendo…' : 'en línea'}</span>
+              <span className="block text-[0.75rem] text-white">{typing ? 'escribiendo…' : 'en línea'}</span>
             </span>
             <Video aria-hidden="true" className="h-5 w-5" />
             <Phone aria-hidden="true" className="mx-2 h-[18px] w-[18px]" />
           </div>
 
-          <ol
+          <div
             ref={listRef}
             role="log"
             aria-live="polite"
             aria-label={`Conversación de WhatsApp con ${demo.business}`}
-            className="flex flex-1 flex-col gap-1.5 overflow-y-auto overscroll-contain px-3 pb-3 pt-3"
+            className="flex flex-1 flex-col overflow-y-auto overscroll-contain px-3 pb-3 pt-3"
           >
+          <ol className="flex flex-col gap-1.5">
             <li className="chat-font mx-auto mb-1 rounded-md bg-[#fff5c4] px-3 py-1.5 text-center text-[0.7rem] leading-snug text-[#54656f]">
               Los mensajes de {demo.business} los contesta un asistente con IA
             </li>
@@ -181,9 +182,10 @@ function PhoneView({ demo, msgs, typing }: { demo: Demo; msgs: Msg[]; typing: bo
               )}
             </AnimatePresence>
           </ol>
+          </div>
 
           <div className="chat-font flex items-center gap-2 px-2 pb-4 pt-1" aria-hidden="true">
-            <span className="flex-1 rounded-full bg-white px-4 py-2.5 text-[0.9rem] text-[#8696a0]">Mensaje</span>
+            <span className="flex-1 rounded-full bg-white px-4 py-2.5 text-[0.9rem] text-[#667781]">Mensaje</span>
             <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#008069] text-white">
               <Mic className="h-5 w-5" />
             </span>

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, ChangeEvent, FormEvent } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowRight, Check, ChevronDown, Mail, MessageCircle } from 'lucide-react'
-import { EMAIL_RE, LIMITS, looksLikeCode, sanitizeForSend, sanitizeInput, SanitizeField } from '../lib/sanitize'
+import { EMAIL_RE, LIMITS, looksLikeCode, sanitizeForSend, sanitizeInput, SanitizeField, telefonoMxValido } from '../lib/sanitize'
 
 type Channel = 'whatsapp' | 'email'
 type Field = 'nombre' | 'contacto' | 'proceso'
@@ -117,7 +117,7 @@ export default function ContactForm() {
     if (channel === 'whatsapp') {
       const digits = sanitizeForSend('telefono', phone)
       if (!digits) e.contacto = 'Escribe tu número de WhatsApp.'
-      else if (digits.length < 10 || digits.length > 15) e.contacto = 'El número debe tener entre 10 y 15 dígitos.'
+      else if (!telefonoMxValido(digits)) e.contacto = 'Revisa el número: son 10 dígitos con lada.'
     } else {
       const m = sanitizeForSend('email', email)
       if (!m) e.contacto = 'Escribe tu correo.'
@@ -150,7 +150,7 @@ export default function ContactForm() {
     const d = payload()
     return [
       `Hola, soy ${d.nombre}${d.empresa ? ` de ${d.empresa}` : ''}.`,
-      d.sector ? `Giro: ${d.sector}.` : null,
+      d.sector ? `Mi negocio: ${d.sector}.` : null,
       `Quiero automatizar: ${d.proceso}`,
       d.email ? `Mi correo: ${d.email}` : null,
       d.telefono ? `Mi WhatsApp: ${d.telefono}` : null,
@@ -392,7 +392,7 @@ export default function ContactForm() {
               </div>
               <div>
                 <label htmlFor="cf-sector" className="text-[0.92rem] font-semibold">
-                  Giro
+                  Tipo de negocio
                 </label>
                 <div className="relative mt-2">
                   <select

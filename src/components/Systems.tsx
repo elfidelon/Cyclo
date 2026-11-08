@@ -154,7 +154,7 @@ export default function Systems() {
           <h2 id="sistemas-titulo" className="heading text-fg">
             Un sistema para cada forma de atender
           </h2>
-          <p className="lead mt-5 max-w-[52ch]">Se arma con los horarios, precios y forma de trabajar de tu giro.</p>
+          <p className="lead mt-5 max-w-[52ch]">Se arma con los horarios, precios y forma de trabajar de tu negocio.</p>
         </div>
 
         <div className="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10">
