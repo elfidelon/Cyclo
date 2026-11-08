@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { ArrowRight, Volume2 } from 'lucide-react'
-import { DEMOS, Demo, ScriptItem } from '../demo/data'
+import { DEMO_CATALOG, type DemoPreview } from '../demo/catalog'
+import type { ScriptItem } from '../demo/types'
 import GiroIcon from '../demo/GiroIcon'
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
@@ -16,7 +17,7 @@ function rememberSection() {
 
 // Cada tarjeta: ícono y nombre del giro bien visibles, y el primer mensaje tal cual llega.
 // La grande enseña los tres primeros mensajes de la conversación.
-function DemoCard({ demo, big, i }: { demo: Demo; big?: boolean; i: number }) {
+function DemoCard({ demo, big, i }: { demo: DemoPreview; big?: boolean; i: number }) {
   const msgs = demo.script.filter((s): s is Msg => s.kind === 'msg').slice(0, big ? 3 : 1)
   return (
     <motion.li
@@ -97,7 +98,7 @@ export default function Demos() {
         </div>
 
         <ul className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {DEMOS.map((d, i) => (
+          {DEMO_CATALOG.map((d, i) => (
             <DemoCard key={d.slug} demo={d} big={i === 0} i={i} />
           ))}
           <motion.li
