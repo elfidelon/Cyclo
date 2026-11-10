@@ -1,0 +1,42 @@
+/* Detalles propios de esta página; colores y voces vienen del sistema compartido. */
+@tailwind components;
+
+@layer components {
+  .inmo [hidden] { display: none; }
+  .inmo-title {
+    font-size: clamp(2.25rem, 1.45rem + 2.4vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+  }
+  .inmo-cta { @apply justify-between; }
+  .inmo .inmo-cta { @apply px-6 py-3; }
+  .inmo-skip {
+    @apply fixed left-5 top-4 z-skip flex min-h-[44px] -translate-y-24 items-center rounded-md bg-fg px-5 text-ink focus:translate-y-0;
+  }
+  .inmo-record > div { @apply border-t border-line py-3.5; }
+  .inmo-record dt { @apply mb-1 text-sm text-muted; }
+  .inmo-record dd { @apply leading-snug; }
+  .inmo-record .inmo-appointment { @apply mt-2 rounded-xl border-0 bg-teal-deep px-4 py-4; }
+  .inmo-appointment dt { @apply text-fg; }
+  .inmo-appointment dd { @apply flex items-center gap-2 font-semibold; }
+  .inmo input[type='range'] { min-height: 44px; }
+  .inmo-steps { @apply list-decimal space-y-6 pl-7; }
+  .inmo-steps li { @apply border-t border-line pl-2 pt-4; }
+  .inmo-steps li::marker { --mono: 1; @apply text-teal-text; }
+  .inmo-steps h3 { @apply text-xl font-bold; }
+  .inmo-steps p { @apply mt-2 text-muted; }
+  .inmo-faq details { @apply border-t border-line last:border-b; }
+  .inmo-faq summary { @apply flex min-h-[64px] cursor-pointer list-none items-center justify-between gap-6 py-5 text-lg font-semibold hover:text-white; }
+  .inmo-faq summary::-webkit-details-marker { display: none; }
+  .inmo-faq summary span { @apply shrink-0 text-2xl font-normal text-teal-text; }
+  .inmo-faq details[open] summary span { transform: rotate(45deg); }
+  .inmo-faq p { @apply max-w-[64ch] pb-6 pr-8 text-muted; }
+  .inmo-field { @apply min-h-[52px] w-full rounded-lg border border-ink bg-ink px-4 py-2 text-base text-fg; }
+  .inmo-error { @apply mt-2 rounded-md bg-ink px-3 py-2 text-sm font-semibold text-fg; }
+  /* Casilla clara sin marcar: sobre el teal, la versión oscura parecía ya marcada. */
+  .inmo #in-medir { color-scheme: light; }
+  .inmo #contacto :focus-visible { outline-color: theme('colors.ink.DEFAULT'); }
+  .inmo #contacto .inmo-field:focus-visible { outline-color: theme('colors.ink.DEFAULT'); outline-offset: 3px; }
+  .inmo #contacto [data-wa]:focus-visible { outline-color: theme('colors.teal.text'); }
+}

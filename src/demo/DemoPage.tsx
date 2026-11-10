@@ -666,6 +666,15 @@ export default function DemoPage({ demo }: { demo: Demo }) {
                 Lo construimos con tus horarios, precios y forma de hablar. Empieza con un diagnóstico gratis de 30 minutos.
               </p>
               <div className="mt-7 flex flex-wrap gap-3">
+                {demo.slug === 'inmobiliaria' && (
+                  <a
+                    href="/inmobiliarias/"
+                    className="inline-flex min-h-[52px] items-center gap-2 rounded-full bg-teal-drench px-6 font-bold text-ink transition-colors hover:bg-teal-text"
+                  >
+                    Ver la prueba de 35 días
+                    <ArrowRight aria-hidden="true" className="h-4 w-4" />
+                  </a>
+                )}
                 <a
                   href={AUTO ? '/unete/' : '../#contacto'}
                   className="inline-flex min-h-[52px] items-center gap-2 rounded-full bg-fg px-6 font-bold text-bg transition-colors hover:bg-white"

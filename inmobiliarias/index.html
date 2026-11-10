@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="es-MX">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cyclo para inmobiliarias en León: de consulta a visita agendada</title>
+    <meta name="description" content="Cyclo contesta por WhatsApp las consultas de tu inmobiliaria a cualquier hora, pregunta presupuesto y crédito, agenda la visita y le entrega el prospecto a tu asesor." />
+    <meta name="theme-color" content="#051013" />
+    <link rel="canonical" href="https://cycloai.mx/inmobiliarias/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_MX" />
+    <meta property="og:title" content="Cyclo para inmobiliarias en León: de consulta a visita agendada" />
+    <meta property="og:description" content="Cyclo contesta por WhatsApp las consultas de tu inmobiliaria a cualquier hora, pregunta presupuesto y crédito, agenda la visita y le entrega el prospecto a tu asesor." />
+    <meta property="og:image" content="https://cycloai.mx/og-cyclo.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preload" href="/fonts/recursive-cyclo-v1.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/src/index.css" />
+    <link rel="stylesheet" href="/src/inmo/style.css" />
+  </head>
+  <body class="inmo bg-bg text-fg">
+    <a href="#contenido" class="inmo-skip">Saltar al contenido</a>
+    <header class="shell flex items-center justify-between gap-4 py-5 sm:py-7">
+      <a href="/" class="flex min-h-[44px] items-center rounded-md text-[1.6rem] font-extrabold tracking-[-0.03em]" aria-label="Cyclo, ir al inicio">Cyclo</a>
+      <a href="#contacto" class="btn-secondary text-center text-sm">Agenda tu diagnóstico</a>
+    </header>
+
+    <main id="contenido" tabindex="-1">
+      <section aria-labelledby="titulo" class="shell grid grid-cols-1 items-center gap-12 pb-20 pt-10 sm:pb-28 sm:pt-16 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
+        <div class="min-w-0">
+          <h1 id="titulo" class="inmo-title">Convertimos las consultas de tu inmobiliaria en visitas agendadas.</h1>
+          <p class="lead mt-6 max-w-[48ch]">Cyclo contesta por WhatsApp a cualquier hora, pregunta presupuesto, crédito y fecha, agenda la visita y le entrega el prospecto a tu asesor.</p>
+          <div class="mt-8 flex flex-wrap items-start gap-3">
+            <a href="#contacto" class="btn-primary inmo-cta">Agenda un diagnóstico de 20 minutos <span aria-hidden="true">→</span></a>
+            <a href="/demos/inmobiliaria.html" class="btn-secondary">Ver la demo</a>
+          </div>
+          <p class="mt-4 text-sm text-muted">Sin costo. Estamos en León y vamos a verte.</p>
+        </div>
+
+        <aside aria-labelledby="ficha-titulo" class="min-w-0 rounded-2xl border border-line bg-raised p-5 sm:p-8">
+          <div class="mb-7 flex flex-wrap items-center justify-between gap-3">
+            <h2 id="ficha-titulo" class="text-xl font-bold tracking-[-0.02em] sm:text-2xl">Lo que recibe tu asesor</h2>
+            <span class="rounded-full border border-line px-3 py-1 text-sm text-muted">Ejemplo</span>
+          </div>
+          <p class="casual mb-7 max-w-[34ch] rounded-xl rounded-bl-none bg-sunken p-4 leading-relaxed">Hola, vi la casa del anuncio. ¿Sigue disponible?</p>
+          <dl class="inmo-record">
+            <div><dt>Llegó</dt><dd class="mono tabular">Sábado, 22:14</dd></div>
+            <div><dt>Primera respuesta</dt><dd class="mono tabular text-teal-text">12 segundos</dd></div>
+            <div><dt>Busca</dt><dd class="mono tabular">Casa de 3 recámaras, zona norte</dd></div>
+            <div><dt>Presupuesto</dt><dd class="mono tabular">$2.8 millones</dd></div>
+            <div><dt>Crédito</dt><dd class="mono tabular">Bancario, ya preaprobado</dd></div>
+            <div class="inmo-appointment"><dt>Visita agendada</dt><dd class="mono tabular"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 shrink-0"><path d="m5 12 4 4L19 6" /></svg>Domingo, 11:00</dd></div>
+          </dl>
+        </aside>
+      </section>
+
+      <section id="cuenta" aria-labelledby="cuenta-titulo" class="border-y border-line bg-raised py-20 sm:py-28">
+        <div class="shell">
+          <h2 id="cuenta-titulo" class="heading max-w-[22ch]">¿Cuántas consultas se quedan esperando?</h2>
+          <p class="lead mt-5">Mueve las barras con tus números.</p>
+          <div class="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
+            <div class="space-y-8">
+              <div>
+                <label for="consultas" class="block font-semibold">Consultas que recibes al mes</label>
+                <output for="consultas" data-consultas class="mono tabular mt-2 block text-3xl">200</output>
+                <input id="consultas" type="range" min="20" max="1000" step="10" value="200" style="--fill: 18.3673%" class="mt-3 w-full" />
+              </div>
+              <div>
+                <label for="venta" class="block font-semibold">Lo que te deja una venta</label>
+                <output for="venta" data-venta class="mono tabular mt-2 block text-3xl">$60,000</output>
+                <input id="venta" type="range" min="10000" max="300000" step="5000" value="60000" style="--fill: 17.2414%" class="mt-3 w-full" />
+              </div>
+            </div>
+            <div aria-live="polite" aria-atomic="true" class="min-w-0">
+              <dl class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                <div>
+                  <dt class="font-semibold">Llegan cuando nadie contesta</dt>
+                  <dd class="mt-2"><span data-esperan class="mono tabular text-4xl font-bold">70</span> <span class="block text-muted">consultas al mes</span></dd>
+                  <dd class="mt-3 text-sm text-muted">De noche, en fin de semana o con tus asesores ocupados.</dd>
+                </div>
+                <div>
+                  <dt class="font-semibold">Con Cyclo esperan</dt>
+                  <dd class="mono tabular mt-2 text-4xl font-bold text-teal-text">0</dd>
+                  <dd class="mt-3 text-sm text-muted">Se contestan en segundos, a cualquier hora.</dd>
+                </div>
+              </dl>
+              <p class="mt-7 rounded-xl bg-teal-deep p-5 sm:p-6"><span class="block">Si una sola se vuelve venta</span><span data-ganancia class="mono tabular mt-2 inline-block text-[clamp(1.8rem,5vw,2.5rem)] font-bold leading-tight">+$60,000</span> <span class="whitespace-nowrap">al mes</span></p>
+            </div>
+          </div>
+          <p class="mt-8 max-w-[75ch] text-sm text-muted">Estimado con 35 % de las consultas fuera de horario. En el diagnóstico lo medimos con tus datos.</p>
+        </div>
+      </section>
+
+      <section id="como" aria-labelledby="como-titulo" class="shell py-20 sm:py-28">
+        <div class="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_1.15fr] lg:gap-20">
+          <h2 id="como-titulo" class="heading max-w-[22ch]">De la consulta a la visita, sin que nadie se quede esperando.</h2>
+          <ol class="inmo-steps">
+            <li><h3>Contesta en segundos.</h3><p>A cualquier hora, con la información que tú apruebas: precios, ubicación y disponibilidad.</p></li>
+            <li><h3>Hace las preguntas clave.</h3><p>Presupuesto, tipo de crédito, zona y para cuándo busca.</p></li>
+            <li><h3>Agenda la visita.</h3><p>Propone horarios, confirma y manda recordatorio.</p></li>
+            <li><h3>Se lo entrega a tu asesor.</h3><p>Con la ficha lista. Lo que no sabe o es delicado, lo pasa a una persona.</p></li>
+          </ol>
+        </div>
+        <p class="mt-10 border-t border-line pt-6 text-xl font-semibold text-teal-text">No reemplaza a tus asesores: les entrega prospectos listos para atender.</p>
+      </section>
+
+      <section id="prueba" aria-labelledby="prueba-titulo" class="border-y border-line bg-raised py-20 sm:py-28">
+        <div class="shell">
+          <h2 id="prueba-titulo" class="heading max-w-[24ch]">Empieza con una prueba de 35 días.</h2>
+          <p class="lead mt-5">Un proyecto, un número de WhatsApp y una meta por escrito.</p>
+          <div class="mt-10 grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-10">
+            <div class="border-t border-line pt-5"><h3 class="text-xl font-bold">Antes de empezar.</h3><p class="mt-3 text-muted">Anotamos cómo estás hoy: cuántas consultas recibes y cuántas terminan en visita.</p></div>
+            <div class="border-t border-line pt-5"><h3 class="text-xl font-bold">Cada viernes.</h3><p class="mt-3 text-muted">Te mandamos el reporte: consultas, visitas agendadas y visitas hechas.</p></div>
+            <div class="border-t border-line pt-5"><h3 class="text-xl font-bold">Al final.</h3><p class="mt-3 text-muted">Decides con tus números si sigues.</p></div>
+          </div>
+          <p class="mt-10 rounded-xl bg-teal-deep px-5 py-5 font-semibold sm:px-6">Si no lo activamos en la fecha acordada, te devolvemos tu pago.</p>
+        </div>
+      </section>
+
+      <section id="preguntas" aria-labelledby="preguntas-titulo" class="shell grid grid-cols-1 gap-10 py-20 sm:py-28 lg:grid-cols-[1fr_1.7fr] lg:gap-16">
+        <h2 id="preguntas-titulo" class="heading">Preguntas</h2>
+        <div class="inmo-faq">
+          <details><summary>¿Tengo que cambiar mi número?<span aria-hidden="true">+</span></summary><p>Lo más rápido es un número nuevo para tus anuncios. Si quieres conservar el tuyo, lo revisamos en el diagnóstico.</p></details>
+          <details><summary>¿Qué pasa si preguntan algo que no sabe?<span aria-hidden="true">+</span></summary><p>Solo contesta con lo que tú apruebas. Lo demás se lo pasa a tu asesor, con el contexto de la plática.</p></details>
+          <details><summary>¿Cuánto cuesta?<span aria-hidden="true">+</span></summary><p>Depende de cuántas consultas recibes y de cuánto te deja cada venta. Lo calculamos con tus números en el diagnóstico y te damos un precio cerrado por escrito.</p></details>
+          <details><summary>¿Cuánto tarda en estar funcionando?<span aria-hidden="true">+</span></summary><p>Dos semanas desde que tenemos tus accesos y la información del proyecto.</p></details>
+          <details><summary>¿De quién son los datos?<span aria-hidden="true">+</span></summary><p>Tuyos. Los registros viven en tus cuentas de Google y nos quitas el acceso cuando quieras. Los mensajes pasan por n8n y Claude para poder contestarlos.</p></details>
+        </div>
+      </section>
+
+      <section id="contacto" aria-labelledby="contacto-titulo" class="bg-teal-drench py-20 text-ink sm:py-28">
+        <div class="shell grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-20">
+          <div>
+            <h2 id="contacto-titulo" class="heading max-w-[16ch]">Empieza con 20 minutos.</h2>
+            <p class="lead mt-5 max-w-[38ch] text-ink-muted">Revisamos tus números y te decimos si Cyclo te conviene. Si no, también te lo decimos.</p>
+          </div>
+          <div class="min-w-0">
+            <noscript><p class="mb-6 font-semibold">Para agendar tu diagnóstico, <a href="https://wa.me/524951024002?text=Hola%2C%20quiero%20agendar%20un%20diagn%C3%B3stico%20para%20mi%20inmobiliaria." class="underline">escríbenos por WhatsApp</a>.</p></noscript>
+            <form data-lead="inmobiliarias" novalidate class="flex flex-col gap-5">
+              <div aria-hidden="true" class="sr-only">
+                <label for="in-hp">No llenes este campo</label>
+                <input id="in-hp" name="hp" type="text" tabindex="-1" autocomplete="off" />
+              </div>
+              <div>
+                <label for="in-nombre" class="mb-1.5 block font-semibold">Tu nombre</label>
+                <input id="in-nombre" name="nombre" type="text" required autocomplete="name" autocapitalize="words" enterkeyhint="next" maxlength="80" aria-describedby="in-nombre-error" class="inmo-field" />
+                <p id="in-nombre-error" hidden class="inmo-error"></p>
+              </div>
+              <div>
+                <label for="in-empresa" class="mb-1.5 block font-semibold">Tu inmobiliaria</label>
+                <input id="in-empresa" name="empresa" type="text" required autocomplete="organization" autocapitalize="words" enterkeyhint="next" maxlength="100" aria-describedby="in-empresa-error" class="inmo-field" />
+                <p id="in-empresa-error" hidden class="inmo-error"></p>
+              </div>
+              <div>
+                <label for="in-telefono" class="mb-1.5 block font-semibold">Tu WhatsApp <span class="font-normal">(10 dígitos)</span></label>
+                <input id="in-telefono" name="telefono" type="tel" required inputmode="tel" autocomplete="tel" enterkeyhint="next" maxlength="20" aria-describedby="in-telefono-error" class="inmo-field mono tabular" />
+                <p id="in-telefono-error" hidden class="inmo-error"></p>
+              </div>
+              <div>
+                <label for="in-consultas" class="mb-1.5 block font-semibold">Consultas que recibes al mes</label>
+                <select id="in-consultas" name="consultas" class="inmo-field"><option>No sé</option><option>Menos de 50</option><option>50 a 100</option><option>100 a 300</option><option>Más de 300</option></select>
+              </div>
+              <div>
+                <label for="in-medir" class="flex min-h-[44px] cursor-pointer items-start gap-3 py-2 font-semibold">
+                  <input id="in-medir" name="medir" type="checkbox" aria-describedby="in-medir-ayuda" class="mt-1 h-6 w-6 shrink-0 accent-ink" />
+                  <span>También quiero saber cuánto tarda mi inmobiliaria en contestar.</span>
+                </label>
+                <p id="in-medir-ayuda" class="ml-9 text-sm text-ink-muted">Les escribimos como cliente, de noche y en fin de semana, y te mandamos el resultado. Gratis.</p>
+              </div>
+              <button type="submit" class="btn-primary inmo-cta min-h-[56px] justify-center disabled:cursor-wait disabled:opacity-60">Agendar mi diagnóstico</button>
+              <p data-fail hidden role="alert" class="rounded-lg bg-ink p-4 text-fg">No se pudo enviar. <a data-wa href="https://wa.me/524951024002" class="inline-flex min-h-[44px] items-center font-bold text-teal-text underline underline-offset-2">Mándanos tus datos por WhatsApp</a>.</p>
+              <p class="text-sm text-ink-muted">Al enviar aceptas el <a href="/privacidad/" class="inline-flex min-h-[44px] items-center underline underline-offset-2">aviso de privacidad</a>.</p>
+            </form>
+            <div data-done hidden tabindex="-1" class="border-t border-ink pt-6">
+              <p class="text-3xl font-extrabold leading-tight tracking-[-0.03em]">Listo, <span data-name></span>.</p>
+              <p class="mt-4 text-lg text-ink-muted">Te escribimos por WhatsApp en menos de 24 horas para agendar tu diagnóstico.</p>
+              <a href="/demos/inmobiliaria.html" class="btn-primary inmo-cta mt-6">Ver la demo de inmobiliaria <span aria-hidden="true">→</span></a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="shell flex flex-col gap-2 py-8 text-sm text-muted sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-x-6">
+      <p>Cyclo · León, Guanajuato</p>
+      <a href="https://wa.me/524951024002" class="inline-flex min-h-[44px] items-center underline-offset-4 hover:text-fg hover:underline">WhatsApp +52 495 102 4002</a>
+      <a href="/privacidad/" class="inline-flex min-h-[44px] items-center underline-offset-4 hover:text-fg hover:underline">Aviso de privacidad</a>
+      <a href="/#demos" class="inline-flex min-h-[44px] items-center underline-offset-4 hover:text-fg hover:underline">Demos de otros negocios</a>
+      <a href="/" class="inline-flex min-h-[44px] items-center underline-offset-4 hover:text-fg hover:underline">Inicio</a>
+    </footer>
+    <script type="module" src="/src/inmo/main.ts"></script>
+  </body>
+</html>

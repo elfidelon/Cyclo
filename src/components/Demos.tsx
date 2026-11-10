@@ -8,6 +8,9 @@ const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
 type Msg = Extract<ScriptItem, { kind: 'msg' }>
 
+// El piloto que ya se ofrece toma el color y el ícono de su demo.
+const PILOT = DEMO_CATALOG.find((d) => d.slug === 'inmobiliaria')!
+
 // Las demos se abren en la misma pestaña para que la flecha de "atrás" del navegador
 // regrese aquí. Antes de salir dejamos #demos en la dirección: si el navegador no
 // recuerda el scroll, al volver cae en esta sección.
@@ -127,6 +130,39 @@ export default function Demos() {
             </a>
           </motion.li>
         </ul>
+
+        {/* Lo que ya se puede contratar: el piloto de inmobiliarias, junto a su demo. */}
+        <motion.a
+          href="/inmobiliarias/"
+          onClick={rememberSection}
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.6, ease: EASE }}
+          style={{ background: `color-mix(in srgb, ${PILOT.theme.brand} 9%, #0c1a1c)` }}
+          className="group mt-4 flex flex-col gap-6 rounded-2xl p-5 ring-1 ring-inset ring-line transition-transform duration-300 ease-out-expo hover:-translate-y-1 focus-visible:-translate-y-1 sm:p-6 md:flex-row md:items-center md:justify-between"
+        >
+          <span className="flex items-start gap-4">
+            <span
+              className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl"
+              style={{ background: PILOT.theme.brand, color: PILOT.theme.ink }}
+            >
+              <GiroIcon slug={PILOT.slug} className="h-7 w-7" />
+            </span>
+            <span className="min-w-0">
+              <span className="block text-[0.95rem] font-bold text-muted">Piloto para inmobiliarias</span>
+              <span className="mt-1 block text-[clamp(1.4rem,1.1rem+1vw,1.9rem)] font-extrabold leading-tight tracking-[-0.025em] text-fg">
+                Una prueba de 35 días: de la consulta a la visita agendada
+              </span>
+            </span>
+          </span>
+          <span className="flex shrink-0 items-center justify-between gap-4">
+            <span className="text-[0.95rem] font-semibold text-fg">Ver qué incluye</span>
+            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-fg text-bg transition-transform duration-300 ease-out-expo group-hover:translate-x-1">
+              <ArrowRight aria-hidden="true" className="h-4 w-4" />
+            </span>
+          </span>
+        </motion.a>
       </div>
     </section>
   )

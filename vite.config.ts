@@ -88,6 +88,7 @@ export default defineConfig(({ mode }) => {
             // Páginas de los QR de la presentación.
             'demos/index': 'demos/index.html',
             unete: 'unete/index.html',
+            inmobiliarias: 'inmobiliarias/index.html',
           },
         ),
       },
