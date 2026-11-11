@@ -7,6 +7,7 @@ const ITEMS = [
   '00:32 · Consultorio · urgencia pasada a la doctora',
   '20:40 · Agencia · propuesta enviada en PDF',
   '22:41 · Comercio · pedido apartado',
+  '21:36 · Agencia de autos · prueba de manejo el sábado',
   '06:30 · Recordatorios · citas del día confirmadas',
 ]
 

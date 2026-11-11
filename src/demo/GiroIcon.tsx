@@ -1,4 +1,4 @@
-import { Calculator, GraduationCap, House, Megaphone, ShoppingBag, Stethoscope } from 'lucide-react'
+import { Calculator, CarFront, GraduationCap, House, Megaphone, ShoppingBag, Stethoscope } from 'lucide-react'
 
 // Ícono del giro de cada demo. Lucide no trae muela, así que la dental va dibujada con
 // el mismo trazo (24 × 24, línea de 2).
@@ -26,6 +26,7 @@ const ICONS = {
   escuela: GraduationCap,
   agencia: Megaphone,
   comercio: ShoppingBag,
+  autos: CarFront,
 } as const
 
 export default function GiroIcon({ slug, className = 'h-5 w-5' }: { slug: string; className?: string }) {

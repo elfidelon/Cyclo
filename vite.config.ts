@@ -8,7 +8,7 @@ const DEFAULT_WEBHOOK = 'https://fidelreykaste.app.n8n.cloud/webhook/cyclo-leads
 // Webhook del agente del sitio (workflow "Cyclo · Agente del sitio"). Se sobrescribe con VITE_N8N_AGENT_URL.
 const DEFAULT_AGENT = 'https://fidelreykaste.app.n8n.cloud/webhook/cyclo-agente'
 // Demos por giro: cada una es su propia página (demos/<giro>.html) para abrirla en otra pestaña.
-const DEMOS = ['dental', 'consultorio', 'inmobiliaria', 'contable', 'escuela', 'agencia', 'comercio']
+const DEMOS = ['dental', 'consultorio', 'inmobiliaria', 'contable', 'escuela', 'agencia', 'comercio', 'autos']
 
 /**
  * GitHub Pages no deja configurar cabeceras HTTP, así que las políticas de seguridad

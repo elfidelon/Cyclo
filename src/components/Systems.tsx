@@ -124,6 +124,22 @@ const SYSTEMS: System[] = [
     extra: 'o tu inventario',
     timeline: '1 semana',
   },
+  {
+    id: 'autos',
+    giro: 'Agencia de autos',
+    name: 'Agenda de pruebas de manejo',
+    solves: 'Consultas de anuncios que llegan de noche y se enfrían antes de que conteste un vendedor.',
+    trigger: { channel: 'WhatsApp', example: '“¿Sigue disponible el auto del anuncio? ¿Lo manejan a crédito?”' },
+    steps: [
+      { tool: 'Claude', action: 'Pregunta contado o crédito, auto a cuenta y para cuándo.' },
+      { tool: 'Google Calendar', action: 'Agenda la prueba de manejo con el asesor.' },
+      { tool: 'Tu equipo', action: 'El asesor recibe el resumen; él negocia y cotiza.' },
+      { tool: 'Recordatorio', action: 'Avisa 24 h y 2 h antes.' },
+    ],
+    brands: ['whatsapp', 'googlecalendar', 'googlesheets'],
+    extra: 'o tu CRM',
+    timeline: '2 semanas',
+  },
 ]
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]

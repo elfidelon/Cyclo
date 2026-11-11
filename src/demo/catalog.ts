@@ -156,5 +156,25 @@ export const DEMO_CATALOG: DemoPreview[] = [
         "text": "¿Tienen los tenis blancos en talla 27? ¿Hacen envíos a Querétaro?"
       }
     ]
+  },
+  {
+    "slug": "autos",
+    "giro": "Agencia de autos",
+    "business": "Autos Mirador",
+    "theme": {
+      "brand": "#a3e635",
+      "ink": "#1a2e05",
+      "accent": "#4d7c0f",
+      "soft": "#ecfccb",
+      "tint": "#f7fee7"
+    },
+    "script": [
+      {
+        "kind": "msg",
+        "from": "cliente",
+        "time": "21:34",
+        "text": "Hola, ¿sigue disponible el Mazda 3 2021 del anuncio? ¿Lo manejan a crédito?"
+      }
+    ]
   }
 ]

@@ -17,6 +17,7 @@ const SECTORS = [
   'Escuela privada',
   'Agencia de servicios',
   'Comercio',
+  'Agencia de autos',
   'Otro',
 ]
 

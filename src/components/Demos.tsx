@@ -109,7 +109,6 @@ export default function Demos() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.6, delay: 0.12, ease: EASE }}
-            className="sm:col-span-2"
           >
             <a
               href="#contacto"

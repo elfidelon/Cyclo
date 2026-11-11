@@ -373,6 +373,62 @@ export const DEMOS: Demo[] = [
       facts: ['Existencias revisadas al momento', 'Link de pago en el mismo chat', 'Posventa automática'],
     },
   },
+  {
+    ...DEMO_CATALOG[7],
+    audience: 'prospecto',
+    initials: 'AM',
+    hook: 'Un prospecto pregunta por un seminuevo del anuncio a las 21:34.',
+    headline: 'Tu agencia agenda pruebas de manejo desde el anuncio.',
+    sub: 'Un prospecto escribe por un auto del anuncio a las 21:34. El sistema le da los datos, pregunta si deja un auto a cuenta y le agenda la prueba de manejo con un asesor.',
+    script: [
+      DEMO_CATALOG[7].script[0],
+      { kind: 'step', clock: '21:34:09', tool: 'WhatsApp', text: 'Mensaje recibido · anuncio: Mazda 3 2021' },
+      { kind: 'step', clock: '21:34:10', tool: 'Claude', text: 'Intención: comprar · pregunta por crédito', dur: '1.0 s' },
+      { kind: 'step', clock: '21:34:10', tool: 'Google Sheets', text: 'Inventario: disponible · 38,000 km · $329,900', dur: '0.3 s' },
+      {
+        kind: 'msg',
+        from: 'negocio',
+        time: '21:34',
+        text: '¡Hola! Sí sigue disponible: Mazda 3 2021, 38,000 km, un solo dueño, en $329,900. Sí manejamos crédito y el asesor te da la cotización. ¿Dejarías un auto a cuenta y para cuándo lo quieres?',
+      },
+      { kind: 'msg', from: 'cliente', time: '21:36', text: 'Dejo mi Aveo 2016 y lo quiero este mes. ¿Puedo ir a manejarlo el sábado? Soy Ricardo Torres.' },
+      {
+        kind: 'step',
+        clock: '21:36:05',
+        tool: 'Claude',
+        text: 'Califica: listo para prueba de manejo',
+        dur: '0.9 s',
+        result: { type: 'crm', name: 'Prospecto · Mazda 3 2021', status: 'Listo para prueba de manejo', tags: ['Crédito', 'Aveo 2016 a cuenta', 'Compra este mes'] },
+      },
+      {
+        kind: 'step',
+        clock: '21:36:06',
+        tool: 'Google Calendar',
+        text: 'Agenda de Ana, asesora · sábado 10:30',
+        dur: '0.4 s',
+        result: { type: 'calendar', title: 'Prueba de manejo · Mazda 3 2021', when: 'Sábado · 10:30 – 11:15', detail: 'Ricardo Torres · con Ana, asesora de ventas' },
+      },
+      { kind: 'step', clock: '21:36:06', tool: 'Tu equipo', text: 'Ana recibe el resumen del prospecto', dur: '0.2 s' },
+      {
+        kind: 'msg',
+        from: 'negocio',
+        time: '21:36',
+        text: 'Listo, Ricardo. Te agendé el sábado a las 10:30 con Ana. Trae tu INE, tu licencia y tu Aveo para valuarlo. Un día antes te mando la ubicación.',
+      },
+      {
+        kind: 'step',
+        clock: '21:36:08',
+        tool: 'Recordatorio',
+        text: 'Ubicación un día antes',
+        result: { type: 'reminder', when: 'Viernes · 18:00', text: 'Hola Ricardo, mañana a las 10:30 es tu prueba de manejo del Mazda 3. Aquí está la ubicación. Ana te espera en la entrada.' },
+      },
+    ],
+    summary: {
+      big: '2 min',
+      label: 'del anuncio a la prueba de manejo',
+      facts: ['Llega calificado: crédito y auto a cuenta', 'El asesor recibe el resumen antes de la cita', 'Quedó registrado de qué anuncio llegó'],
+    },
+  },
 ]
 
 export function demoBySlug(slug: string | undefined) {
