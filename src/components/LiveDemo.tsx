@@ -51,6 +51,40 @@ type Scenario = {
 
 const SCENARIOS: Scenario[] = [
   {
+    id: 'autos',
+    label: 'Autos',
+    name: 'Agencia de autos',
+    initials: 'AU',
+    audience: 'prospecto',
+    flow: 'pruebas-de-manejo',
+    caption: 'Demo de una agenda de pruebas de manejo para agencia de autos.',
+    summary:
+      'Un prospecto pregunta por un auto del anuncio a las 21:34. El sistema le da precio y kilometraje, pregunta por crédito y auto a cuenta, lo califica, agenda la prueba de manejo con la asesora y le manda el resumen.',
+    steps: [
+      { kind: 'in', time: '21:34', text: 'Hola, ¿sigue disponible el Mazda 3 2021 del anuncio? ¿Lo manejan a crédito?' },
+      { kind: 'trace', clock: '21:34:09.2', tool: 'WhatsApp', text: 'Mensaje recibido · anuncio: Mazda 3 2021' },
+      { kind: 'trace', clock: '21:34:10.2', tool: 'Claude', text: 'Intención: comprar · pregunta por crédito', dur: '1.0 s' },
+      { kind: 'trace', clock: '21:34:10.5', tool: 'Google Sheets', text: 'Inventario: disponible · 38,000 km · $329,900', dur: '0.3 s' },
+      {
+        kind: 'out',
+        time: '21:34',
+        text: '¡Hola! Sí sigue disponible: 38,000 km, un solo dueño, en $329,900. Sí manejamos crédito. ¿Dejarías un auto a cuenta y para cuándo lo quieres?',
+      },
+      { kind: 'trace', clock: '21:34:11.8', tool: 'WhatsApp', text: 'Respuesta enviada', dur: '2.6 s total' },
+      { kind: 'in', time: '21:36', text: 'Dejo mi Aveo 2016 y lo quiero este mes. ¿Puedo ir a manejarlo el sábado?' },
+      { kind: 'trace', clock: '21:36:05.1', tool: 'Claude', text: 'Califica: crédito · auto a cuenta · compra este mes', dur: '0.9 s' },
+      { kind: 'trace', clock: '21:36:05.5', tool: 'Google Calendar', text: 'Agenda de la asesora → sábado 10:30', dur: '0.4 s' },
+      { kind: 'trace', clock: '21:36:05.8', tool: 'CRM', text: 'Prospecto y resumen enviados a la asesora', dur: '0.3 s' },
+      {
+        kind: 'out',
+        time: '21:36',
+        text: 'Listo. Te agendé el sábado a las 10:30 con Ana para la prueba de manejo. Trae tu INE, tu licencia y tu Aveo para valuarlo.',
+      },
+      { kind: 'trace', clock: '21:36:07.0', tool: 'Recordatorio', text: 'Ubicación programada: viernes 18:00' },
+      { kind: 'trace', clock: '21:36:07.1', tool: 'Resumen', text: 'Prueba de manejo agendada desde el anuncio. La asesora ya sabe qué busca.' },
+    ],
+  },
+  {
     id: 'dental',
     label: 'Dental',
     name: 'Clínica dental',
@@ -513,24 +547,25 @@ export default function LiveDemo({ onTimeChange }: { onTimeChange?: (time: strin
           </ol>
         </div>
 
-        {/* Lo que ve el cliente */}
-        <div className="relative z-10 order-first rounded-[22px] bg-sunken shadow-[0_0_0_10px_theme(colors.bg)] md:absolute md:bottom-0 md:left-0 md:top-[64px] md:w-[46%]">
+        {/* Lo que ve el cliente, con los colores de WhatsApp: sus mensajes a la derecha en verde
+            y los del negocio a la izquierda en blanco, igual que en las demos de cada negocio. */}
+        <div className="relative z-10 order-first rounded-[22px] bg-[#efeae2] shadow-[0_0_0_10px_theme(colors.bg)] md:absolute md:bottom-0 md:left-0 md:top-[64px] md:w-[46%]">
           <span className="absolute -top-3 left-4 z-10 rounded-full bg-fg px-3 py-1 text-[0.72rem] font-semibold text-bg">
             Lo que ve tu {sc.audience}
           </span>
-          <div className="flex items-center gap-3 rounded-t-[22px] bg-[#10201f] px-4 pb-3 pt-4">
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-teal-deep text-[0.8rem] font-bold text-fg">
+          <div className="chat-font flex items-center gap-3 rounded-t-[22px] bg-[#008069] px-4 pb-3 pt-4">
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#dfe5e7] text-[0.8rem] font-bold text-[#54656f]">
               {sc.initials}
             </span>
             <span className="min-w-0">
-              <span className="block truncate text-[0.92rem] font-semibold text-fg">{sc.name}</span>
-              <span className="block text-[0.75rem] text-teal-text">{typing ? 'escribiendo…' : 'en línea'}</span>
+              <span className="block truncate text-[0.95rem] font-semibold text-white">{sc.name}</span>
+              <span className="block text-[0.75rem] text-white">{typing ? 'escribiendo…' : 'en línea'}</span>
             </span>
           </div>
 
           <ol
             key={`chat-${cycle}`}
-            className="casual flex h-[380px] flex-col justify-end gap-2 overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_40px)] rounded-b-[22px] px-3 pb-4 pt-3 md:h-[calc(100%-64px)]"
+            className="chat-font flex h-[380px] flex-col justify-end gap-2 overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_40px)] rounded-b-[22px] px-3 pb-4 pt-3 md:h-[calc(100%-64px)]"
           >
             <AnimatePresence initial={false}>
               {chat.map((m) => (
@@ -540,23 +575,21 @@ export default function LiveDemo({ onTimeChange }: { onTimeChange?: (time: strin
                   initial={{ opacity: 0, y: 12, scale: 0.97 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   transition={{ duration: 0.4, ease: EASE }}
-                  style={{ transformOrigin: m.kind === 'in' ? 'bottom left' : 'bottom right' }}
-                  className={`max-w-[86%] whitespace-pre-line rounded-2xl px-3.5 pb-1.5 pt-2 text-[0.88rem] leading-[1.45] ${
-                    m.kind === 'in'
-                      ? 'self-start rounded-bl-md bg-[#1d3033] text-fg'
-                      : 'self-end rounded-br-md bg-teal-deep text-fg'
+                  style={{ transformOrigin: m.kind === 'in' ? 'bottom right' : 'bottom left' }}
+                  className={`max-w-[86%] whitespace-pre-line rounded-[12px] px-3 pb-1.5 pt-2 text-[0.9rem] leading-[1.4] text-[#111b21] shadow-[0_1px_0.5px_rgba(11,20,26,0.13)] ${
+                    m.kind === 'in' ? 'self-end rounded-tr-[3px] bg-[#d9fdd3]' : 'self-start rounded-tl-[3px] bg-white'
                   }`}
                 >
                   {m.file && (
-                    <span className="mono mb-1.5 flex items-center gap-2 rounded-lg bg-bg/40 px-2.5 py-2 text-[0.72rem] text-fg">
-                      <FileText aria-hidden="true" className="h-4 w-4 shrink-0 text-teal-text" />
+                    <span className="mb-1.5 flex items-center gap-2 rounded-lg bg-[#0b141a]/[0.06] px-2.5 py-2 text-[0.78rem] text-[#111b21]">
+                      <FileText aria-hidden="true" className="h-4 w-4 shrink-0 text-[#54656f]" />
                       {m.file}
                     </span>
                   )}
                   {m.text}
-                  <span className="mono mt-0.5 flex items-center justify-end gap-1 text-[0.62rem] text-fg/80">
+                  <span className="mt-0.5 flex items-center justify-end gap-1 text-[0.68rem] text-[#4e5d66]">
                     {m.time}
-                    {m.kind === 'out' && <CheckCheck aria-hidden="true" className="h-3 w-3 text-teal-text" />}
+                    {m.kind === 'in' && <CheckCheck aria-hidden="true" className="h-3.5 w-3.5 text-[#53bdeb]" />}
                   </span>
                 </motion.li>
               ))}
@@ -566,13 +599,13 @@ export default function LiveDemo({ onTimeChange }: { onTimeChange?: (time: strin
                   initial={{ opacity: 0, y: 6 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, transition: { duration: 0.12 } }}
-                  className="flex gap-1 self-end rounded-2xl rounded-br-md bg-teal-deep px-3.5 py-3"
+                  className="flex gap-1 self-start rounded-[12px] rounded-tl-[3px] bg-white px-3.5 py-3 shadow-[0_1px_0.5px_rgba(11,20,26,0.13)]"
                   aria-hidden="true"
                 >
                   {[0, 1, 2].map((d) => (
                     <span
                       key={d}
-                      className="typing-dot h-1.5 w-1.5 rounded-full bg-fg"
+                      className="typing-dot h-1.5 w-1.5 rounded-full bg-[#8696a0]"
                       style={{ animationDelay: `${d * 0.15}s` }}
                     />
                   ))}
